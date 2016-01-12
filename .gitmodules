@@ -1,0 +1,3 @@
+[submodule "impl-stable"]
+	path = impl-stable
+	url = ../impl-stable/

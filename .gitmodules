@@ -1,3 +1,18 @@
 [submodule "impl-stable"]
 	path = impl-stable
-	url = ../impl-stable/
+	url = https://okuoku@bitbucket.org/okuoku/yunibase-impl-stable.git
+[submodule "impl-current/gauche"]
+	path = impl-current/gauche
+	url = https://github.com/shirok/Gauche
+[submodule "impl-current/chibi-scheme"]
+	path = impl-current/chibi-scheme
+	url = https://github.com/ashinn/chibi-scheme/
+[submodule "impl-current/racket"]
+	path = impl-current/racket
+	url = https://github.com/racket/racket
+[submodule "impl-current/chicken"]
+	path = impl-current/chicken
+	url = git://code.call-cc.org/chicken-core
+[submodule "impl-current/vicare"]
+	path = impl-current/vicare
+	url = https://github.com/marcomaggi/vicare

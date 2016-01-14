@@ -46,7 +46,8 @@ build_recipe(racket_current_setup
     ${RECIPE_RACKET_SETUP})
 add_dependencies(racket_current_setup racket_current)
 
-# Vicare 
+# Vicare (disabled)
+if(FALSE)
 set(VICARE_MAKE make)
 set(VICARE_INSTALL_PREFIX ${YUNIBASE_BUILD_CURRENT_PREFIX}/vicare)
 set(VICARE_MAKE_OPTS "")
@@ -56,6 +57,7 @@ build_recipe(vicare_current
     VICARE
     ""
     ${RECIPE_VICARE})
+endif()
 
 # Chicken (disabled)
 if(FALSE)

@@ -19,6 +19,7 @@ set(nmosh_src_stable ${YUNIBASE_ROOT_STABLE}/nmosh)
 # build_recipe(nmosh_stable ${nmosh_src_stable} NMOSH "" ${RECIPE_NMOSH})
 
 # Chicken
+if(FALSE)
 set(CHICKEN_MAKE make)
 set(CHICKEN_INSTALL_PREFIX ${YUNIBASE_BUILD_STABLE_PREFIX}/chicken)
 set(chicken_src_stable ${YUNIBASE_ROOT_STABLE}/chicken)
@@ -33,3 +34,4 @@ set(ENVP_CHICKEN_SETUP
 build_recipe(chicken_stable_setup ${chicken_src_stable}
     CHICKEN "${ENVP_CHICKEN_SETUP}" ${RECIPE_CHICKEN_SETUP})
 add_dependencies(chicken_stable_setup chicken_stable_test)
+endif()

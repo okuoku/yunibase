@@ -29,7 +29,6 @@ macro(yunibase_recipe_replace_args_pair str_in str_out prefix nam ref)
         # nothing to do
     elseif(NOT "${ARGN}" STREQUAL "") # Recurse if we still have any extra args
         # Try next entry
-        # FIXME: Why can't this be just a if(ARGN)??
         yunibase_recipe_replace_args_pair(${str_in} ${str_out} ${prefix}
             ${ARGN})
     endif()
@@ -59,7 +58,7 @@ macro(build_recipe tgt source_dir prefix envp)
     set(_args)
     set(_runner_file
         "${CMAKE_CURRENT_BINARY_DIR}/recipe_runners/${tgt}.cmake")
-    message(STATUS "runner: ${_runner_file}")
+    # message(STATUS "runner: ${_runner_file}")
     # Generate runner header
     configure_file(${YUNIBASE_ROOT}/cmake/YunibaseRecipeRunner.in.cmake
         ${_runner_file} @ONLY)
@@ -95,7 +94,7 @@ macro(build_recipe tgt source_dir prefix envp)
     endif()
 
     # Invoke runner
-    add_custom_target(${tgt} ALL
+    add_custom_target(${tgt}
         COMMAND ${CMAKE_COMMAND} -P ${_runner_file}
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         COMMENT "Running ${_runner_file}"

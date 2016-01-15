@@ -1,13 +1,18 @@
 # root CMakeLists
+# 
+# INPUTs:
+#
+#  YUNIBASE_ONLY: Enable single implementation. 
+#    YUNIBASE_ONLY=GAUCHE
+#    YUNIBASE_ONLY=GAUCHE_STABLE
+#
 project(yunibase)
 cmake_minimum_required(VERSION 2.8)
-
-option(YUNIBASE_BUILD_STABLE "build implementations (stable branch)" OFF)
-option(YUNIBASE_BUILD_CURRENT "build implementations (current)" OFF)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
 set(YUNIBASE_ROOT ${CMAKE_CURRENT_LIST_DIR})
 
+include(YunibaseBuildManager)
 include(YunibaseRecipe)
 
 set(YUNIBASE_ROOT_STABLE ${CMAKE_CURRENT_LIST_DIR}/impl-stable)
@@ -27,11 +32,21 @@ include(./recipes/racket.recipe.cmake)
 include(./recipes/chicken.recipe.cmake)
 include(./recipes/vicare.recipe.cmake)
 
-if(YUNIBASE_BUILD_STABLE)
-    include(./parts/build-stable.cmake)
-endif()
+init_recipe()
+include(./parts/implementations.cmake)
 
-if(YUNIBASE_BUILD_CURRENT)
-    include(./parts/build-current.cmake)
-endif()
+# Configure build
 
+if(YUNIBASE_ONLY)
+    enable_recipe_only(${YUNIBASE_ONLY})
+else()
+    # Build all
+    enable_recipe(GAUCHE STABLE)
+    enable_recipe(GAUCHE CURRENT)
+    # enable_recipe(NMOSH STABLE)
+    enable_recipe(CHIBI_SCHEME CURRENT)
+    enable_recipe(RACKET CURRENT)
+    # enable_recipe(VICARE CURRENT)
+    # enable_recipe(CHICKEN STABLE)
+    # enable_recipe(CHICKEN CURRENT)
+endif()

@@ -60,7 +60,7 @@ else()
     enable_recipe(RACKET CURRENT)
     # enable_recipe(NMOSH STABLE)
     # enable_recipe(VICARE CURRENT)
-    # enable_recipe(CHICKEN STABLE)
+    enable_recipe(CHICKEN STABLE)
     # enable_recipe(CHICKEN CURRENT)
 endif()
 

@@ -11,8 +11,8 @@ docker build --tag yunibuild-IMAGE .
 * Use
 
 ```
-docker run -v /path/to/yunibase:/yunibase -it cmake -P \
-  /yunibase/scripts/build-on-root.cmake
+docker run -v /path/to/yunibase:/yunibase -it cmake \
+  -P /yunibase/scripts/build-on-root.cmake
 ```
 
 To build selected implementation,

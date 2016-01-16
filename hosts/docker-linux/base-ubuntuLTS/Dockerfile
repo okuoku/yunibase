@@ -9,6 +9,9 @@ RUN apt-get update
 #  buildsystem: cmake gcc g++
 #  Gauche: autoconf automake
 #  NMosh: libgmp-dev libonig-dev
-RUN apt-get install -y cmake gcc g++ autoconf automake libgmp-dev libonig-dev
+#  Guile: libtool flex gettext pkg-config libunistring-dev libffi-dev libgc-dev
+#  Chicken: time (avoid bashism)
+#  Vicare: texinfo
+RUN apt-get install -y cmake gcc g++ autoconf automake libgmp-dev libonig-dev libtool flex gettext pkg-config libunistring-dev libffi-dev libgc-dev time texinfo
 
 

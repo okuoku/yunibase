@@ -5,7 +5,11 @@
 
 set(_buildroot /build)
 set(_mypath ${CMAKE_CURRENT_LIST_DIR})
-get_filename_component(_myroot ${CMAKE_CURRENT_LIST_DIR}/.. ABSOLUTE)
+get_filename_component(_mysrc ${_mypath}/.. ABSOLUTE)
+get_filename_component(_mysrcroot ${_mysrc}/.. ABSOLUTE)
+set(_myrootdir /yunisrc)
+# FIXME: Abort on my directory != yunibase
+set(_myroot /yunisrc/yunibase)
 
 file(MAKE_DIRECTORY ${_buildroot})
 
@@ -15,7 +19,12 @@ if(ONLY)
     list(APPEND _myargs "-DYUNIBASE_ONLY=${ONLY}")
 endif()
 
-message(STATUS "Configure... ${_myargs}")
+message(STATUS "Copying tree ${_mysrc} => ${_myroot}")
+
+file(COPY ${_mysrc} DESTINATION ${_myrootdir}
+    PATTERN ".git" EXCLUDE)
+
+message(STATUS "Configure(${_myroot})... ${_myargs}")
 
 execute_process(COMMAND
     ${CMAKE_COMMAND} ${_myargs} ${_myroot}

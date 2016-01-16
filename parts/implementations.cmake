@@ -26,8 +26,11 @@ build_recipe(sagittarius_stable ${sagittarius_stable_src}
     SAGITTARIUS "" ${RECIPE_SAGITTARIUS})
 set(SAGITTARIUS_INSTALL_PREFIX # RESET
     ${YUNIBASE_BUILD_CURRENT_PREFIX}/sagittarius)
+set(ENVP_SAGITTARIUS_BOOTSTRAP
+    PATH ${YUNIBASE_BUILD_STABLE_PREFIX}/sagittarius/bin
+    LD_LIBRARY_PATH ${YUNIBASE_BUILD_STABLE_PREFIX}/sagittarius/lib)
 build_recipe(sagittarius_current ${sagittarius_current_src}
-    SAGITTARIUS "" ${BOOTSTRAP_SAGITTARIUS})
+    SAGITTARIUS "${ENVP_SAGITTARIUS_BOOTSTRAP}" ${BOOTSTRAP_SAGITTARIUS})
 add_dependencies(sagittarius_current sagittarius_stable)
 register_recipe(SAGITTARIUS STABLE sagittarius_stable)
 register_recipe(SAGITTARIUS CURRENT sagittarius_current)

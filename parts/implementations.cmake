@@ -6,6 +6,31 @@
 #   YUNIBASE_BUILD_STABLE_PREFIX : Install path (stable)
 #   YUNIBASE_BUILD_CURRENT_PREFIX : Install path (current)
 
+# Guile (current)
+set(GUILE_MAKE make)
+set(GUILE_MAKE_OPTS "")
+set(guile_current_src ${YUNIBASE_ROOT_CURRENT}/guile)
+set(GUILE_INSTALL_PREFIX ${YUNIBASE_BUILD_CURRENT_PREFIX}/guile)
+build_recipe(guile_current ${guile_current_src}
+    GUILE "" ${RECIPE_GUILE})
+register_recipe(GUILE CURRENT guile_current)
+
+# Sagittarius (stable + current)
+set(SAGITTARIUS_MAKE make)
+set(SAGITTARIUS_MAKE_OPTS "")
+set(sagittarius_stable_src ${YUNIBASE_ROOT_STABLE}/sagittarius)
+set(sagittarius_current_src ${YUNIBASE_ROOT_CURRENT}/sagittarius)
+set(SAGITTARIUS_INSTALL_PREFIX 
+    ${YUNIBASE_BUILD_STABLE_PREFIX}/sagittarius)
+build_recipe(sagittarius_stable ${sagittarius_stable_src}
+    SAGITTARIUS "" ${RECIPE_SAGITTARIUS})
+set(SAGITTARIUS_INSTALL_PREFIX # RESET
+    ${YUNIBASE_BUILD_CURRENT_PREFIX}/sagittarius)
+build_recipe(sagittarius_current ${sagittarius_current_src}
+    SAGITTARIUS "" ${BOOTSTRAP_SAGITTARIUS})
+add_dependencies(sagittarius_current sagittarius_stable)
+register_recipe(SAGITTARIUS STABLE sagittarius_stable)
+register_recipe(SAGITTARIUS CURRENT sagittarius_current)
 
 # Gauche (stable + current)
 set(GAUCHE_MAKE make)
@@ -27,7 +52,7 @@ add_dependencies(gauche_current gauche_stable)
 register_recipe(GAUCHE STABLE gauche_stable)
 register_recipe(GAUCHE CURRENT gauche_current)
 
-# NMosh (disabled)
+# NMosh (stable)
 set(NMOSH_MAKE make)
 set(NMOSH_INSTALL_PREFIX ${YUNIBASE_BUILD_STABLE_PREFIX}/nmosh)
 set(NMOSH_MAKE_OPTS "")
@@ -71,7 +96,7 @@ add_dependencies(racket_current_setup racket_current)
 
 register_recipe(RACKET CURRENT racket_current_setup)
 
-# Vicare (current) (disabled)
+# Vicare (current)
 set(VICARE_MAKE make)
 set(VICARE_INSTALL_PREFIX ${YUNIBASE_BUILD_CURRENT_PREFIX}/vicare)
 set(VICARE_MAKE_OPTS "")
@@ -84,7 +109,7 @@ build_recipe(vicare_current
 
 register_recipe(VICARE CURRENT vicare_current)
 
-# Chicken (stable + current) (disabled)
+# Chicken (stable + current)
 set(CHICKEN_MAKE make)
 set(CHICKEN_INSTALL_PREFIX ${YUNIBASE_BUILD_STABLE_PREFIX}/chicken)
 set(chicken_stable_src ${YUNIBASE_ROOT_STABLE}/chicken)

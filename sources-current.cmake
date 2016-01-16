@@ -19,3 +19,12 @@ register_source(VICARE CURRENT
     "impl-current/vicare"
     GIT
     "origin/master")
+register_source(GUILE CURRENT
+    "impl-current/guile"
+    GIT
+    "origin/master")
+register_source(SAGITTARIUS CURRENT
+    "impl-current/sagittarius"
+    GIT
+    "origin/master")
+

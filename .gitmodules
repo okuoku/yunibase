@@ -16,3 +16,9 @@
 [submodule "impl-current/vicare"]
 	path = impl-current/vicare
 	url = https://github.com/marcomaggi/vicare
+[submodule "impl-current/guile"]
+	path = impl-current/guile
+	url = git://git.savannah.gnu.org/guile.git
+[submodule "impl-current/sagittarius"]
+	path = impl-current/sagittarius
+	url = https://github.com/spurious/sagittarius-scheme-mirror

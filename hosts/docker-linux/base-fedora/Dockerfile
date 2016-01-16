@@ -10,6 +10,7 @@ WORKDIR /build
 #  Gauche: autoconf automake
 #  NMosh: gmp-devel oniguruma-devel
 #  Guile: libtool flex gettext-devel pkgconfig libunistring-devel libffi-devel
-#         gc-devel
+#         gc-devel libtool-ltdl-devel
 #  Vicare: texinfo
-RUN dnf install -y make cmake gcc gcc-c++ autoconf automake gmp-devel oniguruma-devel libtool flex gettext-devel pkgconfig libunistring-devel libffi-devel gc-devel texinfo
+#  Sagittarius: zlib-devel
+RUN dnf install -y make cmake gcc gcc-c++ autoconf automake gmp-devel oniguruma-devel libtool flex gettext-devel pkgconfig libunistring-devel libffi-devel gc-devel libtool-ltdl-devel texinfo zlib-devel

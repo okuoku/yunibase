@@ -5,6 +5,8 @@ services:
 
 language: c
 
+script: echo
+
 after_success:
     - docker login -e $DK_EMAIL -u $DK_USER -p $DK_SECRET
     - export REPO=okuoku/yunibase

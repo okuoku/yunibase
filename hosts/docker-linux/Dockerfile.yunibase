@@ -1,14 +1,7 @@
 FROM okuoku/yunibuild:latest
 
-# Install Git to fetch build reporitory
-RUN apt-get install -y git
-
 # Set up sourcetree
-WORKDIR /
-RUN git clone https://github.com/okuoku/yunibase
-WORKDIR /yunibase
-RUN git reset --hard 0e029bc3f736c8a70aad95fd57437d565de011c7
-RUN git submodule update --init
+COPY . /yunibase
 
 WORKDIR /build
 # Build sources

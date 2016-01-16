@@ -5,7 +5,7 @@ set(RECIPE_RACKET # We do not support in-tree tests yet
     )
 
 set(RECIPE_RACKET_SETUP
-    STEP "SetupR6RS" raco pkg install --scope installation --auto r6rs-lib
-    STEP "SetupSRFI" raco pkg install --scope installation --auto srfi-lib
+    STEP "SetupR6RS" raco pkg install --skip-installed --scope installation --auto r6rs-lib
+    STEP "SetupSRFI" raco pkg install --skip-installed --scope installation --auto srfi-lib
     )
 

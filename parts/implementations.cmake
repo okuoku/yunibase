@@ -89,9 +89,10 @@ build_recipe(racket_current_setup
     RACKET
     "${ENVP_RACKET_SETUP}"
     ${RECIPE_RACKET_SETUP})
-add_dependencies(racket_current_setup racket_current)
 
-register_recipe(RACKET CURRENT racket_current_setup)
+register_recipe(RACKET CURRENT 
+    racket_current
+    racket_current_setup)
 
 # Vicare (current)
 set(vicare_current_src ${YUNIBASE_ROOT_CURRENT}/vicare)
@@ -112,15 +113,16 @@ build_recipe(chicken_stable ${chicken_stable_src} ${chicken_stable_dest}
     CHICKEN "" ${RECIPE_CHICKEN})
 build_recipe(chicken_stable_test ${chicken_stable_src} ${chicken_stable_dest}
     CHICKEN "" ${RECIPE_CHICKEN_TEST})
-add_dependencies(chicken_stable_test chicken_stable)
 set(ENVP_CHICKEN_SETUP
     PATH ${CHICKEN_INSTALL_PREFIX}/bin
     LD_LIBRARY_PATH ${CHICKEN_INSTALL_PREFIX}/lib)
 build_recipe(chicken_stable_setup ${chicken_stable_src} ${chicken_stable_dest}
     CHICKEN "${ENVP_CHICKEN_SETUP}" ${RECIPE_CHICKEN_SETUP})
-add_dependencies(chicken_stable_setup chicken_stable_test)
 
-register_recipe(CHICKEN STABLE chicken_stable_setup)
+register_recipe(CHICKEN STABLE 
+    chicken_stable
+    chicken_stable_setup
+    chicken_stable_test)
 
 set(chicken_current_src ${YUNIBASE_ROOT_CURRENT}/chicken)
 set(chicken_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/chicken)
@@ -135,11 +137,12 @@ build_recipe(chicken_current ${chicken_current_src} ${chicken_current_dest}
 build_recipe(chicken_current_test ${chicken_current_src} ${chicken_current_dest}
     CHICKEN "${ENVP_CHICKEN_SETUP}" ${RECIPE_CHICKEN_TEST})
 add_dependencies(chicken_current chicken_stable_setup)
-add_dependencies(chicken_current_test chicken_current)
 build_recipe(chicken_current_setup 
     ${chicken_current_src} 
     ${chicken_current_dest}
     CHICKEN "${ENVP_CHICKEN_SETUP}" ${RECIPE_CHICKEN_SETUP})
-add_dependencies(chicken_current_setup chicken_current_test)
 
-register_recipe(CHICKEN CURRENT chicken_current_setup)
+register_recipe(CHICKEN CURRENT 
+    chicken_current
+    chicken_current_setup
+    chicken_current_test)

@@ -51,7 +51,7 @@ endmacro()
 macro(yunibase_recipe_step tgt runner_file srcdir envp stepname)
     yunibase_recipe_gen_commands(_cmd ${ARGN})
     file(APPEND ${runner_file}
-        "run_step(${tgt} ${stepname} ${srcdir} ${CMAKE_CURRENT_BINARY_DIR}/logs/${tgt} \"${envp}\" ${_cmd})\n")
+        "run_step(${tgt} ${stepname} ${srcdir} ${YUNIBASE_BUILD_CONFIG_PREFIX}/${tgt} ${YUNIBASE_BUILD_REPORT_PREFIX}/${tgt} ${YUNIBASE_BUILD_LOG_PREFIX}/${tgt} \"${envp}\" ${_cmd})\n")
 endmacro()
 
 macro(yunibase_recipe_set_default_opts prefix)

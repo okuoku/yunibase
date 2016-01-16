@@ -24,7 +24,7 @@ macro(register_git_repository tgt pth tag)
         STEP "CleanGit" ${YUNIBASE_GIT} clean "-xfd" "."
         )
     build_recipe(gitupdate_${tgt}
-        "${pth}"
+        "${pth}" "BOGUS" # No install prefix..
         ___BOGUS__X_ # No prefix..
         ""
         ${_TMPL_GITUPDATE} ${tag})

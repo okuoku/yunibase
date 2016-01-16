@@ -1,4 +1,4 @@
-# Receipe for chibi-scheme
+# Recipe for chibi-scheme
 # There is no bootstrap phase for chibi-scheme.
 #
 # chibi-scheme has alternative test targets:

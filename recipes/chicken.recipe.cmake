@@ -6,7 +6,7 @@
 #
 
 set(CHICKEN_ARG_PLATFORM "PLATFORM=linux")
-set(RECIPE_CHICKEN # Receipe for Chicken
+set(RECIPE_CHICKEN # Recipe for Chicken
     STEP "Build" # Chicken has no pallarel build support
     MAKE ${CHICKEN_ARG_PLATFORM} "PREFIX=__INSTALL_PREFIX__"
     STEP "Install"

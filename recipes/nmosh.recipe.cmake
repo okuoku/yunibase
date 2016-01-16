@@ -3,7 +3,7 @@
 #  setsebool -P selinuxuser_execheap 1
 #
 
-set(RECIPE_NMOSH # Receipe for NMosh/Psyntax-mosh
+set(RECIPE_NMOSH # Recipe for NMosh/Psyntax-mosh
     STEP "Configure" "./configure" "--prefix=__INSTALL_PREFIX__"
     # It seems we cannot do "chmod -wx" on AUFS..
     # Set as r--rw-rw- instead.

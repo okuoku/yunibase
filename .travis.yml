@@ -5,9 +5,7 @@ services:
 
 language: c
 
-script: echo
-
-after_success:
+script:
     - docker login -e $DK_EMAIL -u $DK_USER -p $DK_SECRET
     - unset DK_EMAIL
     - unset DK_USER

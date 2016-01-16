@@ -5,7 +5,7 @@ COPY . /yunibase
 
 WORKDIR /build
 # Build sources
-RUN cmake -DYUNIBASE_EXCEPT=GUILE ../yunibase
+RUN cmake -DYUNIBASE_EXCEPT=GUILE\;RACKET ../yunibase
 RUN make
 
 # Remove CMake artifacts for the next build

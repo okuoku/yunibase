@@ -2,7 +2,7 @@
 #
 # INPUTS:
 #   ONLY: List of impl.
-#   EXCEPT: List of excepted impl.
+#   EXCEPT: List of excluded impl.
 
 set(_buildroot /build)
 set(_mypath ${CMAKE_CURRENT_LIST_DIR})
@@ -14,14 +14,16 @@ set(_myroot /yunisrc/yunibase)
 
 file(MAKE_DIRECTORY ${_buildroot})
 
-set(_myargs)
-
 if(ONLY)
-    list(APPEND _myargs "-DYUNIBASE_ONLY=${ONLY}")
+    set(_onlyarg "-DYUNIBASE_ONLY=${ONLY}")
+else()
+    set(_onlyarg)
 endif()
 
 if(EXCEPT)
-    list(APPEND _myargs "-DYUNIBASE_EXCEPT=${EXCEPT}")
+    set(_exceptarg "-DYUNIBASE_EXCEPT=${EXCEPT}")
+else()
+    set(_exceptarg)
 endif()
 
 message(STATUS "Copying tree ${_mysrc} => ${_myroot}")
@@ -32,7 +34,7 @@ file(COPY ${_mysrc} DESTINATION ${_myrootdir}
 message(STATUS "Configure(${_myroot})... ${_myargs}")
 
 execute_process(COMMAND
-    ${CMAKE_COMMAND} ${_myargs} ${_myroot}
+    ${CMAKE_COMMAND} "${_onlyarg}" "${_exceptarg}" ${_myroot}
     RESULT_VARIABLE rr
     WORKING_DIRECTORY ${_buildroot}
 )

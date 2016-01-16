@@ -1,0 +1,13 @@
+sudo: required
+
+services:
+    - docker
+
+language: c
+
+after_success:
+    - docker login -e $DK_EMAIL -u $DK_USER -p $DK_SECRET
+    - export REPO=okuoku/yunibase
+    - docker build -t $REPO:testing -f hosts/docker-linux/Dockerfile.yunibase hosts/docker-linux
+    - docker push $REPO
+

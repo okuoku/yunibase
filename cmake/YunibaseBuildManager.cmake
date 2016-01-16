@@ -24,18 +24,30 @@ macro(yunibase___set_recipe_state nam flav state)
     endforeach()
 endmacro()
 
-function(enable_recipe_only1 nam)
+function(toggle_recipe_only1 nam state)
     foreach(e ${__yunibase_buildmgr_recipes})
         if(${e} MATCHES "${nam}:(.*)")
-            message(STATUS "enable: ${e}")
+            if(${state} STREQUAL FALSE)
+                message(STATUS "enable: ${e}")
+            else()
+                message(STATUS "disable: ${e}")
+            endif()
             set(_tgt ${CMAKE_MATCH_1})
             set_target_properties(${_tgt}
                 PROPERTIES
                 EXCLUDE_FROM_ALL
-                FALSE)
+                ${state})
             break()
         endif()
     endforeach()
+endfunction()
+
+function(enable_recipe_only1 nam)
+    toggle_recipe_only1(${nam} FALSE)
+endfunction()
+
+function(disable_recipe_only1 nam)
+    toggle_recipe_only1(${nam} TRUE)
 endfunction()
 
 function(enable_recipe_only)
@@ -43,6 +55,14 @@ function(enable_recipe_only)
         enable_recipe_only1(${e})
         enable_recipe_only1(${e}_STABLE)
         enable_recipe_only1(${e}_CURRENT)
+    endforeach()
+endfunction()
+
+function(disable_recipe_only)
+    foreach(e ${ARGN})
+        disable_recipe_only1(${e})
+        disable_recipe_only1(${e}_STABLE)
+        disable_recipe_only1(${e}_CURRENT)
     endforeach()
 endfunction()
 

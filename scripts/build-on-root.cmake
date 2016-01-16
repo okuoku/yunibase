@@ -2,6 +2,7 @@
 #
 # INPUTS:
 #   ONLY: List of impl.
+#   EXCEPT: List of excepted impl.
 
 set(_buildroot /build)
 set(_mypath ${CMAKE_CURRENT_LIST_DIR})
@@ -17,6 +18,10 @@ set(_myargs)
 
 if(ONLY)
     list(APPEND _myargs "-DYUNIBASE_ONLY=${ONLY}")
+endif()
+
+if(EXCEPT)
+    list(APPEND _myargs "-DYUNIBASE_EXCEPT=${EXCEPT}")
 endif()
 
 message(STATUS "Copying tree ${_mysrc} => ${_myroot}")

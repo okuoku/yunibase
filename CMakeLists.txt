@@ -63,7 +63,7 @@ else()
     # Build all
     enable_recipe(SAGITTARIUS STABLE)
     enable_recipe(SAGITTARIUS CURRENT)
-    enable_recipe(GUILE CURRENT)
+    enable_recipe(GUILE CURRENT IGNORE_TEST_FAILURE)
     enable_recipe(GAUCHE STABLE)
     enable_recipe(GAUCHE CURRENT)
     enable_recipe(CHIBI_SCHEME CURRENT)

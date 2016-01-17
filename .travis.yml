@@ -5,12 +5,21 @@ services:
 
 language: c
 
+env:
+    matrix:
+        - DOCKER_SUFX=testing
+        - DOCKER_SUFX=testing-fedora
+
+matrix:
+    allow_failures:
+        env: DOCKER_SUFX=yunibase-fedora
+
 script:
     - docker login -e $DK_EMAIL -u $DK_USER -p $DK_SECRET
     - unset DK_EMAIL
     - unset DK_USER
     - unset DK_SECRET
     - export REPO=okuoku/yunibase
-    - docker build -t $REPO:testing -f hosts/docker-linux/Dockerfile.yunibase .
+    - docker build -t $REPO:$DOCKER_SUFX -f hosts/docker-linux/Dockerfile.$DOCKER_SUFX .
     - docker push $REPO
 

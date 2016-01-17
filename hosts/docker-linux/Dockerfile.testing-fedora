@@ -1,0 +1,14 @@
+FROM okuoku/yunibuild:latest-fedora
+
+# Set up sourcetree
+COPY . /yunibase
+
+WORKDIR /build
+# Build sources
+RUN cmake -DYUNIBASE_EXCEPT=SAGITTARIUS\;GUILE\;RACKET ../yunibase
+RUN make
+
+# Remove CMake artifacts for the next build
+RUN rm -rf CMakeCache.txt CMakeFiles Makefile config cmake_install.cmake \
+../yunibase
+

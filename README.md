@@ -1,5 +1,3 @@
-[![Build status by TravisCI](https://travis-ci.org/okuoku/yunibase.svg?branch=master)](https://travis-ci.org/okuoku/yunibase)
-
 Yunibase
 ========
 
@@ -31,4 +29,4 @@ Implementations
 [Yuni R6RS/R7RS portability library]: https://github.com/okuoku/yuni
 [Linux Docker images]: https://github.com/okuoku/yunibase/tree/master/hosts/docker-linux
 [Buildsystem based on Ubuntu LTS]: https://github.com/okuoku/yunibase/blob/master/hosts/docker-linux/base-ubuntuLTS/Dockerfile
-[Buildsystem based on Fedora]: https://github.com/okuoku/yunibase/tree/master/hosts/docker-linux/base-fedora
+[Buildsystem based on Fedora]: https://github.com/okuoku/yunibase/blob/master/hosts/docker-linux/base-fedora/Dockerfile

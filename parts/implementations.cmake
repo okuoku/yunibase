@@ -58,6 +58,21 @@ build_recipe(nmosh_stable ${nmosh_stable_src} ${nmosh_stable_dest}
     NMOSH "" ${RECIPE_NMOSH})
 
 register_recipe(NMOSH STABLE nmosh_stable)
+workaround_touch_prebuilt_files(
+    ${nmosh_stable_src}
+    src/Instruction.h
+    src/main.cpp
+    src/labels.cpp
+    src/cprocedures.cpp
+    src/all-tests.scm
+    src/Object-accessors.h
+    src/OSConstants.h
+    src/Reader.tab.cpp
+    src/Reader.tab.hpp
+    src/NumberReader.tab.cpp
+    src/NumberReader.tab.hpp
+    src/Scanner.cpp
+    src/NumberScanner.cpp)
 
 # Chibi scheme (current)
 set(chibi_scheme_current_src ${YUNIBASE_ROOT_CURRENT}/chibi-scheme)

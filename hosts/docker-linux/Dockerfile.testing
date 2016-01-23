@@ -1,6 +1,7 @@
 FROM okuoku/yunibuild:latest
 
 # Set up sourcetree
+COPY ./hosts/docker-linux/_stamp.txt /
 COPY . /yunibase
 
 WORKDIR /build

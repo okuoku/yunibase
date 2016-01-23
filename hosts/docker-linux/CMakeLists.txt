@@ -2,12 +2,16 @@ project(yunibuild-docker-linux)
 cmake_minimum_required(VERSION 2.8)
 
 set(YUNIBASE_REPO_ROOT ${CMAKE_CURRENT_LIST_DIR}/../../)
+list(APPEND CMAKE_MODULE_PATH ${YUNIBASE_REPO_ROOT}/cmake)
+
+include(YunibaseStampVersion)
 
 add_custom_target(base)   # Update base environment
 add_custom_target(sync)   # Update Scheme implementations
 add_custom_target(image)  # Build yunibase images
 add_custom_target(taste)  # Check latest sources
 add_custom_target(push)   # Push built images
+add_custom_target(stamp)  # Stamp current repository version
 
 # Globals
 
@@ -61,3 +65,14 @@ add_docker_push(docker_push_yunibase "okuoku/yunibase")
 
 add_dependencies(image docker_yuni_default docker_yuni_fedora)
 add_dependencies(push docker_push_yunibase)
+
+#
+# Version stamp
+#
+
+add_yunibase_stamp_version(stamp_version
+    ${YUNIBASE_REPO_ROOT}
+    ${CMAKE_CURRENT_LIST_DIR}/_stamp.txt)
+add_dependencies(stamp stamp_version)
+add_dependencies(docker_yuni_default stamp)
+add_dependencies(docker_yuni_fedora stamp)

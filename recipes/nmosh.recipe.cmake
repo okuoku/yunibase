@@ -2,9 +2,15 @@
 #
 #  setsebool -P selinuxuser_execheap 1
 #
+if(CYGWIN)
+    set(RECIPE_NMOSH_GC "--with-system-bdwgc")
+else()
+    set(RECIPE_NMOSH_GC)
+endif()
 
 set(RECIPE_NMOSH # Recipe for NMosh/Psyntax-mosh
     STEP "Configure" "./configure" "--prefix=__INSTALL_PREFIX__"
+    ${RECIPE_NMOSH_GC}
     # It seems we cannot do "chmod -wx" on AUFS..
     # Set as r--rw-rw- instead.
     STEP "CHMOD"     chmod 466 tests/read-only.txt

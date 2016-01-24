@@ -72,6 +72,20 @@ build_recipe(nmosh_stable ${nmosh_stable_src} ${nmosh_stable_dest}
 register_recipe(NMOSH STABLE nmosh_stable)
 workaround_touch_prebuilt_files(
     ${nmosh_stable_src}
+    Makefile.in
+    aclocal.m4
+    config.guess
+    config.status
+    Makefile.in
+    ltmain.sh
+    compile
+    missing
+    install-sh
+    depcomp
+    mkinstalldirs
+    config.h.in
+    config.h
+    config.sub
     src/Instruction.h
     src/main.cpp
     src/labels.cpp

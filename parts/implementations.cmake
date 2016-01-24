@@ -51,6 +51,18 @@ add_dependencies(gauche_current gauche_stable)
 register_recipe(GAUCHE STABLE gauche_stable)
 register_recipe(GAUCHE CURRENT gauche_current)
 
+## Gauche workaround (stable)
+set(gauche_war_touch_files)
+file(STRINGS ${gauche_stable_src}/.gitignore gauche_gitignore)
+foreach(e ${gauche_gitignore})
+    if(EXISTS "${gauche_stable_src}/${e}")
+        list(APPEND gauche_war_touch_files ${e})
+    endif()
+endforeach()
+workaround_touch_prebuilt_files(
+    ${gauche_stable_src}
+    ${gauche_war_touch_files})
+
 # NMosh (stable)
 set(nmosh_stable_src ${YUNIBASE_ROOT_STABLE}/nmosh)
 set(nmosh_stable_dest ${YUNIBASE_BUILD_STABLE_PREFIX}/nmosh)

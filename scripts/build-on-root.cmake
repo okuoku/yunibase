@@ -1,6 +1,7 @@
 # Build yunibase tree on root (without Git updating)
 #
 # INPUTS:
+#   USE_SYMLINK: Use symlink instead of copying
 #   ONLY: List of impl.
 #   EXCEPT: List of excluded impl.
 
@@ -26,10 +27,19 @@ else()
     set(_exceptarg)
 endif()
 
-message(STATUS "Copying tree ${_mysrc} => ${_myroot}")
+if(USE_SYMLINK)
+    message(STATUS "Symlink ${_mysrc} => ${_myroot}")
 
-file(COPY ${_mysrc} DESTINATION ${_myrootdir}
-    PATTERN ".git" EXCLUDE)
+    file(MAKE_DIRECTORY ${_myrootdir})
+    execute_process(COMMAND
+        ${CMAKE_COMMAND} -E create_symlink
+        ${_mysrc} ${_myroot})
+else()
+    message(STATUS "Copying tree ${_mysrc} => ${_myroot}")
+
+    file(COPY ${_mysrc} DESTINATION ${_myrootdir}
+        PATTERN ".git" EXCLUDE)
+endif()
 
 message(STATUS "Configure(${_myroot})... ${_myargs}")
 

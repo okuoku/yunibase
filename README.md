@@ -29,7 +29,7 @@ Implementations
 |[Chicken][]     |R7RS      |4.10.0    |Official Git   |SKIPTEST, with `r7rs` egg             |
 |[Guile][]       |R6RS      |n/a       |Official Git   |TESTFAIL                              |
 |[Racket][]      |R6RS      |n/a       |Official GitHub|NOTEST, with `srfi-lib` and `r6rs-lib`|
-|[Vicare][]      |R7RS      |n/a       |Official GitHub|TESTFAIL                              |
+|[Vicare][]      |R6RS      |n/a       |Official GitHub|TESTFAIL                              |
 
 
 

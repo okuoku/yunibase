@@ -26,7 +26,7 @@ Implementations
 |[Gauche][]      |R7RS      |0.9.4     |Official GitHub|                                      |
 |NMosh           |R6RS+R7RS-|current   |not yet        |TESTFAIL                              |
 |[Sagittarius][] |R6RS+R7RS |0.7.0     |GitHub Mirror  |                                      |
-|[Chicken][]     |R7RS      |4.10.0    |Official Git   |SKIPTEST, with `r7rs` egg             |
+|[Chicken][]     |R7RS      |4.10.1    |Official Git   |SKIPTEST, with `r7rs` egg             |
 |[Guile][]       |R6RS      |n/a       |Official Git   |TESTFAIL                              |
 |[Racket][]      |R6RS      |n/a       |Official GitHub|NOTEST, with `srfi-lib` and `r6rs-lib`|
 |[Vicare][]      |R6RS      |n/a       |Official GitHub|TESTFAIL                              |

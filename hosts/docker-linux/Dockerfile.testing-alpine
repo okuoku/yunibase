@@ -1,0 +1,15 @@
+FROM okuoku/yunibuild:latest-alpine
+
+# Set up sourcetree
+COPY ./hosts/docker-linux/_stamp.txt /
+COPY . /yunibase
+
+WORKDIR /build
+# Build sources
+RUN cmake -DYUNIBASE_EXCEPT=GUILE\;GAUCHE\;NMOSH\;RACKET\;SAGITTARIUS\;VICARE ../yunibase
+RUN make
+
+# Remove CMake artifacts for the next build
+RUN rm -rf CMakeCache.txt CMakeFiles Makefile config cmake_install.cmake \
+../yunibase
+

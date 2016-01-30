@@ -20,10 +20,14 @@ set(BUILDCTX_NONE
     "${YUNIBASE_REPO_ROOT}/hosts/docker-linux")
 set(BASE_FEDORA 
     "${YUNIBASE_REPO_ROOT}/hosts/docker-linux/base-fedora/Dockerfile")
+set(BASE_ALPINE
+    "${YUNIBASE_REPO_ROOT}/hosts/docker-linux/base-alpine/Dockerfile")
 set(BASE_DEFAULT 
     "${YUNIBASE_REPO_ROOT}/hosts/docker-linux/base-ubuntuLTS/Dockerfile")
 set(YUNI_FEDORA 
     "${YUNIBASE_REPO_ROOT}/hosts/docker-linux/Dockerfile.testing-fedora")
+set(YUNI_ALPINE
+    "${YUNIBASE_REPO_ROOT}/hosts/docker-linux/Dockerfile.testing-alpine")
 set(YUNI_DEFAULT 
     "${YUNIBASE_REPO_ROOT}/hosts/docker-linux/Dockerfile.testing")
 
@@ -49,9 +53,11 @@ add_docker_build(docker_base_default
     ${BASE_DEFAULT} "okuoku/yunibuild:latest" ${BUILDCTX_NONE})
 add_docker_build(docker_base_fedora 
     ${BASE_FEDORA} "okuoku/yunibuild:latest-fedora" ${BUILDCTX_NONE})
+add_docker_build(docker_base_alpine
+    ${BASE_ALPINE} "okuoku/yunibuild:latest-alpine" ${BUILDCTX_NONE})
 add_docker_push(docker_push_yunibuild "okuoku/yunibuild")
 
-add_dependencies(base docker_base_default docker_base_fedora)
+add_dependencies(base docker_base_default docker_base_fedora docker_base_alpine)
 add_dependencies(push docker_push_yunibuild)
 
 # 
@@ -61,9 +67,11 @@ add_docker_build(docker_yuni_default
     ${YUNI_DEFAULT} "okuoku/yunibase:testing" ${YUNIBASE_REPO_ROOT})
 add_docker_build(docker_yuni_fedora
     ${YUNI_FEDORA} "okuoku/yunibase:testing-fedora" ${YUNIBASE_REPO_ROOT})
+add_docker_build(docker_yuni_alpine
+    ${YUNI_ALPINE} "okuoku/yunibase:testing-alpine" ${YUNIBASE_REPO_ROOT})
 add_docker_push(docker_push_yunibase "okuoku/yunibase")
 
-add_dependencies(image docker_yuni_default docker_yuni_fedora)
+add_dependencies(image docker_yuni_default docker_yuni_fedora docker_yuni_alpine)
 add_dependencies(push docker_push_yunibase)
 
 #
@@ -76,3 +84,4 @@ add_yunibase_stamp_version(stamp_version
 add_dependencies(stamp stamp_version)
 add_dependencies(docker_yuni_default stamp)
 add_dependencies(docker_yuni_fedora stamp)
+add_dependencies(docker_yuni_alpine stamp)

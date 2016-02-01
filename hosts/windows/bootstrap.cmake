@@ -14,3 +14,6 @@ execute_process(COMMAND
 
 file(RENAME ${name_cmake} build)
 file(RENAME ninja.exe build/bin/ninja.exe)
+
+file(COPY ${CMAKE_CURRENT_LIST_DIR}/envsetup.bat
+    DESTINATION .)

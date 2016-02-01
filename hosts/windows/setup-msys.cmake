@@ -27,13 +27,13 @@ if(rr)
 endif()
 
 # Install packages
-file(COPY "${CMAKE_CURRENT_LIST_DIR}/setup-initialupdate.sh"
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/setup-msys-initialupdate.sh"
     DESTINATION build/msys64)
-file(COPY "${CMAKE_CURRENT_LIST_DIR}/setup-installtoolchains.sh"
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/setup-msys-installtoolchains.sh"
     DESTINATION build/msys64)
 
 execute_process(COMMAND
-    cmd /C "sh" -l /setup-initialupdate.sh
+    cmd /C "sh" -l /setup-msys-initialupdate.sh
     RESULT_VARIABLE rr
     WORKING_DIRECTORY build/msys64/usr/bin)
 
@@ -43,7 +43,7 @@ endif()
 
 
 execute_process(COMMAND
-    cmd /C "sh" -l /setup-installtoolchains.sh
+    cmd /C "sh" -l /setup-msys-installtoolchains.sh
     RESULT_VARIABLE rr
     WORKING_DIRECTORY build/msys64/usr/bin)
 

@@ -25,7 +25,7 @@ add_custom_target(cygwin64_copyscript
     )
 
 add_custom_target(cygwin64_build
-    COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_LIST_DIR}/runscript.cmake
+    COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_LIST_DIR}/cygwin-run-build.cmake
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     USES_TERMINAL)
 

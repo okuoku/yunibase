@@ -61,6 +61,12 @@ init_recipe() # Begin list-of recipes
 include(./parts/implementations.cmake)
 create_git_repository_handlers()
 
+if(CYGWIN)
+    set(allow_testfail_cygwin IGNORE_TEST_FAILURE)
+else()
+    set(allow_testfail_cygwin)
+endif()
+
 # Configure default build
 if(YUNIBASE_BOOTSTRAP_ONLY)
     # Build only STABLEs and bootstrap.
@@ -69,7 +75,7 @@ if(YUNIBASE_BOOTSTRAP_ONLY)
     # Including VM generations
     enable_recipe(SAGITTARIUS STABLE)
     enable_recipe(SAGITTARIUS CURRENT BOOTSTRAP_ONLY)
-    enable_recipe(GAUCHE STABLE)
+    enable_recipe(GAUCHE STABLE ${allow_testfail_cygwin})
     enable_recipe(GAUCHE CURRENT BOOTSTRAP_ONLY)
     # Just for autotools
     enable_recipe(GUILE CURRENT BOOTSTRAP_ONLY)
@@ -80,7 +86,7 @@ elseif(YUNIBASE_POSTBOOTSTRAP)
     # We skip most STABLE flavor except NMosh here.
     enable_recipe(SAGITTARIUS CURRENT SKIP_BOOTSTRAP)
     enable_recipe(GUILE CURRENT IGNORE_TEST_FAILURE SKIP_BOOTSTRAP)
-    enable_recipe(GAUCHE CURRENT SKIP_BOOTSTRAP)
+    enable_recipe(GAUCHE CURRENT SKIP_BOOTSTRAP ${allow_testfail_cygwin})
     enable_recipe(CHIBI_SCHEME CURRENT)
     enable_recipe(RACKET CURRENT)
     enable_recipe(NMOSH STABLE IGNORE_TEST_FAILURE)
@@ -90,8 +96,8 @@ else()
     enable_recipe(SAGITTARIUS STABLE)
     enable_recipe(SAGITTARIUS CURRENT)
     enable_recipe(GUILE CURRENT IGNORE_TEST_FAILURE)
-    enable_recipe(GAUCHE STABLE)
-    enable_recipe(GAUCHE CURRENT)
+    enable_recipe(GAUCHE STABLE ${allow_testfail_cygwin})
+    enable_recipe(GAUCHE CURRENT ${allow_testfail_cygwin})
     enable_recipe(CHIBI_SCHEME CURRENT)
     enable_recipe(RACKET CURRENT)
     enable_recipe(NMOSH STABLE IGNORE_TEST_FAILURE)

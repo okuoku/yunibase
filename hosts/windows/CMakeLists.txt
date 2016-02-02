@@ -29,17 +29,19 @@ add_custom_target(cygwin64_base
 
 add_dependencies(base cygwin64_base)
 
-add_custom_target(cygwin64_copyscript
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_LIST_DIR}/../../scripts/build-on-root.cmake ${CMAKE_CURRENT_BINARY_DIR}/cyg64
-    )
+add_custom_target(cygwin64_imageclean
+    COMMAND ${CMAKE_COMMAND} -E remove_directory 
+    ${CMAKE_CURRENT_BINARY_DIR}/cyg64/yunisrc
+    COMMAND ${CMAKE_COMMAND} -E remove_directory 
+    ${CMAKE_CURRENT_BINARY_DIR}/cyg64/build
+    COMMENT "Removing previous images...")
 
 add_custom_target(cygwin64_build
     COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_LIST_DIR}/cygwin-run-build.cmake
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     USES_TERMINAL)
 
-add_dependencies(cygwin64_build cygwin64_copyscript)
-
+add_dependencies(cygwin64_build cygwin64_imageclean)
 add_dependencies(image cygwin64_build)
 
 # 

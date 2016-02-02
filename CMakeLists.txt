@@ -8,6 +8,10 @@
 #
 #  YUNIBASE_EXCEPT: Disable some implementations. 
 #
+#  YUNIBASE_BOOTSTRAP_ONLY: Only bootstrap the tree
+#
+#  YUNIBASE_POSTBOOTSTRAP: Assumes tree was bootstrapped
+#
 project(yunibase NONE)
 cmake_minimum_required(VERSION 2.8)
 
@@ -58,18 +62,43 @@ include(./parts/implementations.cmake)
 create_git_repository_handlers()
 
 # Configure default build
-# Build all
-enable_recipe(SAGITTARIUS STABLE)
-enable_recipe(SAGITTARIUS CURRENT)
-enable_recipe(GUILE CURRENT IGNORE_TEST_FAILURE)
-enable_recipe(GAUCHE STABLE)
-enable_recipe(GAUCHE CURRENT)
-enable_recipe(CHIBI_SCHEME CURRENT)
-enable_recipe(RACKET CURRENT)
-enable_recipe(NMOSH STABLE IGNORE_TEST_FAILURE)
-enable_recipe(VICARE CURRENT IGNORE_TEST_FAILURE)
-enable_recipe(CHICKEN STABLE SKIP_TEST)
-enable_recipe(CHICKEN CURRENT SKIP_TEST)
+if(YUNIBASE_BOOTSTRAP_ONLY)
+    # Build only STABLEs and bootstrap.
+    # Saggitarius, Gauche, Guile, Vicare
+    # FIXME: Chicken has no separate bootstrap phase.
+    # Including VM generations
+    enable_recipe(SAGITTARIUS STABLE)
+    enable_recipe(SAGITTARIUS CURRENT BOOTSTRAP_ONLY)
+    enable_recipe(GAUCHE STABLE)
+    enable_recipe(GAUCHE CURRENT BOOTSTRAP_ONLY)
+    # Just for autotools
+    enable_recipe(GUILE CURRENT BOOTSTRAP_ONLY)
+    enable_recipe(VICARE CURRENT BOOTSTRAP_ONLY)
+elseif(YUNIBASE_POSTBOOTSTRAP)
+    # Build only CURRENT flavors
+    # FIXME: Chicken has no separate bootstrap phase.
+    # We skip most STABLE flavor except NMosh here.
+    enable_recipe(SAGITTARIUS CURRENT SKIP_BOOTSTRAP)
+    enable_recipe(GUILE CURRENT IGNORE_TEST_FAILURE SKIP_BOOTSTRAP)
+    enable_recipe(GAUCHE CURRENT SKIP_BOOTSTRAP)
+    enable_recipe(CHIBI_SCHEME CURRENT)
+    enable_recipe(RACKET CURRENT)
+    enable_recipe(NMOSH STABLE IGNORE_TEST_FAILURE)
+    enable_recipe(VICARE CURRENT IGNORE_TEST_FAILURE SKIP_BOOTSTRAP)
+else()
+    # Build all (stable + bootstrap + current)
+    enable_recipe(SAGITTARIUS STABLE)
+    enable_recipe(SAGITTARIUS CURRENT)
+    enable_recipe(GUILE CURRENT IGNORE_TEST_FAILURE)
+    enable_recipe(GAUCHE STABLE)
+    enable_recipe(GAUCHE CURRENT)
+    enable_recipe(CHIBI_SCHEME CURRENT)
+    enable_recipe(RACKET CURRENT)
+    enable_recipe(NMOSH STABLE IGNORE_TEST_FAILURE)
+    enable_recipe(VICARE CURRENT IGNORE_TEST_FAILURE)
+    enable_recipe(CHICKEN STABLE SKIP_TEST)
+    enable_recipe(CHICKEN CURRENT SKIP_TEST)
+endif()
 
 if(YUNIBASE_ONLY)
     enable_recipe_only(${YUNIBASE_ONLY})
@@ -82,7 +111,6 @@ endif()
 if(YUNIBASE_EXCEPT)
     message(STATUS "")
     message(STATUS "YUNIBASE_EXCEPT = ${YUNIBASE_EXCEPT}")
-    message(STATUS "")
 endif()
 
 if(YUNIBASE_ONLY)

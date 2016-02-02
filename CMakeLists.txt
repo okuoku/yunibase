@@ -73,8 +73,8 @@ if(YUNIBASE_BOOTSTRAP_ONLY)
     # Saggitarius, Gauche, Guile, Vicare
     # FIXME: Chicken has no separate bootstrap phase.
     # Including VM generations
-    enable_recipe(SAGITTARIUS STABLE)
-    enable_recipe(SAGITTARIUS CURRENT BOOTSTRAP_ONLY)
+    enable_recipe(SAGITTARIUS STABLE ${allow_testfail_cygwin})
+    enable_recipe(SAGITTARIUS CURRENT BOOTSTRAP_ONLY ${allow_testfail_cygwin})
     enable_recipe(GAUCHE STABLE ${allow_testfail_cygwin})
     enable_recipe(GAUCHE CURRENT BOOTSTRAP_ONLY)
     # Just for autotools
@@ -84,7 +84,7 @@ elseif(YUNIBASE_POSTBOOTSTRAP)
     # Build only CURRENT flavors
     # FIXME: Chicken has no separate bootstrap phase.
     # We skip most STABLE flavor except NMosh here.
-    enable_recipe(SAGITTARIUS CURRENT SKIP_BOOTSTRAP)
+    enable_recipe(SAGITTARIUS CURRENT SKIP_BOOTSTRAP ${allow_testfail_cygwin})
     enable_recipe(GUILE CURRENT IGNORE_TEST_FAILURE SKIP_BOOTSTRAP)
     enable_recipe(GAUCHE CURRENT SKIP_BOOTSTRAP ${allow_testfail_cygwin})
     enable_recipe(CHIBI_SCHEME CURRENT)
@@ -93,8 +93,8 @@ elseif(YUNIBASE_POSTBOOTSTRAP)
     enable_recipe(VICARE CURRENT IGNORE_TEST_FAILURE SKIP_BOOTSTRAP)
 else()
     # Build all (stable + bootstrap + current)
-    enable_recipe(SAGITTARIUS STABLE)
-    enable_recipe(SAGITTARIUS CURRENT)
+    enable_recipe(SAGITTARIUS STABLE ${allow_testfail_cygwin})
+    enable_recipe(SAGITTARIUS CURRENT ${allow_testfail_cygwin})
     enable_recipe(GUILE CURRENT IGNORE_TEST_FAILURE)
     enable_recipe(GAUCHE STABLE ${allow_testfail_cygwin})
     enable_recipe(GAUCHE CURRENT ${allow_testfail_cygwin})

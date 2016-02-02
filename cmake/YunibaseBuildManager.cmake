@@ -105,6 +105,15 @@ function(disable_recipe_only1 nam)
 endfunction()
 
 function(enable_recipe_only)
+    # First, disable every enabled recipes first
+    foreach(e ${__yunibase_buildmgr_recipes})
+        if(${e} MATCHES "([^:]*):(.*)")
+            set(tgt ${CMAKE_MATCH_1})
+            disable_recipe_only1(${tgt})
+        endif()
+    endforeach()
+
+    # Enable back specified recipes
     foreach(e ${ARGN})
         enable_recipe_only1(${e})
         enable_recipe_only1(${e}_STABLE)

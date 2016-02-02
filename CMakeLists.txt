@@ -2,9 +2,11 @@
 # 
 # INPUTs:
 #
-#  YUNIBASE_ONLY: Enable single implementation. 
+#  YUNIBASE_ONLY: Enable some implementations. 
 #    YUNIBASE_ONLY=GAUCHE
 #    YUNIBASE_ONLY=GAUCHE_STABLE
+#
+#  YUNIBASE_EXCEPT: Disable some implementations. 
 #
 project(yunibase)
 cmake_minimum_required(VERSION 2.8)
@@ -56,27 +58,32 @@ include(./parts/implementations.cmake)
 create_git_repository_handlers()
 
 # Configure default build
+# Build all
+enable_recipe(SAGITTARIUS STABLE)
+enable_recipe(SAGITTARIUS CURRENT)
+enable_recipe(GUILE CURRENT IGNORE_TEST_FAILURE)
+enable_recipe(GAUCHE STABLE)
+enable_recipe(GAUCHE CURRENT)
+enable_recipe(CHIBI_SCHEME CURRENT)
+enable_recipe(RACKET CURRENT)
+enable_recipe(NMOSH STABLE IGNORE_TEST_FAILURE)
+enable_recipe(VICARE CURRENT IGNORE_TEST_FAILURE)
+enable_recipe(CHICKEN STABLE SKIP_TEST)
+enable_recipe(CHICKEN CURRENT SKIP_TEST)
 
 if(YUNIBASE_ONLY)
     enable_recipe_only(${YUNIBASE_ONLY})
-else()
-    # Build all
-    enable_recipe(SAGITTARIUS STABLE)
-    enable_recipe(SAGITTARIUS CURRENT)
-    enable_recipe(GUILE CURRENT IGNORE_TEST_FAILURE)
-    enable_recipe(GAUCHE STABLE)
-    enable_recipe(GAUCHE CURRENT)
-    enable_recipe(CHIBI_SCHEME CURRENT)
-    enable_recipe(RACKET CURRENT)
-    enable_recipe(NMOSH STABLE IGNORE_TEST_FAILURE)
-    enable_recipe(VICARE CURRENT IGNORE_TEST_FAILURE)
-    enable_recipe(CHICKEN STABLE SKIP_TEST)
-    enable_recipe(CHICKEN CURRENT SKIP_TEST)
-    if(YUNIBASE_EXCEPT)
-        disable_recipe_only(${YUNIBASE_EXCEPT})
-    endif()
 endif()
 
+if(YUNIBASE_EXCEPT)
+    disable_recipe_only(${YUNIBASE_EXCEPT})
+endif()
+
+if(YUNIBASE_EXCEPT)
+    message(STATUS "")
+    message(STATUS "YUNIBASE_EXCEPT = ${YUNIBASE_EXCEPT}")
+    message(STATUS "")
+endif()
 
 if(YUNIBASE_ONLY)
     message(STATUS "")
@@ -84,15 +91,8 @@ if(YUNIBASE_ONLY)
     message(STATUS "  (Test Mode: Only these implementation(s) enabled.)")
     message(STATUS "")
 else()
-    if(YUNIBASE_EXCEPT)
-        message(STATUS "")
-        message(STATUS "YUNIBASE_EXCEPT = ${YUNIBASE_EXCEPT}")
-        message(STATUS "")
-    else()
-        message(STATUS "")
-        message(STATUS "(Integration build mode. Use YUNIBASE_ONLY to select")
-        message(STATUS " implementation(s) to be built.)")
-        message(STATUS "")
-    endif()
+    message(STATUS "")
+    message(STATUS "(Integration build mode. Use YUNIBASE_ONLY to select")
+    message(STATUS " implementation(s) to be built.)")
+    message(STATUS "")
 endif()
-

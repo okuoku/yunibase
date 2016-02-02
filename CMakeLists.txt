@@ -75,9 +75,9 @@ if(YUNIBASE_BOOTSTRAP_ONLY)
     # Saggitarius, Gauche, Guile, Vicare
     # FIXME: Chicken has no separate bootstrap phase.
     # Including VM generations
-    enable_recipe(SAGITTARIUS STABLE ${skip_test_cygwin})
-    enable_recipe(SAGITTARIUS CURRENT BOOTSTRAP_ONLY ${skip_test_cygwin})
-    enable_recipe(GAUCHE STABLE ${allow_testfail_cygwin})
+    enable_recipe(SAGITTARIUS STABLE SKIP_TEST)
+    enable_recipe(SAGITTARIUS CURRENT BOOTSTRAP_ONLY)
+    enable_recipe(GAUCHE STABLE SKIP_TEST)
     enable_recipe(GAUCHE CURRENT BOOTSTRAP_ONLY)
     # Just for autotools
     enable_recipe(GUILE CURRENT BOOTSTRAP_ONLY)

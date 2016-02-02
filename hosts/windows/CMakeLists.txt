@@ -78,6 +78,20 @@ add_dependencies(msys64_base2 msys64_base1)
 add_dependencies(msys64_base1 msys64_base0)
 
 add_dependencies(base msys64_base)
+add_custom_target(msys64_imageclean
+    COMMAND ${CMAKE_COMMAND} -E remove_directory
+    ${CMAKE_CURRENT_BINARY_DIR}/cyg64/build.cygwinboot
+    COMMAND ${CMAKE_COMMAND} -E remove_directory
+    ${CMAKE_CURRENT_BINARY_DIR}/msys64/yunisrc
+    COMMENT "Removing previous images...")
+
+add_custom_target(msys64_build
+    COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_LIST_DIR}/native-run-build.cmake
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    COMMENT "Generating MSYS build..."
+    USES_TERMINAL)
+
+add_dependencies(msys64_build msys64_imageclean)
 
 #
 # Download prerequisites

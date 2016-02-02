@@ -165,6 +165,18 @@ register_recipe(CHICKEN STABLE
     chicken_stable_setup
     chicken_stable_test)
 
+file(GLOB chicken_stable_csrcs ${chicken_stable_src}/*.c)
+
+workaround_touch_prebuilt_files(
+    /
+    ${chicken_stable_csrcs})
+
+message(STATUS "We still have to workaround again...")
+
+workaround_touch_prebuilt_files(
+    ${chicken_stable_src}
+    chicken-install.c) # This file needs to be newest
+
 set(chicken_current_src ${YUNIBASE_ROOT_CURRENT}/chicken)
 set(chicken_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/chicken)
 set(ENVP_CHICKEN_BUILD

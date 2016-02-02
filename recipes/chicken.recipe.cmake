@@ -5,7 +5,11 @@
 #  - Chicken (currently) cannot perform check until it has installed
 #
 
-set(CHICKEN_ARG_PLATFORM "PLATFORM=linux")
+if(CYGWIN)
+    set(CHICKEN_ARG_PLATFORM "PLATFORM=cygwin")
+else()
+    set(CHICKEN_ARG_PLATFORM "PLATFORM=linux")
+endif()
 set(RECIPE_CHICKEN # Recipe for Chicken
     STEP "Build" # Chicken has no pallarel build support
     MAKE ${CHICKEN_ARG_PLATFORM} "PREFIX=__INSTALL_PREFIX__"

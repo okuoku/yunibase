@@ -8,7 +8,7 @@
 #
 #  YUNIBASE_EXCEPT: Disable some implementations. 
 #
-project(yunibase)
+project(yunibase NONE)
 cmake_minimum_required(VERSION 2.8)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)

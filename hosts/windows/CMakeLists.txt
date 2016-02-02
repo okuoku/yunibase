@@ -17,7 +17,7 @@ add_custom_target(init)  # Remove current yunibase image
 #
 
 add_custom_target(cygwin64_base
-    COMMAND setup-x86_64.exe
+    COMMAND archives/setup-x86_64.exe
     -s http://ftp.iij.ad.jp/pub/cygwin 
     -R ${CMAKE_CURRENT_BINARY_DIR}/cyg64 
     -l ${CMAKE_CURRENT_BINARY_DIR}/cache64 
@@ -49,7 +49,7 @@ add_dependencies(image cygwin64_build)
 #
 
 add_custom_target(msys64_base0
-    COMMAND "${CMAKE_COMMAND}" -E tar zxf msys64.tar.xz
+    COMMAND "${CMAKE_COMMAND}" -E tar zxf archives/msys64.tar.xz
     COMMAND "${CMAKE_COMMAND}" -E copy
     ${CMAKE_CURRENT_LIST_DIR}/setup-msys-initialupdate.sh
     ${CMAKE_CURRENT_BINARY_DIR}/msys64
@@ -82,14 +82,16 @@ add_dependencies(base msys64_base)
 #
 # Download prerequisites
 #
-if(NOT EXISTS setup-x86_64.exe)
+#
+file(MAKE_DIRECTORY archives)
+if(NOT EXISTS archives/setup-x86_64.exe)
     message(STATUS "Downloading Cygwin setup")
     file(DOWNLOAD
         "https://www.cygwin.com/setup-x86_64.exe"
-        ./setup-x86_64.exe)
+        archives/setup-x86_64.exe)
 endif()
 
-if(NOT EXISTS msys64.tar.xz)
+if(NOT EXISTS archives/msys64.tar.xz)
     message(STATUS "Downloading MSYS base image")
-    file(DOWNLOAD ${url_msys64} ./msys64.tar.xz)
+    file(DOWNLOAD ${url_msys64} archives/msys64.tar.xz)
 endif()

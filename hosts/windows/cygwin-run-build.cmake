@@ -17,6 +17,6 @@ message(STATUS "Script path = ${out}")
 # Launch builder
 execute_process(
     COMMAND cyg64/bin/bash -l -c
-    "cmake -DEXCEPT=CHIBI_SCHEME\;GUILE\;RACKET\;VICARE -P ${out}"
+    "cmake -DEXCEPT=GUILE\;RACKET\;VICARE -P ${out}"
     )
 

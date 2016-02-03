@@ -16,6 +16,10 @@ add_custom_target(init)  # Remove current yunibase image
 # CYGWIN
 #
 
+add_custom_target(cygwin64_baseclean
+    COMMAND ${CMAKE_COMMAND} -E remove_directory
+    ${CMAKE_CURRENT_BINARY_DIR}/cyg64
+    COMMENT "Removing previous cygwin64 base...")
 add_custom_target(cygwin64_base
     COMMAND archives/setup-x86_64.exe
     -s http://ftp.iij.ad.jp/pub/cygwin 
@@ -27,6 +31,7 @@ add_custom_target(cygwin64_base
     USES_TERMINAL
     COMMENT "Installing base cygwin64 image...")
 
+add_dependencies(cygwin64_base cygwin64_baseclean)
 add_dependencies(base cygwin64_base)
 
 add_custom_target(cygwin64_imageclean
@@ -47,6 +52,11 @@ add_dependencies(image cygwin64_build)
 # 
 # MSYS
 #
+
+add_custom_target(msys64_baseclean
+    COMMAND ${CMAKE_COMMAND} -E remove_directory
+    ${CMAKE_CURRENT_BINARY_DIR}/msys64
+    COMMENT "Removing previous msys64 base...")
 
 add_custom_target(msys64_base0
     COMMAND "${CMAKE_COMMAND}" -E tar zxf archives/msys64.tar.xz
@@ -77,6 +87,7 @@ add_dependencies(msys64_base msys64_base2)
 add_dependencies(msys64_base2 msys64_base1)
 add_dependencies(msys64_base1 msys64_base0)
 
+add_dependencies(msys64_base0 msys64_baseclean)
 add_dependencies(base msys64_base)
 add_custom_target(msys64_imageclean
     COMMAND ${CMAKE_COMMAND} -E remove_directory

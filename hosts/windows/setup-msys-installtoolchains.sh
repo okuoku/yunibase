@@ -1,6 +1,7 @@
 #!/bin/sh
 
 pacman --noconfirm --needed -Sy \
+    make \
     mingw-w64-i686-binutils mingw-w64-i686-crt-git mingw-w64-i686-gcc \
     mingw-w64-i686-gcc-libs mingw-w64-i686-headers-git \
     mingw-w64-i686-libmangle-git mingw-w64-i686-tools-git \

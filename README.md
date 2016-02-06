@@ -7,8 +7,8 @@ Prebuilt images
 ===============
 
 * [Linux Docker images][] on [Docker Hub][]
- * `okuoku/yunibase:testing` - Ubuntu LTS
- * `okuoku/yunibase:testing-fedora` - Fedora latest
+ * `okuoku/yunibase:testing` [![](https://badge.imagelayers.io/okuoku/yunibase:testing.svg)](https://imagelayers.io/?images=okuoku/yunibase:testing) - Ubuntu LTS
+ * `okuoku/yunibase:testing-fedora` [![](https://badge.imagelayers.io/okuoku/yunibase:testing-fedora.svg)](https://imagelayers.io/?images=okuoku/yunibase:testing-fedora) - Fedora latest
 
 Supported build environments
 ============================

@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.0)
 project(yunibuild-vagrant NONE)
 
 add_custom_target(base) # Setup yunibuild boxes
+add_custom_target(image) # Setup yunibase boxes
 
 function(add_vagrant_sshconfig tgt nam fil)
     add_custom_target(${tgt}
@@ -92,6 +93,42 @@ function(register_vagrantfile nam pth)
         COPYONLY)
 endfunction()
 
+# FBSD10
+register_vagrantfile(
+    fbsd10-yunibuild
+    ${CMAKE_CURRENT_LIST_DIR}/fbsd10-yunibuild/Vagrantfile)
+register_vagrantfile(
+    fbsd10-yunibase
+    ${CMAKE_CURRENT_LIST_DIR}/fbsd10-yunibase/Vagrantfile)
+
+add_vagrant_provision(fbsd10-yunibuild-image 
+    fbsd10-yunibuild "okuoku/yunibuild-fbsd10")
+
+add_vagrant_up(fbsd10-yunibase-image
+    fbsd10-yunibase)
+add_vagrant_sync(fbsd10-yunibase-sync
+    fbsd10-yunibase /home/vagrant/yunibase
+    ${CMAKE_CURRENT_LIST_DIR}/../..)
+add_vagrant_run(fbsd10-yunibase-build
+    fbsd10-yunibase
+    sudo cmake -DINPLACE=TRUE
+    -DALTPREFIX=/usr/local
+    -DUSE_GMAKE=TRUE
+    "-DONLY=CHIBI_SCHEME@NMOSH@RACKET"
+    -P /home/vagrant/yunibase/scripts/build-on-root.cmake)
+add_vagrant_package(fbsd10-yunibase-package
+    fbsd10-yunibase
+    "okuoku/yunibase-fbsd10")
+
+add_dependencies(fbsd10-yunibase-sync fbsd10-yunibase-image)
+add_dependencies(fbsd10-yunibase-build fbsd10-yunibase-sync)
+add_dependencies(fbsd10-yunibase-package fbsd10-yunibase-build)
+
+add_dependencies(base fbsd10-yunibuild-image)
+add_dependencies(image fbsd10-yunibase-package)
+
+
+# FBSD11
 register_vagrantfile(
     fbsd11-yunibuild
     ${CMAKE_CURRENT_LIST_DIR}/fbsd11-yunibuild/Vagrantfile)
@@ -112,7 +149,7 @@ add_vagrant_run(fbsd11-yunibase-build
     sudo cmake -DINPLACE=TRUE
     -DALTPREFIX=/usr/local
     -DUSE_GMAKE=TRUE
-    "-DONLY=CHIBI_SCHEME@NMOSH"
+    "-DONLY=CHIBI_SCHEME@NMOSH@RACKET"
     -P /home/vagrant/yunibase/scripts/build-on-root.cmake)
 add_vagrant_package(fbsd11-yunibase-package
     fbsd11-yunibase
@@ -121,4 +158,8 @@ add_vagrant_package(fbsd11-yunibase-package
 add_dependencies(fbsd11-yunibase-sync fbsd11-yunibase-image)
 add_dependencies(fbsd11-yunibase-build fbsd11-yunibase-sync)
 add_dependencies(fbsd11-yunibase-package fbsd11-yunibase-build)
+
+add_dependencies(base fbsd11-yunibuild-image)
+add_dependencies(image fbsd11-yunibase-package)
+
 

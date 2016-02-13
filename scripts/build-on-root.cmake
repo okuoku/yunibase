@@ -24,6 +24,26 @@ if(INPLACE AND SRCROOT)
     message(FATAL_ERROR "Why?")
 endif()
 
+macro(split_atlist0 var reg rest)
+    if(${rest} MATCHES "([^@]*)@(.*)")
+        message(STATUS "SPLIT(${var}): ${CMAKE_MATCH_1}")
+        split_atlist0(${var} "${reg};${CMAKE_MATCH_1}" ${CMAKE_MATCH_2})
+    else()
+        set(${var} ${reg} ${rest})
+        message(STATUS "SPLIT_RESULT: ${var} = ${${var}}")
+    endif()
+endmacro()
+
+macro(split_atlist var)
+    if(${var} MATCHES "([^@]*)@(.*)")
+        message(STATUS "SPLIT(${var}): ${CMAKE_MATCH_1}")
+        split_atlist0(${var} ${CMAKE_MATCH_1} ${CMAKE_MATCH_2})
+    endif()
+endmacro()
+
+split_atlist(ONLY)
+split_atlist(EXCEPT)
+
 if(ALTPREFIX)
     set(ENV{LDFLAGS} "-L${ALTPREFIX}/lib")
     set(ENV{CPPFLAGS} "-I${ALTPREFIX}/include")
@@ -57,7 +77,6 @@ if(BUILDROOT)
 else()
     set(_buildroot /build)
 endif()
-
 
 # Register source paths
 set(basefiles

@@ -2,14 +2,34 @@ FROM okuoku/yunibuild:latest-fedora
 
 # Set up sourcetree
 COPY ./hosts/docker-linux/_stamp.txt /
-COPY . /yunibase
+
+# Base environment
+COPY CMakeLists.txt sources-current.cmake /yunibase/
+COPY cmake /yunibase/cmake
+COPY hosts /yunibase/hosts
+COPY parts /yunibase/parts
+COPY recipes /yunibase/recipes
+COPY scripts /yunibase/scripts
+
+# Stable sources
+COPY impl-stable/sources.cmake  /yunibase/impl-stable/
+COPY impl-stable/chicken /yunibase/impl-stable/chicken
+COPY impl-stable/gauche /yunibase/impl-stable/gauche
+COPY impl-stable/nmosh /yunibase/impl-stable/nmosh
+# COPY impl-stable/sagittarius /yunibase/impl-stable/sagittarius
+
+# Current sources
+COPY impl-current/chibi-scheme /yunibase/impl-current/chibi-scheme
+COPY impl-current/chicken /yunibase/impl-current/chicken
+COPY impl-current/gauche /yunibase/impl-current/gauche
+COPY impl-current/racket /yunibase/impl-current/racket
+# COPY impl-current/sagittarius /yunibase/impl-current/sagittarius
+COPY impl-current/vicare /yunibase/impl-current/vicare
 
 WORKDIR /build
 # Build sources
-RUN cmake -DYUNIBASE_EXCEPT=SAGITTARIUS\;GUILE ../yunibase
-RUN make
+RUN cmake ../yunibase && make
 
 # Remove CMake artifacts for the next build
-RUN rm -rf CMakeCache.txt CMakeFiles Makefile config cmake_install.cmake \
-../yunibase
+RUN rm -rf CMakeCache.txt CMakeFiles Makefile config cmake_install.cmake
 

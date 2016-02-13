@@ -24,12 +24,6 @@ set(BASE_ALPINE
     "${YUNIBASE_REPO_ROOT}/hosts/docker-linux/base-alpine/Dockerfile")
 set(BASE_DEFAULT 
     "${YUNIBASE_REPO_ROOT}/hosts/docker-linux/base-ubuntuLTS/Dockerfile")
-set(YUNI_FEDORA 
-    "${YUNIBASE_REPO_ROOT}/hosts/docker-linux/Dockerfile.testing-fedora")
-set(YUNI_ALPINE
-    "${YUNIBASE_REPO_ROOT}/hosts/docker-linux/Dockerfile.testing-alpine")
-set(YUNI_DEFAULT 
-    "${YUNIBASE_REPO_ROOT}/hosts/docker-linux/Dockerfile.testing")
 
 function(add_docker_build tgt dockerfile tag root)
     add_custom_target(${tgt}
@@ -37,6 +31,25 @@ function(add_docker_build tgt dockerfile tag root)
         --tag "${tag}" -f ${dockerfile} ${root}
         COMMENT "Building dockerfile...(${tgt} => ${tag})"
         WORKING_DIRECTORY ${YUNIBASE_REPO_ROOT})
+endfunction()
+
+macro(escape_args var first)
+    set(${var} "${first}")
+    foreach(e ${ARGN})
+        set(${var} "${${var}}\\;${e}")
+    endforeach()
+endmacro()
+
+function(add_docker_yunibase tgt image tag)
+    escape_args(_str ${ARGN})
+    add_custom_target(${tgt}
+        COMMAND ${CMAKE_COMMAND}
+        -DIMAGE=${image}
+        "-DONLY=${_str}"
+        -DCIDFILE=${CMAKE_CURRENT_BINARY_DIR}/cid${tgt}
+        -DTAG=${tag}
+        -P ${CMAKE_CURRENT_LIST_DIR}/docker-run-build.cmake
+        COMMENT "Building yunibase image...(${image} => ${tag})")
 endfunction()
 
 function(add_docker_push tgt repo)
@@ -63,12 +76,19 @@ add_dependencies(push docker_push_yunibuild)
 # 
 # Yunibase IMAGES
 #
-add_docker_build(docker_yuni_default
-    ${YUNI_DEFAULT} "okuoku/yunibase:testing" ${YUNIBASE_REPO_ROOT})
-add_docker_build(docker_yuni_fedora
-    ${YUNI_FEDORA} "okuoku/yunibase:testing-fedora" ${YUNIBASE_REPO_ROOT})
-add_docker_build(docker_yuni_alpine
-    ${YUNI_ALPINE} "okuoku/yunibase:testing-alpine" ${YUNIBASE_REPO_ROOT})
+add_docker_yunibase(docker_yuni_default
+    "okuoku/yunibuild:latest" "okuoku/yunibase:testing"
+    CHIBI_SCHEME GAUCHE NMOSH SAGITTARIUS CHICKEN GUILE RACKET VICARE
+    )
+add_docker_yunibase(docker_yuni_fedora
+    "okuoku/yunibuild:latest-fedora" "okuoku/yunibase:testing-fedora"
+    # Disabled: SAGITTARIUS GUILE
+    CHIBI_SCHEME GAUCHE NMOSH CHICKEN RACKET VICARE
+    )
+add_docker_yunibase(docker_yuni_alpine
+    "okuoku/yunibuild:latest-alpine" "okuoku/yunibase:testing-alpine"
+    CHIBI_SCHEME CHICKEN)
+
 add_docker_push(docker_push_yunibase "okuoku/yunibase")
 
 add_dependencies(image docker_yuni_default docker_yuni_fedora docker_yuni_alpine)

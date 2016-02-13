@@ -1,6 +1,7 @@
 # Build yunibase tree on root (without Git updating)
 #
 # INPUTS:
+#   CLEANSOURCES: remove copied sources
 #   BUILDROOT: 
 #   INPLACE: Do not copy source tree at all
 #   BOOTSTRAP_ONLY: YUNIBASE_BOOTSTRAP_ONLY
@@ -153,6 +154,14 @@ execute_process(COMMAND
 
 if(rr)
     message(FATAL_ERROR "Faild to build tree")
+endif()
+
+if(CLEANSOURCES AND NOT INPLACE)
+    if(EXISTS /yunisrc)
+        message(STATUS "Removing source tree...")
+        execute_process(COMMAND
+            ${CMAKE_COMMAND} -E remove_directory /yunisrc)
+    endif()
 endif()
 
 message(STATUS "Done.")

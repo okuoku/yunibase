@@ -12,6 +12,36 @@ add_custom_target(base)  # Update base environment
 add_custom_target(image) # Build yunibase image
 add_custom_target(init)  # Remove current yunibase image
 
+macro(escape_args var first)
+    set(${var} "${first}")
+    foreach(e ${ARGN})
+        set(${var} "${${var}}\\;${e}")
+    endforeach()
+endmacro()
+
+set(CYGWIN_IMPLS
+    CHIBI_SCHEME
+    GAUCHE
+    SAGITTARIUS
+    CHICKEN
+    NMOSH)
+
+set(NATIVE_IMPLS
+    SAGITTARIUS
+    CHIBI_SCHEME
+    CHICKEN)
+
+function(add_run_build tgt scriptname mesg)
+    escape_args(_onlyarg ${ARGN})
+    add_custom_target(${tgt}
+        COMMAND ${CMAKE_COMMAND} 
+        "-DONLY=${_onlyarg}" 
+        -P ${CMAKE_CURRENT_LIST_DIR}/${scriptname}
+        COMMENT "${mesg}"
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        USES_TERMINAL)
+endfunction()
+
 #
 # CYGWIN
 #
@@ -41,10 +71,8 @@ add_custom_target(cygwin64_imageclean
     ${CMAKE_CURRENT_BINARY_DIR}/cyg64/build
     COMMENT "Removing previous images...")
 
-add_custom_target(cygwin64_build
-    COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_LIST_DIR}/cygwin-run-build.cmake
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    USES_TERMINAL)
+add_run_build(cygwin64_build cygwin-run-build.cmake
+    "Building for cygwin64" ${CYGWIN_IMPLS})
 
 add_dependencies(cygwin64_build cygwin64_imageclean)
 add_dependencies(image cygwin64_build)
@@ -96,11 +124,8 @@ add_custom_target(msys64_imageclean
     ${CMAKE_CURRENT_BINARY_DIR}/msys64/yunisrc
     COMMENT "Removing previous images...")
 
-add_custom_target(msys64_build
-    COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_LIST_DIR}/native-run-build.cmake
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    COMMENT "Generating MSYS build..."
-    USES_TERMINAL)
+add_run_build(msys64_build native-run-build.cmake
+    "Building for Native" ${NATIVE_IMPLS})
 
 add_dependencies(msys64_build msys64_imageclean)
 

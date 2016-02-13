@@ -3,11 +3,32 @@
 # INPUTS:
 #   CLEANSOURCES: remove copied sources
 #   BUILDROOT: 
+#   SRCROOT:
 #   INPLACE: Do not copy source tree at all
 #   BOOTSTRAP_ONLY: YUNIBASE_BOOTSTRAP_ONLY
 #   POSTBOOTSTRAP: YUNIBASE_POSTBOOTSTRAP
 #   ONLY: List of impl.
 #   EXCEPT: List of excluded impl.
+
+if(CLEANSOURCES AND INPLACE)
+    message(FATAL_ERROR "Why?")
+endif()
+
+if(CLEANSOURCES AND SRCROOT)
+    message(FATAL_ERROR "Why?")
+endif()
+
+if(INPLACE AND SRCROOT)
+    message(FATAL_ERROR "Why?")
+endif()
+
+if(INPLACE)
+    set(_myroot ${_mysrc})
+elseif(SRCROOT)
+    set(_myroot ${SRCROOT})
+else()
+    set(_myroot /yunisrc/yunibase)
+endif()
 
 set(impls)
 set(srcdirs)
@@ -91,14 +112,6 @@ function(setup_sources)
     endforeach()
 endfunction()
 
-
-if(INPLACE)
-    set(_myroot ${_mysrc})
-else()
-    set(_myrootdir /yunisrc)
-    # FIXME: Abort on my directory != yunibase
-    set(_myroot /yunisrc/yunibase)
-endif()
 
 file(MAKE_DIRECTORY ${_buildroot})
 

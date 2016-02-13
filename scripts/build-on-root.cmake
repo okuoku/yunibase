@@ -95,7 +95,6 @@ function(setup_sources)
     endif()
     foreach(e ${impls})
         foreach(flav STABLE CURRENT)
-            message(STATUS "Detecting ${e} ${flav}")
             if(srcdir_${e}_${flav})
                 # FIXME: Uncool
                 if(${flav} STREQUAL STABLE)

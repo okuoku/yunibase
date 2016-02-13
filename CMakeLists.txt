@@ -50,6 +50,7 @@ include(./recipes/chicken.recipe.cmake)
 include(./recipes/vicare.recipe.cmake)
 include(./recipes/guile.recipe.cmake)
 include(./recipes/sagittarius.recipe.cmake)
+include(./recipes/kawa.recipe.cmake)
 
 # Source definitions
 init_sources()
@@ -107,6 +108,7 @@ else()
     activate_recipe(VICARE CURRENT IGNORE_TEST_FAILURE)
     activate_recipe(CHICKEN STABLE SKIP_TEST)
     activate_recipe(CHICKEN CURRENT SKIP_TEST)
+    activate_recipe(KAWA CURRENT)
 endif()
 
 if(YUNIBASE_ONLY)

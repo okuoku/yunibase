@@ -201,3 +201,13 @@ register_recipe(CHICKEN CURRENT
     chicken_current
     chicken_current_setup
     chicken_current_test)
+
+# Kawa (current)
+set(kawa_current_src ${YUNIBASE_ROOT_CURRENT}/kawa)
+set(kawa_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/kawa)
+build_recipe(kawa_current ${kawa_current_src} ${kawa_current_dest}
+    KAWA "" ${RECIPE_KAWA})
+
+register_recipe(KAWA CURRENT
+    kawa_current)
+

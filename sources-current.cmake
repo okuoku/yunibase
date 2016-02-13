@@ -27,4 +27,8 @@ register_source(SAGITTARIUS CURRENT
     "impl-current/sagittarius"
     GIT
     "origin/master")
+register_source(KAWA CURRENT
+    "impl-current/kawa"
+    GIT
+    "origin/master")
 

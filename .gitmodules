@@ -22,3 +22,6 @@
 [submodule "impl-current/sagittarius"]
 	path = impl-current/sagittarius
 	url = https://github.com/spurious/sagittarius-scheme-mirror
+[submodule "impl-current/kawa"]
+	path = impl-current/kawa
+	url = https://github.com/spurious/kawa-mirror.git

@@ -1,0 +1,34 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrandfile for yunibuild
+#  vagrand up
+#  vagrand provision
+
+Vagrant.configure("2") do |config|
+  config.vm.guest = :freebsd
+  config.vm.box = "freebsd/FreeBSD-11.0-CURRENT"
+  config.ssh.shell = "sh"
+  config.vm.base_mac = "080027D10016"
+
+  # Configure for yunibase
+  config.vm.box_check_update = true
+  # Can't do any automount but add it anyway
+  config.vm.synced_folder "../../..", "/yunibase", disabled: true
+  # Disable the default share
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--memory", "1024"]
+    vb.customize ["modifyvm", :id, "--cpus", "4"]
+    vb.customize ["modifyvm", :id, "--hwvirtex", "on"]
+    vb.customize ["modifyvm", :id, "--audio", "none"]
+    vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
+    vb.customize ["modifyvm", :id, "--nictype2", "virtio"]
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+    pkg install -y gmake cmake autoconf automake gmp oniguruma5 libtool flex gettext libunistring libffi boehm-gc-threaded texinfo
+  SHELL
+end
+

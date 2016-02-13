@@ -143,7 +143,12 @@ function(disable_recipe_only)
 endfunction()
 
 macro(enable_recipe nam flav)
-    yunibase___set_recipe_state(${nam} ${flav} FALSE ${ARGN})
+    detect_source(_src ${nam} ${flav})
+    if(_src)
+        yunibase___set_recipe_state(${nam} ${flav} FALSE ${ARGN})
+    else()
+        message(STATUS "${nam} ${flav} was not found. Disabled.")
+    endif()
 endmacro()
 
 macro(disable_recipe nam flav)

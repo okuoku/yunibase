@@ -17,7 +17,7 @@ macro(register_source nam flav pth type tag)
 
     # Properties
     set(__yunibase_srcmgr_${nam}_${flav}_path
-        "${_mypth}" CACHE PATH "(Internal) basepath for ${nam} ${flav}"
+        "${_mypath}" CACHE PATH "(Internal) basepath for ${nam} ${flav}"
         FORCE)
     mark_as_advanced(__yunibase_srcmgr_${nam}_${flav}_path)
     set(__yunibase_srcmgr_${nam}_${flav}_type
@@ -35,4 +35,20 @@ macro(register_source nam flav pth type tag)
     endif()
 endmacro()
 
+macro(detect_source var nam flav)
+    set(_varname __yunibase_srcmgr_${nam}_${flav}_path)
+    set(_detected)
+    # NB: Do always check source validity
+    foreach(e ${__yunibase_srcmgr_srcs})
+        if(${e} STREQUAL "${nam}:${flav}")
+            set(_detected 1)
+            break()
+        endif()
+    endforeach()
+    if(_detected AND EXISTS ${${_varname}})
+        set(${var} ${${_varname}})
+    else()
+        set(${var} FALSE)
+    endif()
+endmacro()
 

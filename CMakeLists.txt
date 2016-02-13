@@ -52,6 +52,7 @@ include(./recipes/guile.recipe.cmake)
 include(./recipes/sagittarius.recipe.cmake)
 
 # Source definitions
+init_sources()
 init_config_directory()
 init_git_repositories() # Begin list-of repositories
 include(./impl-stable/sources.cmake)

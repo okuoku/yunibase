@@ -9,6 +9,8 @@
 #   POSTBOOTSTRAP: YUNIBASE_POSTBOOTSTRAP
 #   ONLY: List of impl.
 #   EXCEPT: List of excluded impl.
+#   USE_GMAKE: YUNIBASE_USE_GMAKE
+#   ALTPREFIX: Setup Envvar LDFLAGS and CPPFLAGS for ALTPREFIX
 
 if(CLEANSOURCES AND INPLACE)
     message(FATAL_ERROR "Why?")
@@ -21,6 +23,14 @@ endif()
 if(INPLACE AND SRCROOT)
     message(FATAL_ERROR "Why?")
 endif()
+
+if(ALTPREFIX)
+    set(ENV{LDFLAGS} "-L${ALTPREFIX}/lib")
+    set(ENV{CPPFLAGS} "-I${ALTPREFIX}/include")
+endif()
+
+set(_mypath ${CMAKE_CURRENT_LIST_DIR})
+get_filename_component(_mysrc ${_mypath}/.. ABSOLUTE)
 
 if(INPLACE)
     set(_myroot ${_mysrc})
@@ -48,8 +58,6 @@ else()
     set(_buildroot /build)
 endif()
 
-set(_mypath ${CMAKE_CURRENT_LIST_DIR})
-get_filename_component(_mysrc ${_mypath}/.. ABSOLUTE)
 
 # Register source paths
 set(basefiles
@@ -126,6 +134,12 @@ else()
     set(_exceptarg)
 endif()
 
+if(USE_GMAKE)
+    set(_usegmakearg "-DYUNIBASE_USE_GMAKE=TRUE")
+else()
+    set(_usegmakearg "")
+endif()
+
 if(BOOTSTRAP_ONLY AND POSTBOOTSTRAP)
     message(FATAL_ERROR "Nothing to do.")
 endif()
@@ -149,6 +163,7 @@ message(STATUS "Configure(${_myroot})... ${_myargs}")
 execute_process(COMMAND
     ${CMAKE_COMMAND} "${_onlyarg}" "${_exceptarg}" 
     "${_bootstraparg}"
+    "${_usegmakearg}"
     ${_myroot}
     RESULT_VARIABLE rr
     WORKING_DIRECTORY ${_buildroot}

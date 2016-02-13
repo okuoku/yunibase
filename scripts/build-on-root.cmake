@@ -8,6 +8,18 @@
 #   ONLY: List of impl.
 #   EXCEPT: List of excluded impl.
 
+set(impls)
+set(srcdirs)
+
+macro(register_source nam flav pth rcstype rcspath)
+    if(NOT have_${nam})
+        list(APPEND impls ${nam})
+        set(have_${nam} TRUE)
+    endif()
+    # RELATIVE path for sources
+    set(srcdir_${nam}_${flav} ${register_src_listpath}/${pth})
+endmacro()
+
 if(BUILDROOT)
     set(_buildroot ${BUILDROOT})
 else()
@@ -16,6 +28,68 @@ endif()
 
 set(_mypath ${CMAKE_CURRENT_LIST_DIR})
 get_filename_component(_mysrc ${_mypath}/.. ABSOLUTE)
+
+# Register source paths
+set(basefiles
+    ${_mysrc}/CMakeLists.txt
+    ${_mysrc}/sources-current.cmake)
+
+set(basedirs
+    ${_mysrc}/cmake
+    ${_mysrc}/hosts
+    ${_mysrc}/parts
+    ${_mysrc}/recipes
+    ${_mysrc}/scripts)
+
+set(register_src_listpath .)
+include(${_mysrc}/sources-current.cmake)
+set(register_src_listpath ./impl-stable)
+include(${_mysrc}/impl-stable/sources.cmake)
+
+function(setup_sources)
+    message(STATUS "Copying tree ${_mysrc} => ${_myroot}")
+    file(MAKE_DIRECTORY ${_myroot})
+    file(MAKE_DIRECTORY ${_myroot}/impl-stable)
+    file(MAKE_DIRECTORY ${_myroot}/impl-current)
+
+    # basefiles
+    file(COPY ${basefiles} DESTINATION ${_myroot})
+
+    file(COPY ${_mysrc}/impl-stable/sources.cmake 
+        DESTINATION
+        ${_myroot}/impl-stable)
+
+    file(COPY ${basedirs} DESTINATION ${_myroot}
+        PATTERN ".git" EXCLUDE)
+
+    # Sources
+    if(ONLY)
+        # Override impls
+        set(impls ${ONLY})
+    endif()
+    if(EXCEPT)
+        # Remove entries from impls
+        list(REMOVE_ITEM impls ${EXCEPT})
+    endif()
+    foreach(e ${impls})
+        foreach(flav STABLE CURRENT)
+            message(STATUS "Detecting ${e} ${flav}")
+            if(srcdir_${e}_${flav})
+                # FIXME: Uncool
+                if(${flav} STREQUAL STABLE)
+                    set(_dest ${_myroot}/impl-stable)
+                else()
+                    set(_dest ${_myroot}/impl-current)
+                endif()
+                message(STATUS "COPYING: ${e} ${flav} => ${_dest}")
+                file(COPY ${_mysrc}/${srcdir_${e}_${flav}}
+                    DESTINATION ${_dest}
+                    PATTERN ".git" EXCLUDE)
+            endif()
+        endforeach()
+    endforeach()
+endfunction()
+
 
 if(INPLACE)
     set(_myroot ${_mysrc})
@@ -54,10 +128,7 @@ endif()
 if(INPLACE)
     message(STATUS "Using existing yunibase ${_myroot}")
 else()
-    message(STATUS "Copying tree ${_mysrc} => ${_myroot}")
-
-    file(COPY ${_mysrc} DESTINATION ${_myrootdir}
-        PATTERN ".git" EXCLUDE)
+    setup_sources()
 endif()
 
 message(STATUS "Configure(${_myroot})... ${_myargs}")

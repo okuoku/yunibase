@@ -1,5 +1,5 @@
-project(yunibuild-docker-linux)
 cmake_minimum_required(VERSION 2.8)
+project(yunibuild-docker-linux NONE)
 
 set(YUNIBASE_REPO_ROOT ${CMAKE_CURRENT_LIST_DIR}/../../)
 list(APPEND CMAKE_MODULE_PATH ${YUNIBASE_REPO_ROOT}/cmake)

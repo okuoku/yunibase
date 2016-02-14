@@ -27,8 +27,9 @@ function(add_vagrant_rsync_command tgt sshcfg tgtbase)
 endfunction()
 
 function(add_vagrant_ssh tgt sshcfg)
+    # Enforce PTY alocation so we can run any console based program
     add_custom_target(${tgt}
-        COMMAND ssh -F ${sshcfg} vagrant@default
+        COMMAND ssh -t -t -F ${sshcfg} vagrant@default
         ${ARGN})
 endfunction()
 
@@ -110,6 +111,35 @@ function(register_vagrantfile nam pth)
         COPYONLY)
 endfunction()
 
+# Docker(fedora-cloudbase)
+#  For Docker image builder, we do not create any boxes
+register_vagrantfile(
+    fedora-cloudbase
+    ${CMAKE_CURRENT_LIST_DIR}/fedora-cloudbase/Vagrantfile)
+add_vagrant_up(fedora-cloudbase-init
+    fedora-cloudbase)
+add_vagrant_sync(fedora-cloudbase-sync0
+    fedora-cloudbase /yunibase
+    ${CMAKE_CURRENT_LIST_DIR}/../..)
+add_dependencies(fedora-cloudbase-sync0 fedora-cloudbase-init)
+add_vagrant_run(fedora-cloudbase-sync # Build CMake build tree
+    fedora-cloudbase
+    sudo cmake /yunibase/hosts/docker-linux)
+add_dependencies(fedora-cloudbase-sync fedora-cloudbase-sync0)
+
+add_vagrant_run(fedora-cloudbase-base
+    fedora-cloudbase 
+    sudo make base)
+add_dependencies(fedora-cloudbase-base fedora-cloudbase-sync)
+
+add_vagrant_run(fedora-cloudbase-image
+    fedora-cloudbase
+    sudo make image)
+add_dependencies(fedora-cloudbase-image fedora-cloudbase-sync)
+
+add_vagrant_destroy(fedora-cloudbase-destroy
+    fedora-cloudbase)
+
 # FBSD10
 register_vagrantfile(
     fbsd10-yunibuild
@@ -190,7 +220,10 @@ add_dependencies(base fbsd11-yunibuild-image)
 add_dependencies(image fbsd11-yunibase-build-stop)
 
 # Destroy
-add_dependencies(destroy fbsd11-yunibase-destroy fbsd10-yunibase-destroy)
+add_dependencies(destroy 
+    fbsd11-yunibase-destroy 
+    fbsd10-yunibase-destroy
+    fedora-cloudbase-destroy)
 
 # Yunitest
 #  Currently, we use -build target for testing.

@@ -11,6 +11,7 @@ set(url_msys64
 add_custom_target(base)  # Update base environment
 add_custom_target(image) # Build yunibase image
 add_custom_target(init)  # Remove current yunibase image
+add_custom_target(yunitest) # Test with ${YUNIBASE_WITH_YUNI}
 
 macro(escape_args var first)
     set(${var} "${first}")
@@ -39,6 +40,16 @@ function(add_run_build tgt scriptname mesg)
         -P ${CMAKE_CURRENT_LIST_DIR}/${scriptname}
         COMMENT "${mesg}"
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        USES_TERMINAL)
+endfunction()
+
+function(add_run_test tgt scriptname)
+    add_custom_target(${tgt}
+        COMMAND ${CMAKE_COMMAND}
+        "-DYUNI=${YUNIBASE_WITH_YUNI}"
+        -P ${CMAKE_CURRENT_LIST_DIR}/${scriptname}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        COMMENT "Test(${tgt})..."
         USES_TERMINAL)
 endfunction()
 
@@ -128,6 +139,11 @@ add_run_build(msys64_build native-run-build.cmake
     "Building for Native" ${NATIVE_IMPLS})
 
 add_dependencies(msys64_build msys64_imageclean)
+
+if(YUNIBASE_WITH_YUNI)
+    add_run_test(cygwin64_yunitest cygwin-run-yunitest.cmake)
+    add_dependencies(yunitest cygwin64_yunitest)
+endif()
 
 #
 # Download prerequisites

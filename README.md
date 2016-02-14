@@ -6,7 +6,11 @@ This is Yunibase, collection of R6RS/R7RS implementations to test [Yuni R6RS/R7R
 Build environments
 ==================
 
-* Cygwin64
+* Windows
+ * Cygwin64
+* Vagrant
+ * [Official FreeBSD Vagrant images][] on Atlas
+  * `freebsd/FreeBSD-10.2-STABLE`, `freebsd/FreeBSD-11.0-CURRENT`
 * [Linux Docker images][] on [Docker hub][]
  * UbuntuLTS, Fedora, Alpine and official JDK8
 
@@ -37,20 +41,51 @@ Implementations
 * Gauche: Uses patched version to build on Cygwin64 host(#5)
 * Chicken: Uses development snapshot to bootstrap current official git HEAD
 
-Implementations matrix
-======================
+Platform matrix
+===============
 
-|                |UbuntuLTS|Fedora|Alpine|Java|Cygwin64|Remarks|
-|:---------------|:-------:|:----:|:----:|:--:|:------:|:------|
-|[Chibi-scheme][]|X        |X     |X     |    |X       |       |
-|[Gauche][]      |X        |X     |      |    |X       |       |
-|NMosh           |X        |X     |      |    |X       |Also included in Java image to bootstrap Yuni|
-|[Sagittarius][] |X        |      |      |    |X       |       |
-|[Chicken][]     |X        |X     |X     |    |X       |       |
-|[Guile][]       |X        |      |      |    |        |Not enabled except UbuntuLTS due to excessive build time|
-|[Racket][]      |X        |X     |      |    |        |       |
-|[Vicare][]      |X        |X     |      |    |        |       |
-|[Kawa][]        |         |      |      |X   |        |       |
+Linux
+-----
+|                |UbuntuLTS|Fedora|Alpine|Java |Remarks|
+|:---------------|:-------:|:----:|:----:|:---:|:------|
+|(Foundation)    |glibc    |glibc |Musl  |Java8|       |
+|[Chibi-scheme][]|X        |X     |X     |     |       |
+|[Gauche][]      |X        |X     |      |     |       |
+|NMosh           |X        |X     |      |     |Also included in Java image to bootstrap Yuni|
+|[Sagittarius][] |X        |      |      |     |       |
+|[Chicken][]     |X        |X     |X     |     |       |
+|[Guile][]       |X        |      |      |     |Not enabled except UbuntuLTS due to excessive build time|
+|[Racket][]      |X        |X     |      |     |       |
+|[Vicare][]      |X        |X     |      |     |       |
+|[Kawa][]        |         |      |      |X    |       |
+
+Windows
+-------
+|                |Cygwin64|Remarks|
+|:---------------|:------:|:------|
+|(Foundation)    |newlib  |       |
+|[Chibi-scheme][]|X       |       |
+|[Gauche][]      |X       |       |
+|NMosh           |X       |       |
+|[Sagittarius][] |X       |       |
+|[Chicken][]     |X       |       |
+|[Guile][]       |        |       |
+|[Racket][]      |        |       |
+|[Vicare][]      |        |       |
+
+Others
+------
+|                |FBSD10 |FBSD11 |Remarks|
+|:---------------|:-----:|:-----:|:------|
+|(Foundation)    |freebsd|freebsd|       |
+|[Chibi-scheme][]|X      |X      |       |
+|[Gauche][]      |       |       |       |
+|NMosh           |X      |X      |       |
+|[Sagittarius][] |       |       |       |
+|[Chicken][]     |       |       |       |
+|[Guile][]       |       |       |       |
+|[Racket][]      |X      |X      |       |
+|[Vicare][]      |       |       |       |
 
 
 [Stable]: https://bitbucket.org/okuoku/yunibase-impl-stable
@@ -58,6 +93,7 @@ Implementations matrix
 [Docker Hub]: https://hub.docker.com/r/okuoku/yunibase/
 [Yuni R6RS/R7RS portability library]: https://github.com/okuoku/yuni
 [Linux Docker images]: https://github.com/okuoku/yunibase/tree/master/hosts/docker-linux
+[Official FreeBSD Vagrant images]: https://atlas.hashicorp.com/FreeBSD/
 
 [Chibi-scheme]: http://synthcode.com/wiki/chibi-scheme
 [Gauche]: http://practical-scheme.net/gauche/

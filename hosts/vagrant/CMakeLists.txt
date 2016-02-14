@@ -3,6 +3,9 @@ project(yunibuild-vagrant NONE)
 
 add_custom_target(base) # Setup yunibuild boxes
 add_custom_target(image) # Setup yunibase boxes
+add_custom_target(yunitest) # Test with ${YUNIBASE_WITH_YUNI}
+add_custom_target(destroy) # Destroy current image
+add_custom_target(stop) # Stop VMs on yunitest
 
 function(add_vagrant_sshconfig tgt nam fil)
     add_custom_target(${tgt}
@@ -75,13 +78,27 @@ function(add_vagrant_package tgt nam addnam)
     file(REMOVE ${CMAKE_CURRENT_BINARY_DIR}/${nam}/package.box)
     add_custom_target(${tgt}
         COMMAND vagrant up
-        COMMAND vagrant provision # FIXME: Need this?
+        # COMMAND vagrant provision # FIXME: Need this?
         COMMAND vagrant halt
         COMMAND vagrant package
         COMMAND vagrant destroy -f
         COMMAND vagrant box add --force --name ${addnam} package.box
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${nam}
         COMMENT "Packaging(${tgt})...")
+endfunction()
+
+function(add_vagrant_stop tgt nam)
+    add_custom_target(${tgt}
+        COMMAND vagrant halt
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${nam}
+        COMMENT "Halting(${tgt})...")
+endfunction()
+
+function(add_vagrant_destroy tgt nam)
+    add_custom_target(${tgt}
+        COMMAND vagrant destroy -f
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${nam}
+        COMMENT "Destroy(${tgt})...")
 endfunction()
 
 # VM state directories
@@ -116,16 +133,21 @@ add_vagrant_run(fbsd10-yunibase-build
     -DUSE_GMAKE=TRUE
     "-DONLY=CHIBI_SCHEME@NMOSH@RACKET"
     -P /home/vagrant/yunibase/scripts/build-on-root.cmake)
+add_vagrant_stop(fbsd10-yunibase-build-stop
+    fbsd10-yunibase)
+add_vagrant_destroy(fbsd10-yunibase-destroy
+    fbsd10-yunibase)
 add_vagrant_package(fbsd10-yunibase-package
     fbsd10-yunibase
     "okuoku/yunibase-fbsd10")
 
 add_dependencies(fbsd10-yunibase-sync fbsd10-yunibase-image)
 add_dependencies(fbsd10-yunibase-build fbsd10-yunibase-sync)
+add_dependencies(fbsd10-yunibase-build-stop fbsd10-yunibase-build)
 add_dependencies(fbsd10-yunibase-package fbsd10-yunibase-build)
 
 add_dependencies(base fbsd10-yunibuild-image)
-add_dependencies(image fbsd10-yunibase-package)
+add_dependencies(image fbsd10-yunibase-build-stop)
 
 
 # FBSD11
@@ -151,15 +173,47 @@ add_vagrant_run(fbsd11-yunibase-build
     -DUSE_GMAKE=TRUE
     "-DONLY=CHIBI_SCHEME@NMOSH@RACKET"
     -P /home/vagrant/yunibase/scripts/build-on-root.cmake)
+add_vagrant_stop(fbsd11-yunibase-build-stop
+    fbsd11-yunibase)
+add_vagrant_destroy(fbsd11-yunibase-destroy
+    fbsd11-yunibase)
 add_vagrant_package(fbsd11-yunibase-package
     fbsd11-yunibase
     "okuoku/yunibase-fbsd11")
 
 add_dependencies(fbsd11-yunibase-sync fbsd11-yunibase-image)
 add_dependencies(fbsd11-yunibase-build fbsd11-yunibase-sync)
+add_dependencies(fbsd11-yunibase-build-stop fbsd11-yunibase-build)
 add_dependencies(fbsd11-yunibase-package fbsd11-yunibase-build)
 
 add_dependencies(base fbsd11-yunibuild-image)
-add_dependencies(image fbsd11-yunibase-package)
+add_dependencies(image fbsd11-yunibase-build-stop)
 
+# Destroy
+add_dependencies(destroy fbsd11-yunibase-destroy fbsd10-yunibase-destroy)
 
+# Yunitest
+#  Currently, we use -build target for testing.
+
+function(add_yunitest tgt nam)
+    add_vagrant_up(${tgt}_up ${nam})
+    add_vagrant_sync(${tgt}_sync ${nam}
+        /yunitest ${YUNIBASE_WITH_YUNI})
+    add_vagrant_run(${tgt}_run ${nam}
+        sudo cmake -P 
+        /yunitest/yuni/integration/buildhost-yunibase/test-on-root.cmake)
+    add_vagrant_stop(${tgt}_stop ${nam})
+    add_vagrant_stop(${tgt}_post ${nam})
+    add_custom_target(${tgt})
+    add_dependencies(${tgt} ${tgt}_post)
+    add_dependencies(${tgt}_post ${tgt}_run)
+    add_dependencies(${tgt}_run ${tgt}_sync)
+    add_dependencies(${tgt}_sync ${tgt}_up)
+    add_dependencies(yunitest ${tgt})
+    add_dependencies(stop ${tgt}_stop)
+endfunction()
+
+if(YUNIBASE_WITH_YUNI)
+    add_yunitest(fbsd10-yunitest fbsd10-yunibase)
+    add_yunitest(fbsd11-yunitest fbsd11-yunibase)
+endif()

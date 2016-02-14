@@ -42,7 +42,7 @@ execute_process(
     COMMAND docker run
     --cidfile=${CIDFILE}
     -it
-    -v ${_mysrc}:/yunibase:ro
+    -v ${_mysrc}:/yunibase:Z
     ${IMAGE}
     cmake "${_onlyarg}" "${_exceptarg}"
     -DCLEANSOURCES=TRUE

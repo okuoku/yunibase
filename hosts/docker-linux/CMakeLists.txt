@@ -12,6 +12,7 @@ add_custom_target(image)  # Build yunibase images
 add_custom_target(taste)  # Check latest sources
 add_custom_target(push)   # Push built images
 add_custom_target(stamp)  # Stamp current repository version
+add_custom_target(yunitest) # Test with ${YUNIBASE_WITH_YUNI}
 
 # Globals
 
@@ -117,3 +118,22 @@ add_dependencies(docker_yuni_default stamp)
 add_dependencies(docker_yuni_fedora stamp)
 add_dependencies(docker_yuni_alpine stamp)
 add_dependencies(docker_yuni_java stamp)
+
+#
+# yunitest
+# 
+
+function(add_docker_yunitest tgt tag)
+    add_custom_target(${tgt}
+        COMMAND ${CMAKE_COMMAND}
+        -DIMAGE=${tag}
+        -P ${YUNIBASE_WITH_YUNI}/integration/buildhost-docker-linux/test-on-docker.cmake
+        COMMENT "Testing(${tgt})...")
+    add_dependencies(yunitest ${tgt})
+endfunction()
+
+if(YUNIBASE_WITH_YUNI)
+    add_docker_yunitest(yunitest_default "okuoku/yunibase:testing")
+    add_docker_yunitest(yunitest_fedora "okuoku/yunibase:testing-fedora")
+    add_docker_yunitest(yunitest_java "okuoku/yunibase:testing-java")
+endif()

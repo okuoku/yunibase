@@ -128,3 +128,6 @@ if(YUNIBASE_ONLY)
     message(STATUS "")
     message(STATUS "YUNIBASE_ONLY = ${YUNIBASE_ONLY}")
 endif()
+
+add_buildmgr_report()
+

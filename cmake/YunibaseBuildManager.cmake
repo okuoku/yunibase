@@ -25,6 +25,16 @@ macro(register_recipe nam flav)
     endif()
     list(APPEND __yunibase_buildmgr_recipes "${nam}_${flav}:${_first}")
     set(__yunibase_buildmgr_recipelist_${_first} ${_recipes})
+    # Generate loglist
+    set(_logtop ${YUNIBASE_BUILD_REPORT_PREFIX}/recipe_${nam}_${flav}.cmake)
+    file(WRITE ${_logtop}
+        "# Top for ${nam} ${flav}\n")
+    file(WRITE ${_logtop}
+        "set(recipelogprefix_${nam}_${flav} ${_recipes})\n")
+    foreach(e ${_recipes})
+        file(APPEND ${_logtop}
+            "include(${YUNIBASE_BUILD_REPORT_PREFIX}/${e}.cmake OPTIONAL)\n")
+    endforeach()
 endmacro()
 
 function(init_config_directory)
@@ -32,6 +42,9 @@ function(init_config_directory)
         if(EXISTS ${YUNIBASE_BUILD_CONFIG_PREFIX}/configured_by_me)
             file(REMOVE_RECURSE ${YUNIBASE_BUILD_CONFIG_PREFIX})
         endif()
+    endif()
+    if(EXISTS ${YUNIBASE_BUILD_REPORT_PREFIX})
+        file(REMOVE_RECURSE ${YUNIBASE_BUILD_REPORT_PREFIX})
     endif()
 endfunction()
 
@@ -43,6 +56,7 @@ set(yunibase___step_options
 
 function(yunibase_recipe_configure1 tgt opts)
     set(dir ${YUNIBASE_BUILD_CONFIG_PREFIX}/${tgt})
+    set(rdir ${YUNIBASE_BUILD_REPORT_PREFIX}/${tgt})
     set(pth ${dir}/config.cmake)
     file(MAKE_DIRECTORY ${dir})
     file(WRITE ${YUNIBASE_BUILD_CONFIG_PREFIX}/configured_by_me "blah")
@@ -108,6 +122,47 @@ function(toggle_recipe_only1 nam state)
                 EXCLUDE_FROM_ALL
                 ${state})
             break()
+        endif()
+    endforeach()
+endfunction()
+
+macro(check_target_name var nam) # Only for enabled target
+    foreach(e ${__yunibase_buildmgr_activated_recipes})
+        if(${e} MATCHES "${nam}:(.*)")
+            # In ALL target?
+            set(_tgt ${CMAKE_MATCH_1})
+            get_target_property(_exclude ${_tgt}
+                EXCLUDE_FROM_ALL)
+            if(_exclude)
+                set(${var} FALSE)
+            else()
+                set(${var} ${_tgt})
+            endif()
+            break()
+        endif()
+    endforeach()
+endmacro()
+
+function(add_buildmgr_report)
+    set(_total ${CMAKE_CURRENT_BINARY_DIR}/report_total.cmake)
+    file(WRITE ${_total} "# Include every activated recipe logs\n")
+    file(APPEND ${_total} "set(recipelogprefixes)\n")
+    add_custom_target(buildmgr_report ALL
+        COMMAND ${CMAKE_COMMAND} 
+        -DTOTAL=${_total}
+        -P ${YUNIBASE_ROOT}/cmake/YunibaseRecipeLogGen.cmake)
+
+    foreach(e ${__yunibase_buildmgr_recipes})
+        if(${e} MATCHES "([^:]*):(.*)")
+            set(nam ${CMAKE_MATCH_1})
+            check_target_name(tgt ${nam})
+            if(tgt)
+                add_dependencies(buildmgr_report ${tgt})
+                file(APPEND ${_total}
+                    "list(APPEND recipelogprefixes ${nam})\n")
+                file(APPEND ${_total}
+                    "include(\"${YUNIBASE_BUILD_REPORT_PREFIX}/recipe_${nam}.cmake\")\n")
+            endif()
         endif()
     endforeach()
 endfunction()

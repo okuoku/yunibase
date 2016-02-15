@@ -51,7 +51,11 @@ endmacro()
 macro(yunibase_recipe_step tgt runner_file srcdir envp stepname)
     yunibase_recipe_gen_commands(_cmd ${ARGN})
     file(APPEND ${runner_file}
-        "run_step(${tgt} ${stepname} ${srcdir} ${YUNIBASE_BUILD_CONFIG_PREFIX}/${tgt} ${YUNIBASE_BUILD_REPORT_PREFIX}/${tgt} ${YUNIBASE_BUILD_LOG_PREFIX}/${tgt} \"${envp}\" ${_cmd})\n")
+        "run_step(${tgt} ${stepname} ${srcdir} ${YUNIBASE_BUILD_CONFIG_PREFIX}/${tgt} ${YUNIBASE_BUILD_REPORT_PREFIX} ${YUNIBASE_BUILD_LOG_PREFIX}/${tgt} \"${envp}\" ${_cmd})\n")
+    file(APPEND ${YUNIBASE_BUILD_REPORT_PREFIX}/${tgt}.cmake
+        "list(APPEND ${tgt}_steps "${stepname}")\n")
+    file(APPEND ${YUNIBASE_BUILD_REPORT_PREFIX}/${tgt}.cmake
+        "include(\"${YUNIBASE_BUILD_REPORT_PREFIX}/${tgt}_${stepname}_report.cmake\" OPTIONAL)\n")
 endmacro()
 
 macro(yunibase_recipe_set_default_opts prefix)
@@ -91,6 +95,10 @@ macro(build_recipe tgt source_dir install_dir prefix envp)
         yunibase_recipe_replace_args("${e}" _arg ${prefix})
         list(APPEND _args ${_arg})
     endforeach()
+
+    # Generate result top file
+    file(WRITE ${YUNIBASE_BUILD_REPORT_PREFIX}/${tgt}.cmake
+        "# Report top for ${tgt}\nset(${tgt}_steps)\n")
 
     # Generate runner body
     set(_reg)

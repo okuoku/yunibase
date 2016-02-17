@@ -37,6 +37,7 @@ macro(try_process result resultsym time workdir outlog errlog timeout)
     if(${timeout} EQUAL 0)
         set(_timeoutarg "")
     else()
+        message(STATUS "Timeout: ${timeout}")
         set(_timeoutarg TIMEOUT ${timeout})
     endif()
     while(_do_next)
@@ -74,7 +75,7 @@ function(gen_report prefix reportfile result duration)
         "set(${prefix}_TIMESTAMP \"${_timestamp}\")\n")
 endfunction()
 
-macro(run_step tgt stepname dir cfgdir rptdir logdir envp)
+macro(run_step tgt stepname dir cfgdir rptdir logdir envp timeout)
     set(outlog ${logdir}/${tgt}_${stepname}_stdout.log)
     set(errlog ${logdir}/${tgt}_${stepname}_stderr.log)
     set(report ${rptdir}/${tgt}_${stepname}_report.cmake)
@@ -117,7 +118,7 @@ macro(run_step tgt stepname dir cfgdir rptdir logdir envp)
         endforeach()
         try_process(rr result etime 
             ${dir} ${outlog} ${errlog} 
-            0 
+            ${timeout}
             ${ARGN})
         if(rr)
             file(READ ${outlog} log_out)

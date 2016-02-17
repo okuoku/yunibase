@@ -48,10 +48,10 @@ macro(yunibase_recipe_gen_commands var first)
     set(${var} "${_cur}")
 endmacro()
 
-macro(yunibase_recipe_step tgt runner_file srcdir envp stepname)
+macro(yunibase_recipe_step tgt runner_file srcdir envp timeout stepname)
     yunibase_recipe_gen_commands(_cmd ${ARGN})
     file(APPEND ${runner_file}
-        "run_step(${tgt} ${stepname} ${srcdir} ${YUNIBASE_BUILD_CONFIG_PREFIX}/${tgt} ${YUNIBASE_BUILD_REPORT_PREFIX} ${YUNIBASE_BUILD_LOG_PREFIX}/${tgt} \"${envp}\" ${_cmd})\n")
+        "run_step(${tgt} ${stepname} ${srcdir} ${YUNIBASE_BUILD_CONFIG_PREFIX}/${tgt} ${YUNIBASE_BUILD_REPORT_PREFIX} ${YUNIBASE_BUILD_LOG_PREFIX}/${tgt} \"${envp}\" ${timeout} ${_cmd})\n")
     file(APPEND ${YUNIBASE_BUILD_REPORT_PREFIX}/${tgt}.cmake
         "list(APPEND ${tgt}_steps "${stepname}")\n")
     file(APPEND ${YUNIBASE_BUILD_REPORT_PREFIX}/${tgt}.cmake
@@ -102,19 +102,24 @@ macro(build_recipe tgt source_dir install_dir prefix envp)
 
     # Generate runner body
     set(_reg)
+    set(_reg_timeout 0)
     foreach(e ${_args})
         if(${e} STREQUAL "STEP")
             if(_reg)
-                yunibase_recipe_step(${tgt} ${_runner_file} ${source_dir} "${envp}" ${_reg})
+                yunibase_recipe_step(${tgt} ${_runner_file} ${source_dir} "${envp}" ${_reg_timeout} ${_reg})
             endif()
             set(_reg)
+            set(_reg_timeout 0)
+        elseif(${e} MATCHES "TIMEOUT:(.*)")
+            set(_reg_timeout ${CMAKE_MATCH_1})
         else()
             list(APPEND _reg "${e}")
         endif()
     endforeach()
     if(_reg) # Process the last step
-        yunibase_recipe_step(${tgt} ${_runner_file} ${source_dir} "${envp}" ${_reg})
+        yunibase_recipe_step(${tgt} ${_runner_file} ${source_dir} "${envp}" ${_reg_timeout} ${_reg})
         set(_reg)
+        set(_reg_timeout 0)
     endif()
 
     # Invoke runner

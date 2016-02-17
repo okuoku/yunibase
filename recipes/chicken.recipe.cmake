@@ -20,6 +20,7 @@ set(RECIPE_CHICKEN # Recipe for Chicken
 set(RECIPE_CHICKEN_TEST
     STEP "Test"      
     MAKE ${CHICKEN_ARG_PLATFORM} "PREFIX=__INSTALL_PREFIX__" check
+    TIMEOUT:600
 )
 set(RECIPE_CHICKEN_SETUP
     STEP "Setup"

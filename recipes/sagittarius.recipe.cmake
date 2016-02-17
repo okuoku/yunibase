@@ -2,7 +2,7 @@ set(RECIPE_SAGITTARIUS # Recipe for Sagittarius
     STEP "Configure" ${CMAKE_COMMAND} "." "-DCMAKE_INSTALL_PREFIX=__INSTALL_PREFIX__"
     # FIXME: Use CMake --build here.
     STEP "Build"     MAKE __MAKE_OPTS__
-    STEP "Test"      MAKE test
+    STEP "Test"      MAKE test TIMEOUT:600
     STEP "Install"   MAKE install
 )
 

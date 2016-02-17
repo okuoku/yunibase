@@ -1,6 +1,8 @@
 Yunibase
 ========
 
+[![wercker status](https://app.wercker.com/status/0c36dd5ef969e9f4d3ff7e5ca759faba/m "wercker status")](https://app.wercker.com/project/bykey/0c36dd5ef969e9f4d3ff7e5ca759faba)
+
 This is Yunibase, collection of R6RS/R7RS implementations to test [Yuni R6RS/R7RS portability library][].
 
 Build environments

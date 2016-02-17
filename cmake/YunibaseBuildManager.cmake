@@ -150,6 +150,7 @@ function(add_buildmgr_report)
     add_custom_target(buildmgr_report ALL
         COMMAND ${CMAKE_COMMAND} 
         -DTOTAL=${_total}
+        -DREPORT=${CMAKE_CURRENT_BINARY_DIR}/report.cmake
         -P ${YUNIBASE_ROOT}/cmake/YunibaseRecipeLogGen.cmake)
 
     foreach(e ${__yunibase_buildmgr_recipes})

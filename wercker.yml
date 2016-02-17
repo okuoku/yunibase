@@ -1,0 +1,39 @@
+box: okuoku/yunibuild:latest
+build:
+  steps:
+    - script:
+        name: Install git
+        code: |
+            apt-get update && apt-get install -y git
+    - script:
+        name: mkdirs
+        code: |
+            mkdir -p /yunisrc && mkdir -p /build
+    - script:
+        name: clone yunibase (again)
+        code: |
+            cd /yunisrc && git clone https://github.com/okuoku/yunibase.git --depth 2
+    - script:
+        name: clone submodule impl-stable
+        code: |
+            cd /yunisrc/yunibase && git submodule update --init --recursive impl-stable
+    - script:
+        name: close submodule chibi-scheme
+        code: |
+            cd /yunisrc/yunibase && git submodule update --init --recursive impl-current/chibi-scheme
+    - script:
+        name: clean up
+        code: |
+            cd /yunisrc/yunibase && rm -rf impl-stable/chicken impl-stable/gauche impl-stable/sagittarius && find /yunisrc/yunibase -type d -empty | xargs rm -rf
+    - script:
+        name: build
+        code: |
+            cd /build && cmake /yunisrc/yunibase && make
+    - script:
+        name: clean up
+        code: |
+            rm -rf /yunisrc
+
+
+
+

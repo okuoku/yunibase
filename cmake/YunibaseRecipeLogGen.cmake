@@ -6,7 +6,7 @@
 include(${TOTAL})
 
 if(REPORT)
-    file(WRITE ${REPORT} "# Report.cmake\nset(report_prefixes)\n")
+    file(WRITE ${REPORT} "# Report.cmake\nset(report_variables)\n")
 endif()
 
 function(do_report prefix nam step result duration)
@@ -14,7 +14,7 @@ function(do_report prefix nam step result duration)
         file(APPEND ${REPORT}
             "set(report_${prefix}_${nam}_${step} ${nam} ${step} ${result} ${duration})\n")
         file(APPEND ${REPORT}
-            "list(APPEND report_prefixes report_${prefix}_${nam}_${step})")
+            "list(APPEND report_variables report_${prefix}_${nam}_${step})\n\n")
     endif()
 endfunction()
 

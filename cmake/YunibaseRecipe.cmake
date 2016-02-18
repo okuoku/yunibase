@@ -53,7 +53,7 @@ macro(yunibase_recipe_step tgt runner_file srcdir envp timeout stepname)
     file(APPEND ${runner_file}
         "run_step(${tgt} ${stepname} ${srcdir} ${YUNIBASE_BUILD_CONFIG_PREFIX}/${tgt} ${YUNIBASE_BUILD_REPORT_PREFIX} ${YUNIBASE_BUILD_LOG_PREFIX}/${tgt} \"${envp}\" ${timeout} ${_cmd})\n")
     file(APPEND ${YUNIBASE_BUILD_REPORT_PREFIX}/${tgt}.cmake
-        "list(APPEND ${tgt}_steps "${stepname}")\n")
+        "list(APPEND ${tgt}_steps \"${stepname}\")\n")
     file(APPEND ${YUNIBASE_BUILD_REPORT_PREFIX}/${tgt}.cmake
         "include(\"${YUNIBASE_BUILD_REPORT_PREFIX}/${tgt}_${stepname}_report.cmake\" OPTIONAL)\n")
 endmacro()

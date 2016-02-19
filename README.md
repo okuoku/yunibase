@@ -12,9 +12,9 @@ Build environments
  * Cygwin64
 * Vagrant
  * [Official FreeBSD Vagrant images][] on Atlas
-  * `freebsd/FreeBSD-10.2-STABLE`, `freebsd/FreeBSD-11.0-CURRENT`
-* [Linux Docker images][] on [Docker hub][]
- * UbuntuLTS, Fedora, Alpine and official JDK8
+  * `freebsd/FreeBSD-10.2-STABLE`, `freebsd/FreeBSD-11.0-CURRENT` and Docker image build on `fedora/23-cloud-base`
+* [Linux Docker images][] on Docker hub
+ * UbuntuLTS, Fedora, Alpine, official JDK8 and unofficial `32bit/ubuntu`
 
 Prebuilt images
 ===============
@@ -24,6 +24,7 @@ Prebuilt images
  * `okuoku/yunibase:testing-fedora` [![](https://badge.imagelayers.io/okuoku/yunibase:testing-fedora.svg)](https://imagelayers.io/?images=okuoku/yunibase:testing-fedora) - Fedora latest
  * `okuoku/yunibase:testing-alpine` [![](https://badge.imagelayers.io/okuoku/yunibase:testing-alpine.svg)](https://imagelayers.io/?images=okuoku/yunibase:testing-alpine) - Alpine Edge(Not used in Yuni for now)
  * `okuoku/yunibase:testing-java` [![](https://badge.imagelayers.io/okuoku/yunibase:testing-java.svg)](https://imagelayers.io/?images=okuoku/yunibase:testing-java) - Java (JDK 8 from Docker official image)
+ * `okuoku/yunibase:testing-ubuntu32` [![](https://badge.imagelayers.io/okuoku/yunibase:testing-ubuntu32.svg)](https://imagelayers.io/?images=okuoku/yunibase:testing-ubuntu32) - Ubuntu i686 LTS (from unofficial `32bit/ubuntu`)
 
 Implementations
 ===============
@@ -48,18 +49,18 @@ Platform matrix
 
 Linux
 -----
-|                |UbuntuLTS|Fedora|Alpine|Java |Remarks|
-|:---------------|:-------:|:----:|:----:|:---:|:------|
-|(Foundation)    |glibc    |glibc |Musl  |Java8|       |
-|[Chibi-scheme][]|X        |X     |X     |     |       |
-|[Gauche][]      |X        |X     |      |     |       |
-|NMosh           |X        |X     |      |     |Also included in Java image to bootstrap Yuni|
-|[Sagittarius][] |X        |      |      |     |       |
-|[Chicken][]     |X        |X     |X     |     |       |
-|[Guile][]       |X        |      |      |     |Not enabled except UbuntuLTS due to excessive build time|
-|[Racket][]      |X        |X     |      |     |       |
-|[Vicare][]      |X        |X     |      |     |       |
-|[Kawa][]        |         |      |      |X    |       |
+|                |UbuntuLTS|Fedora|Alpine|Java |Ubuntu32|Remarks|
+|:---------------|:-------:|:----:|:----:|:---:|:------:|:------|
+|(Foundation)    |glibc    |glibc |Musl  |Java8|glibc   |       |
+|[Chibi-scheme][]|X        |X     |X     |     |X       |       |
+|[Gauche][]      |X        |X     |      |     |X       |       |
+|NMosh           |X        |X     |      |     |X       |Also included in Java image to bootstrap Yuni|
+|[Sagittarius][] |X        |      |      |     |X       |       |
+|[Chicken][]     |X        |X     |X     |     |X       |       |
+|[Guile][]       |X        |      |      |     |        |Not enabled except UbuntuLTS due to excessive build time|
+|[Racket][]      |X        |X     |      |     |X       |       |
+|[Vicare][]      |X        |X     |      |     |        |       |
+|[Kawa][]        |         |      |      |X    |        |       |
 
 Windows
 -------

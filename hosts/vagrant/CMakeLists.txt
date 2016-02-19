@@ -13,7 +13,7 @@ function(add_vagrant_sshconfig tgt nam fil)
         -DOUT=${fil}
         -DPATH=${CMAKE_CURRENT_BINARY_DIR}/${nam}
         -P ${CMAKE_CURRENT_LIST_DIR}/vagrant-fetch-sshconfig.cmake
-        COMMENT "Query VM ssh config(${nam})")
+        COMMENT "Query VM ssh config(${nam})...")
 endfunction()
 
 function(add_vagrant_rsync_command tgt sshcfg tgtbase)
@@ -121,10 +121,25 @@ add_vagrant_up(fedora-cloudbase-init
 add_vagrant_sync(fedora-cloudbase-sync0
     fedora-cloudbase /yunibase
     ${CMAKE_CURRENT_LIST_DIR}/../..)
+if(YUNIBASE_WITH_YUNI)
+    # Setup yuni source too (must be match with add_yunitest())
+    add_vagrant_sync(fedora-cloudbase-sync0-yuni
+        fedora-cloudbase /yunitest
+        ${YUNIBASE_WITH_YUNI})
+    add_dependencies(fedora-cloudbase-sync0-yuni fedora-cloudbase-init)
+    add_dependencies(fedora-cloudbase-sync0 fedora-cloudbase-sync0-yuni)
+endif()
 add_dependencies(fedora-cloudbase-sync0 fedora-cloudbase-init)
-add_vagrant_run(fedora-cloudbase-sync # Build CMake build tree
-    fedora-cloudbase
-    sudo cmake /yunibase/hosts/docker-linux)
+if(YUNIBASE_WITH_YUNI)
+    add_vagrant_run(fedora-cloudbase-sync # Build CMake build tree
+        fedora-cloudbase
+        sudo cmake -DYUNIBASE_WITH_YUNI=/yunitest/yuni 
+        /yunibase/hosts/docker-linux)
+else()
+    add_vagrant_run(fedora-cloudbase-sync # Build CMake build tree
+        fedora-cloudbase
+        sudo cmake /yunibase/hosts/docker-linux)
+endif()
 add_dependencies(fedora-cloudbase-sync fedora-cloudbase-sync0)
 
 add_vagrant_run(fedora-cloudbase-base
@@ -139,6 +154,8 @@ add_dependencies(fedora-cloudbase-image fedora-cloudbase-sync)
 
 add_vagrant_destroy(fedora-cloudbase-destroy
     fedora-cloudbase)
+add_dependencies(base fedora-cloudbase-base)
+add_dependencies(image fedora-cloudbase-image)
 
 # FBSD10
 register_vagrantfile(
@@ -228,13 +245,11 @@ add_dependencies(destroy
 # Yunitest
 #  Currently, we use -build target for testing.
 
-function(add_yunitest tgt nam)
+function(add_yunitest0 tgt nam)
     add_vagrant_up(${tgt}_up ${nam})
     add_vagrant_sync(${tgt}_sync ${nam}
         /yunitest ${YUNIBASE_WITH_YUNI})
-    add_vagrant_run(${tgt}_run ${nam}
-        sudo cmake -P 
-        /yunitest/yuni/integration/buildhost-yunibase/test-on-root.cmake)
+    add_vagrant_run(${tgt}_run ${nam} ${ARGN})
     add_vagrant_stop(${tgt}_stop ${nam})
     add_vagrant_stop(${tgt}_post ${nam})
     add_custom_target(${tgt})
@@ -246,7 +261,21 @@ function(add_yunitest tgt nam)
     add_dependencies(stop ${tgt}_stop)
 endfunction()
 
+function(add_yunitest_docker tgt nam)
+    add_yunitest0(${tgt} ${nam}
+        # Run "make yunitest" on CMake configured tree
+        sudo make yunitest)
+endfunction()
+
+function(add_yunitest tgt nam)
+    add_yunitest0(${tgt} ${nam}
+        # Run test-on-root.cmake directly
+        sudo cmake -P 
+        /yunitest/yuni/integration/buildhost-yunibase/test-on-root.cmake)
+endfunction()
+
 if(YUNIBASE_WITH_YUNI)
     add_yunitest(fbsd10-yunitest fbsd10-yunibase)
     add_yunitest(fbsd11-yunitest fbsd11-yunibase)
+    add_yunitest_docker(fedora-cloudbase-yunitest fedora-cloudbase)
 endif()

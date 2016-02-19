@@ -25,6 +25,8 @@ set(BASE_ALPINE
     "${YUNIBASE_REPO_ROOT}/hosts/docker-linux/base-alpine/Dockerfile")
 set(BASE_DEFAULT 
     "${YUNIBASE_REPO_ROOT}/hosts/docker-linux/base-ubuntuLTS/Dockerfile")
+set(BASE_UBUNTU32
+    "${YUNIBASE_REPO_ROOT}/hosts/docker-linux/base-ubuntu32LTS/Dockerfile")
 set(BASE_JAVA
     "${YUNIBASE_REPO_ROOT}/hosts/docker-linux/base-java/Dockerfile")
 
@@ -67,6 +69,8 @@ endfunction()
 #
 add_docker_build(docker_base_default
     ${BASE_DEFAULT} "okuoku/yunibuild:latest" ${BUILDCTX_NONE})
+add_docker_build(docker_base_ubuntu32
+    ${BASE_UBUNTU32} "okuoku/yunibuild:latest-ubuntu32" ${BUILDCTX_NONE})
 add_docker_build(docker_base_fedora 
     ${BASE_FEDORA} "okuoku/yunibuild:latest-fedora" ${BUILDCTX_NONE})
 add_docker_build(docker_base_alpine
@@ -75,7 +79,7 @@ add_docker_build(docker_base_java
     ${BASE_JAVA} "okuoku/yunibuild:latest-java" ${BUILDCTX_NONE})
 add_docker_push(docker_push_yunibuild "okuoku/yunibuild")
 
-add_dependencies(base docker_base_default 
+add_dependencies(base docker_base_default docker_base_ubuntu32
     docker_base_fedora docker_base_alpine docker_base_java)
 add_dependencies(push docker_push_yunibuild)
 
@@ -85,6 +89,11 @@ add_dependencies(push docker_push_yunibuild)
 add_docker_yunibase(docker_yuni_default
     "okuoku/yunibuild:latest" "okuoku/yunibase:testing"
     CHIBI_SCHEME GAUCHE NMOSH SAGITTARIUS CHICKEN GUILE RACKET VICARE
+    )
+add_docker_yunibase(docker_yuni_ubuntu32
+    "okuoku/yunibuild:latest-ubuntu32" "okuoku/yunibase:testing-ubuntu32"
+    # Disabled: GUILE VICARE
+    CHIBI_SCHEME GAUCHE NMOSH SAGITTARIUS CHICKEN RACKET 
     )
 add_docker_yunibase(docker_yuni_fedora
     "okuoku/yunibuild:latest-fedora" "okuoku/yunibase:testing-fedora"
@@ -101,8 +110,8 @@ add_docker_yunibase(docker_yuni_java
 
 add_docker_push(docker_push_yunibase "okuoku/yunibase")
 
-add_dependencies(image docker_yuni_default docker_yuni_fedora 
-    docker_yuni_alpine docker_yuni_java)
+add_dependencies(image docker_yuni_default docker_yuni_ubuntu32
+    docker_yuni_fedora docker_yuni_alpine docker_yuni_java)
 
 add_dependencies(push docker_push_yunibase)
 
@@ -115,6 +124,7 @@ add_yunibase_stamp_version(stamp_version
     ${CMAKE_CURRENT_LIST_DIR}/_stamp.txt)
 add_dependencies(stamp stamp_version)
 add_dependencies(docker_yuni_default stamp)
+add_dependencies(docker_yuni_ubuntu32 stamp)
 add_dependencies(docker_yuni_fedora stamp)
 add_dependencies(docker_yuni_alpine stamp)
 add_dependencies(docker_yuni_java stamp)
@@ -134,6 +144,7 @@ endfunction()
 
 if(YUNIBASE_WITH_YUNI)
     add_docker_yunitest(yunitest_default "okuoku/yunibase:testing")
+    add_docker_yunitest(yunitest_ubuntu32 "okuoku/yunibase:testing-ubuntu32")
     add_docker_yunitest(yunitest_fedora "okuoku/yunibase:testing-fedora")
     add_docker_yunitest(yunitest_java "okuoku/yunibase:testing-java")
 endif()

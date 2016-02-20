@@ -25,3 +25,6 @@
 [submodule "impl-current/kawa"]
 	path = impl-current/kawa
 	url = https://github.com/spurious/kawa-mirror.git
+[submodule "impl-current/larceny"]
+	path = impl-current/larceny
+	url = https://github.com/larcenists/larceny

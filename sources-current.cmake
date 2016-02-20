@@ -31,4 +31,8 @@ register_source(KAWA CURRENT
     "impl-current/kawa"
     GIT
     "origin/master")
+register_source(LARCENY CURRENT
+    "impl-current/larceny"
+    GIT
+    "origin/master")
 

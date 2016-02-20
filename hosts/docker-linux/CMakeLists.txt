@@ -94,6 +94,7 @@ add_docker_yunibase(docker_yuni_ubuntu32
     "okuoku/yunibuild:latest-ubuntu32" "okuoku/yunibase:testing-ubuntu32"
     # Disabled: GUILE VICARE
     CHIBI_SCHEME GAUCHE NMOSH SAGITTARIUS CHICKEN RACKET 
+    LARCENY
     )
 add_docker_yunibase(docker_yuni_fedora
     "okuoku/yunibuild:latest-fedora" "okuoku/yunibase:testing-fedora"

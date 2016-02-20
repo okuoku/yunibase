@@ -51,6 +51,7 @@ include(./recipes/vicare.recipe.cmake)
 include(./recipes/guile.recipe.cmake)
 include(./recipes/sagittarius.recipe.cmake)
 include(./recipes/kawa.recipe.cmake)
+include(./recipes/larceny.recipe.cmake)
 
 # Source definitions
 init_sources()
@@ -109,6 +110,11 @@ else()
     activate_recipe(CHICKEN STABLE SKIP_TEST)
     activate_recipe(CHICKEN CURRENT SKIP_TEST)
     activate_recipe(KAWA CURRENT)
+    if(${CMAKE_SYSTEM_PROCESSOR} MATCHES "i?86" AND
+            ${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+        # Larceny currently only available on Linux/i386
+        activate_recipe(LARCENY CURRENT)
+    endif()
 endif()
 
 if(YUNIBASE_ONLY)

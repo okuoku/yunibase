@@ -9,12 +9,13 @@ WORKDIR /build
 #  Guile: libtool flex gettext pkg-config libunistring-dev libffi-dev libgc-dev
 #  Chicken: time (avoid bashism)
 #  Vicare: texinfo
+#  Larceny: nasm
 RUN apt-get update && apt-get install -y \
 cmake gcc g++ \
 autoconf automake \
 libgmp-dev libonig-dev \
 libtool flex gettext pkg-config libunistring-dev libffi-dev libgc-dev \
-time texinfo
+time texinfo nasm
 
 # 32bitness
 RUN mv /bin/uname /bin/uname.orig && \

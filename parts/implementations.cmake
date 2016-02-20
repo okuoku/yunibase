@@ -211,3 +211,12 @@ build_recipe(kawa_current ${kawa_current_src} ${kawa_current_dest}
 register_recipe(KAWA CURRENT
     kawa_current)
 
+# Larceny (current)
+set(larceny_current_src ${YUNIBASE_ROOT_CURRENT}/larceny)
+set(larceny_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/larceny)
+build_recipe(larceny_current ${larceny_current_src} ${larceny_current_dest}
+    LARCENY "" ${RECIPE_LARCENY})
+
+register_recipe(LARCENY CURRENT
+    larceny_current)
+

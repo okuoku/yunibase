@@ -11,8 +11,8 @@ Build environments
 * Windows
  * Cygwin64
 * Vagrant
- * [Official FreeBSD Vagrant images][] on Atlas
-  * `freebsd/FreeBSD-10.2-STABLE`, `freebsd/FreeBSD-11.0-CURRENT` and Docker image build on `fedora/23-cloud-base`
+ * [Official FreeBSD Vagrant images][] on Atlas - `freebsd/FreeBSD-10.2-STABLE` and `freebsd/FreeBSD-11.0-CURRENT` 
+ * Docker image build on `fedora/23-cloud-base`
 * [Linux Docker images][] on Docker hub
  * UbuntuLTS, Fedora, Alpine, official JDK8 and unofficial `32bit/ubuntu`
 
@@ -29,20 +29,22 @@ Prebuilt images
 Implementations
 ===============
 
-|                |Standard  |[Stable][]|[Current][]    |Remarks                               |
-|:---------------|:--------:|:--------:|:-------------:|:-------------------------------------|
-|[Chibi-scheme][]|R7RS      |n/a       |Official GitHub|                                      |
-|[Gauche][]      |R7RS      |0.9.4+    |Official GitHub|                                      |
-|NMosh           |R6RS+R7RS-|current   |not yet        |TESTFAIL                              |
-|[Sagittarius][] |R6RS+R7RS |0.7.0     |GitHub Mirror  |                                      |
-|[Chicken][]     |R7RS      |4.10.1*   |Official Git   |SKIPTEST, with `r7rs` egg             |
-|[Guile][]       |R6RS      |n/a       |Official Git   |TESTFAIL                              |
-|[Racket][]      |R6RS      |n/a       |Official GitHub|NOTEST, with `srfi-lib` and `r6rs-lib`|
-|[Vicare][]      |R6RS      |n/a       |Official GitHub|TESTFAIL                              |
-|[Kawa][]        |R7RS      |n/a       |GitHub Mirror  |SKIPTEST                              |
+|                |Code     |Standard  |[Stable][]|[Current][]    |Remarks                               |
+|:---------------|:-------:|:--------:|:--------:|:-------------:|:-------------------------------------|
+|[Chibi-scheme][]|C        |R7RS      |n/a       |Official GitHub|                                      |
+|[Gauche][]      |C        |R7RS      |0.9.4+    |Official GitHub|                                      |
+|NMosh           |C++      |R6RS+R7RS-|current   |not yet        |TESTFAIL                              |
+|[Sagittarius][] |C        |R6RS+R7RS |0.7.0     |GitHub Mirror  |                                      |
+|[Chicken][]     |C        |R7RS      |4.10.1*   |Official Git   |SKIPTEST, with `r7rs` egg             |
+|[Guile][]       |C        |R6RS      |n/a       |Official Git   |TESTFAIL                              |
+|[Racket][]      |C        |R6RS      |n/a       |Official GitHub|NOTEST, with `srfi-lib` and `r6rs-lib`|
+|[Vicare][]      |C        |R6RS      |n/a       |Official GitHub|TESTFAIL                              |
+|[Larceny][]     |Scheme, C|R6RS+R7RS |0.98*     |Official GitHub|NOTEST                                |
+|[Kawa][]        |Java     |R7RS      |n/a       |GitHub Mirror  |SKIPTEST                              |
 
 * Gauche: Uses patched version to build on Cygwin64 host(#5)
 * Chicken: Uses development snapshot to bootstrap current official git HEAD
+* Larceny: Uses binary distribution for Stable build
 
 Platform matrix
 ===============
@@ -60,6 +62,7 @@ Linux
 |[Guile][]       |X        |      |      |     |        |Not enabled except UbuntuLTS due to excessive build time|
 |[Racket][]      |X        |X     |      |     |X       |       |
 |[Vicare][]      |X        |X     |      |     |        |       |
+|[Larceny][]     |         |      |      |     |X       |       |
 |[Kawa][]        |         |      |      |X    |        |       |
 
 Windows
@@ -106,3 +109,4 @@ Others
 [Racket]: https://racket-lang.org/
 [Vicare]: http://marcomaggi.github.io/vicare.html
 [Kawa]: http://www.gnu.org/software/kawa/
+[Larceny]: http://www.larcenists.org/

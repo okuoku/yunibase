@@ -18,7 +18,7 @@ endfunction()
 
 function(add_vagrant_rsync_command tgt sshcfg tgtbase)
     add_custom_target(${tgt}
-        COMMAND rsync --archive --delete -z --copy-links
+        COMMAND rsync --archive --delete -z -l # --copy-links
         --chmod=ugo=rwX --no-perms --no-owner --no-group
         --rsync-path "sudo rsync" -e "ssh -F ${sshcfg}"
         --exclude .vagrant/ --exclude .git/

@@ -31,17 +31,20 @@ Implementations
 
 |                |Code     |Standard  |[Stable][]|[Current][]    |Remarks                               |
 |:---------------|:-------:|:--------:|:--------:|:-------------:|:-------------------------------------|
-|[Chibi-scheme][]|C        |R7RS      |n/a       |Official GitHub|                                      |
+|[Chibi-scheme][]|C        |R7RS      |          |Official GitHub|                                      |
 |[Gauche][]      |C        |R7RS      |0.9.4+    |Official GitHub|                                      |
-|NMosh           |C++      |R6RS+R7RS-|current   |not yet        |TESTFAIL                              |
-|[Sagittarius][] |C        |R6RS+R7RS |0.7.0     |GitHub Mirror  |                                      |
+|NMosh           |C++      |R6RS+R7RS-|current   |not yet        |                                      |
+|[Sagittarius][] |C        |R6RS+R7RS |0.7.1     |GitHub Mirror  |                                      |
 |[Chicken][]     |C        |R7RS      |4.10.1*   |Official Git   |SKIPTEST, with `r7rs` egg             |
-|[Guile][]       |C        |R6RS      |n/a       |Official Git   |TESTFAIL                              |
-|[Racket][]      |C        |R6RS      |n/a       |Official GitHub|NOTEST, with `srfi-lib` and `r6rs-lib`|
-|[Vicare][]      |C        |R6RS      |n/a       |Official GitHub|TESTFAIL                              |
+|[Guile][]       |C        |R6RS      |          |Official Git   |                                      |
+|[Racket][]      |C        |R6RS      |          |Official GitHub|NOTEST, with `srfi-lib` and `r6rs-lib`|
+|[Vicare][]      |C        |R6RS      |          |Official GitHub|                                      |
 |[Larceny][]     |Scheme, C|R6RS+R7RS |0.98*     |Official GitHub|NOTEST                                |
-|[Kawa][]        |Java     |R7RS      |n/a       |GitHub Mirror  |SKIPTEST                              |
+|[Kawa][]        |Java     |R7RS      |          |GitHub Mirror  |NOTEST                                |
 
+* [Stable][] implementations are only included if the implementation requires it to "bootstrap" [Current][] ones
+* NOTEST: Yunibase does not support testing on this implementation
+* SKIPTEST: Yunibase always skips test on this implementation
 * Gauche: Uses patched version to build on Cygwin64 host(#5)
 * Chicken: Uses development snapshot to bootstrap current official git HEAD
 * Larceny: Uses binary distribution for Stable build
@@ -49,21 +52,23 @@ Implementations
 Platform matrix
 ===============
 
-Linux
------
-|                |UbuntuLTS|Fedora|Alpine|Java |Ubuntu32|Remarks|
-|:---------------|:-------:|:----:|:----:|:---:|:------:|:------|
-|(Foundation)    |glibc    |glibc |Musl  |Java8|glibc   |       |
-|[Chibi-scheme][]|X        |X     |X     |     |X       |       |
-|[Gauche][]      |X        |X     |      |     |X       |       |
-|NMosh           |X        |X     |      |     |X       |Also included in Java image to bootstrap Yuni|
-|[Sagittarius][] |X        |      |      |     |X       |       |
-|[Chicken][]     |X        |X     |X     |     |X       |       |
-|[Guile][]       |X        |      |      |     |        |Not enabled except UbuntuLTS due to excessive build time|
-|[Racket][]      |X        |X     |      |     |X       |       |
-|[Vicare][]      |X        |X     |      |     |        |       |
-|[Larceny][]     |         |      |      |     |X       |       |
-|[Kawa][]        |         |      |      |X    |        |       |
+Linux(amd64)
+------------
+|                |UbuntuLTS|Fedora|Alpine|Java |Ubuntu32*|Remarks|
+|:---------------|:-------:|:----:|:----:|:---:|:-------:|:------|
+|(Foundation)    |glibc    |glibc |Musl  |Java8|glibc    |       |
+|[Chibi-scheme][]|X        |X     |X     |     |X        |       |
+|[Gauche][]      |X        |X     |      |     |X        |       |
+|NMosh           |X        |X     |      |     |X        |Also included in Java image to bootstrap Yuni|
+|[Sagittarius][] |X        |      |      |     |X        |       |
+|[Chicken][]     |X        |X     |X     |     |X        |       |
+|[Guile][]       |X        |      |      |     |         |Not enabled except UbuntuLTS due to excessive build time|
+|[Racket][]      |X        |X     |      |     |X        |       |
+|[Vicare][]      |X        |X     |      |     |         |       |
+|[Larceny][]     |         |      |      |     |X        |       |
+|[Kawa][]        |         |      |      |X    |         |       |
+
+* Ubuntu32: Run on amd64 kernel, using patched `uname` command to fake architecture as i686.
 
 Windows
 -------

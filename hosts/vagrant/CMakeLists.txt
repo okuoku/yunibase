@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.0)
 project(yunibuild-vagrant NONE)
 
+# FIXME: Do we need a target for 
+#        'vagrant box update --box freebsd/FreeBSD-11.0-CURRENT' ?
 add_custom_target(base) # Setup yunibuild boxes
 add_custom_target(image) # Setup yunibase boxes
 add_custom_target(yunitest) # Test with ${YUNIBASE_WITH_YUNI}
@@ -34,8 +36,8 @@ function(add_vagrant_ssh tgt sshcfg)
 endfunction()
 
 function(add_vagrant_provision tgt nam addnam)
-    file(REMOVE ${CMAKE_CURRENT_BINARY_DIR}/${nam}/package.box)
     add_custom_target(${tgt}
+        COMMAND rm -f package.box
         COMMAND vagrant up
         COMMAND vagrant provision # FIXME: Need this?
         COMMAND vagrant halt
@@ -76,8 +78,8 @@ function(add_vagrant_run tgt nam)
 endfunction()
 
 function(add_vagrant_package tgt nam addnam)
-    file(REMOVE ${CMAKE_CURRENT_BINARY_DIR}/${nam}/package.box)
     add_custom_target(${tgt}
+        COMMAND rm -f package.box
         COMMAND vagrant up
         # COMMAND vagrant provision # FIXME: Need this?
         COMMAND vagrant halt

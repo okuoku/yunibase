@@ -77,17 +77,17 @@ if(rr)
     message(FATAL_ERROR "Something wrong(${rr})")
 endif()
 
-message(STATUS "Step2(twobit)...")
-
-execute_process(
-    COMMAND ./larceny.bin
-    -stopcopy -- src/Build/iasn-twobit-heap.fasl
-    RESULT_VARIABLE rr
-    INPUT_FILE step2.scm)
-
-if(rr)
-    message(FATAL_ERROR "Something wrong(${rr})")
-endif()
+# message(STATUS "Step2(twobit)...")
+# 
+# execute_process(
+#     COMMAND ./larceny.bin
+#     -stopcopy -- src/Build/iasn-twobit-heap.fasl
+#     RESULT_VARIABLE rr
+#     INPUT_FILE step2.scm)
+# 
+# if(rr)
+#     message(FATAL_ERROR "Something wrong(${rr})")
+# endif()
 
 
 #
@@ -96,6 +96,12 @@ endif()
 
 file(WRITE step3.scm
     "(require 'r7rsmode)
+(error-handler
+  (lambda err
+    (display \"ERROR:\\n\" (current-error-port))
+    (decode-error err (current-error-port))
+    (newline (current-error-port))
+    (exit 1)))
 (larceny:compile-r7rs-runtime)
 (exit)
 ")
@@ -108,8 +114,8 @@ message(STATUS "Step3...")
 
 execute_process(
     COMMAND ./larceny
-    RESULT_VARIABLE rr
-    INPUT_FILE step3.scm)
+    -r5rs -- step3.scm
+    RESULT_VARIABLE rr)
 
 if(rr)
     message(FATAL_ERROR "Something wrong(${rr})")

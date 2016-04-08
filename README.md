@@ -11,7 +11,7 @@ Build environments
 * Windows
  * Cygwin64
 * Vagrant
- * [Official FreeBSD Vagrant images][] on Atlas - `freebsd/FreeBSD-10.2-STABLE` and `freebsd/FreeBSD-11.0-CURRENT` 
+ * [Official FreeBSD Vagrant images][] on Atlas - `freebsd/FreeBSD-10.3-RELEASE` and `freebsd/FreeBSD-11.0-CURRENT` 
  * Docker image build on `fedora/23-cloud-base`
 * [Linux Docker images][] on Docker hub
  * UbuntuLTS, Fedora, Alpine, official JDK8 and unofficial `32bit/ubuntu`

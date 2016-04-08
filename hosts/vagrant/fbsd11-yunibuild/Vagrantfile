@@ -28,7 +28,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision "shell", inline: <<-SHELL
-    pkg install -y gmake cmake autoconf automake gmp oniguruma5 libtool flex gettext libunistring libffi boehm-gc-threaded texinfo
+    pkg install -yf gmake cmake autoconf automake gmp oniguruma5 libtool flex gettext libunistring libffi boehm-gc-threaded texinfo
   SHELL
 end
 

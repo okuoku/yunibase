@@ -72,6 +72,22 @@ else()
     set(skip_test_cygwin)
 endif()
 
+set(skip_test_wsl)
+if(${CMAKE_SYSTEM_PROCESSOR} MATCHES "i?86" AND
+        ${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    if(EXISTS /proc/sys/kernel/osrelease)
+        # Detect Windows Subsystem on Linux using osrelease
+        # Currently, it is "3.4.0-Microsoft".
+        file(READ /proc/sys/kernel/osrelease os_release)
+        if(${os_release} MATCHES "^([0-9]+)\\.([0-9]+)\\.([0-9]+)-Microsoft")
+            message(STATUS "WSL Detected!!")
+            set(skip_test_wsl SKIP_TEST)
+        else()
+            # Normal linux kernel / other emulators
+        endif()
+    endif()
+endif()
+
 # Configure default build
 if(YUNIBASE_BOOTSTRAP_ONLY)
     # Build only STABLEs and bootstrap.
@@ -99,10 +115,10 @@ elseif(YUNIBASE_POSTBOOTSTRAP)
 else()
     # Build all (stable + bootstrap + current)
     activate_recipe(SAGITTARIUS STABLE SKIP_TEST)
-    activate_recipe(SAGITTARIUS CURRENT ${skip_test_cygwin})
+    activate_recipe(SAGITTARIUS CURRENT ${skip_test_cygwin} ${skip_test_wsl})
     activate_recipe(GUILE CURRENT IGNORE_TEST_FAILURE)
-    activate_recipe(GAUCHE STABLE ${allow_testfail_cygwin})
-    activate_recipe(GAUCHE CURRENT ${allow_testfail_cygwin})
+    activate_recipe(GAUCHE STABLE ${allow_testfail_cygwin} ${skip_test_wsl})
+    activate_recipe(GAUCHE CURRENT ${allow_testfail_cygwin} ${skip_test_wsl})
     activate_recipe(CHIBI_SCHEME CURRENT)
     activate_recipe(RACKET CURRENT)
     activate_recipe(NMOSH STABLE IGNORE_TEST_FAILURE)

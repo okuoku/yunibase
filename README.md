@@ -72,17 +72,20 @@ Linux(amd64)
 
 Windows
 -------
-|                |Cygwin64|Remarks|
-|:---------------|:------:|:------|
-|(Foundation)    |newlib  |       |
-|[Chibi-scheme][]|X       |       |
-|[Gauche][]      |X       |       |
-|NMosh           |X       |       |
-|[Sagittarius][] |X       |       |
-|[Chicken][]     |X       |       |
-|[Guile][]       |        |       |
-|[Racket][]      |        |       |
-|[Vicare][]      |        |       |
+|                |Cygwin64|WSL      |Remarks|
+|:---------------|:------:|:-------:|:------|
+|(KernelABI)     |nt      |Linux 3.4|       |
+|(Foundation)    |newlib  |glibc    |       |
+|[Chibi-scheme][]|X       |X        |       |
+|[Gauche][]      |X       |X        |SKIPTEST on WSL       |
+|NMosh           |X       |X        |TESTFAIL       |
+|[Sagittarius][] |X       |X        |SKIPTEST on WSL       |
+|[Chicken][]     |X       |         |       |
+|[Guile][]       |        |         |       |
+|[Racket][]      |        |         |       |
+|[Vicare][]      |        |         |       |
+
+* WSL: Windows Subsystem for Linux aka. "Bash on Windows"
 
 Others
 ------

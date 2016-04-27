@@ -52,6 +52,7 @@ include(./recipes/guile.recipe.cmake)
 include(./recipes/sagittarius.recipe.cmake)
 include(./recipes/kawa.recipe.cmake)
 include(./recipes/larceny.recipe.cmake)
+include(./recipes/chez.recipe.cmake)
 
 # Source definitions
 init_sources()
@@ -131,6 +132,7 @@ else()
         # Larceny currently only available on Linux/i386
         activate_recipe(LARCENY CURRENT)
     endif()
+    # activate_recipe(CHEZ CURRENT)
 endif()
 
 if(YUNIBASE_ONLY)

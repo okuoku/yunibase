@@ -220,3 +220,11 @@ build_recipe(larceny_current ${larceny_current_src} ${larceny_current_dest}
 register_recipe(LARCENY CURRENT
     larceny_current)
 
+# Chez scheme (current)
+set(chez_current_src ${YUNIBASE_ROOT_CURRENT}/chez)
+set(chez_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/chez)
+build_recipe(chez_current ${chez_current_src} ${chez_current_dest}
+    CHEZ "" ${RECIPE_CHEZ})
+
+register_recipe(CHEZ CURRENT
+    chez_current)

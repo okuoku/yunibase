@@ -35,4 +35,7 @@ register_source(LARCENY CURRENT
     "impl-current/larceny"
     GIT
     "origin/master")
-
+register_source(CHEZ CURRENT
+    "impl-current/chez"
+    GIT
+    "origin/master")

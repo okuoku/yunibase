@@ -28,3 +28,6 @@
 [submodule "impl-current/larceny"]
 	path = impl-current/larceny
 	url = https://github.com/larcenists/larceny
+[submodule "impl-current/chez"]
+	path = impl-current/chez
+	url = https://github.com/cisco/ChezScheme

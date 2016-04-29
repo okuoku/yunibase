@@ -1,9 +1,6 @@
 FROM fedora:latest
 WORKDIR /build
 
-# FIXME: Need this?
-# RUN dnf update -y
-
 # Install required packages:
 #
 #  buildsystem: cmake gcc gcc-g++ make
@@ -13,4 +10,7 @@ WORKDIR /build
 #         gc-devel libtool-ltdl-devel
 #  Vicare: texinfo
 #  Sagittarius: zlib-devel
-RUN dnf install -y make cmake gcc gcc-c++ autoconf automake gmp-devel oniguruma-devel libtool flex gettext-devel pkgconfig libunistring-devel libffi-devel gc-devel libtool-ltdl-devel texinfo zlib-devel
+#  Chez: ncurses x11
+RUN dnf install -y make cmake gcc gcc-c++ autoconf automake gmp-devel oniguruma-devel libtool flex gettext-devel pkgconfig libunistring-devel libffi-devel gc-devel libtool-ltdl-devel texinfo zlib-devel \
+ncurses-devel libX11-devel
+

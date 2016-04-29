@@ -11,6 +11,7 @@ WORKDIR /build
 #         MISSING: unistring
 #  Vicare: texinfo
 #  Sagittarius: zlib-dev
+#  Chez: ncurses-dev libx11-dev 
 RUN echo http://dl-4.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories
 RUN apk update && apk add \
 cmake gcc g++ make \
@@ -18,4 +19,5 @@ autoconf automake \
 gmp-dev oniguruma-dev \
 libtool libltdl gettext-dev pkgconfig libffi-dev gc-dev \
 texinfo \
-zlib-dev
+zlib-dev \
+ncurses-dev libx11-dev

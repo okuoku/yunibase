@@ -35,6 +35,7 @@ set(YUNIBASE_BUILD_CURRENT_PREFIX
     ${CMAKE_CURRENT_BINARY_DIR}/current)
 
 include(YunibaseWorkaroundFileTimestamp)
+include(YunibaseWorkaroundFileEdit)
 include(YunibaseRecipe)
 include(YunibaseBuildManager)
 include(YunibaseUpdateManager) # Depends on Recipe/Build
@@ -132,7 +133,7 @@ else()
         # Larceny currently only available on Linux/i386
         activate_recipe(LARCENY CURRENT)
     endif()
-    # activate_recipe(CHEZ CURRENT)
+    activate_recipe(CHEZ CURRENT)
 endif()
 
 if(YUNIBASE_ONLY)

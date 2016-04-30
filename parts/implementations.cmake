@@ -226,5 +226,14 @@ set(chez_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/chez)
 build_recipe(chez_current ${chez_current_src} ${chez_current_dest}
     CHEZ "" ${RECIPE_CHEZ})
 
+# Workaround (Remove git dependency; we've done instanciate submodules already)
+workaround_file_edit(${chez_current_src}/configure
+    "^git" "# git")
+
+# Workaround (patch configure script to build Linux32 on Linux64)
+workaround_file_edit(${chez_current_src}/configure
+    "^  if uname -a \\| egrep 'amd64\\|x86_64'"
+    "  if uname -m | egrep 'amd64|x86_64'")
+
 register_recipe(CHEZ CURRENT
     chez_current)

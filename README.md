@@ -40,6 +40,7 @@ Implementations
 |[Racket][]      |C        |R6RS      |          |Official GitHub|NOTEST, with `srfi-lib` and `r6rs-lib`|
 |[Vicare][]      |C        |R6RS      |          |Official GitHub|                                      |
 |[Larceny][]     |Scheme, C|R6RS+R7RS |0.98*     |Official GitHub|NOTEST                                |
+|[ChezScheme][]  |C        |R6RS      |          |Official GitHub|SKIPTEST                              |
 |[Kawa][]        |Java     |R7RS      |          |GitHub Mirror  |NOTEST                                |
 
 * [Stable][] implementations are only included if the implementation requires it to "bootstrap" [Current][] ones
@@ -66,6 +67,7 @@ Linux(amd64)
 |[Racket][]      |X        |X     |      |     |X        |       |
 |[Vicare][]      |X        |X     |      |     |         |       |
 |[Larceny][]     |         |      |      |     |X        |       |
+|[ChezScheme][]  |X        |X     |X     |     |X        |       |
 |[Kawa][]        |         |      |      |X    |         |       |
 
 * Ubuntu32: Run on amd64 kernel, using patched `uname` command to fake architecture as i686.
@@ -118,3 +120,4 @@ Others
 [Vicare]: http://marcomaggi.github.io/vicare.html
 [Kawa]: http://www.gnu.org/software/kawa/
 [Larceny]: http://www.larcenists.org/
+[ChezScheme]: https://github.com/cisco/ChezScheme

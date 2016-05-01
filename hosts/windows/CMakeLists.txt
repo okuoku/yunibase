@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.2)
 set(url_msys32 # Unused for now
     "http://downloads.sourceforge.net/project/msys2/Base/i686/msys2-base-i686-20150916.tar.xz")
 set(url_msys64
-    "http://downloads.sourceforge.net/project/msys2/Base/x86_64/msys2-base-x86_64-20150916.tar.xz")
+    "https://sourceforge.net/projects/msys2/files/Base/x86_64/msys2-base-x86_64-20160205.tar.xz")
 
 add_custom_target(base)  # Update base environment
 add_custom_target(image) # Build yunibase image
@@ -22,13 +22,13 @@ endmacro()
 
 set(CYGWIN_IMPLS
     CHIBI_SCHEME
-    GAUCHE
-    SAGITTARIUS
+    # GAUCHE
+    # SAGITTARIUS
     CHICKEN
     NMOSH)
 
 set(NATIVE_IMPLS
-    SAGITTARIUS
+    # SAGITTARIUS
     CHIBI_SCHEME
     CHICKEN)
 

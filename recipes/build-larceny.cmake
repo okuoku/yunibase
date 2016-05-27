@@ -8,7 +8,7 @@ if(NOT PREFIX)
 endif()
 
 set(bin_basename
-    larceny-0.98-bin-native-ia32-linux86)
+    larceny-0.99-bin-native-ia32-linux86)
 
 set(archive_basename
     larceny-bin.tar.gz)

@@ -39,7 +39,7 @@ Implementations
 |[Guile][]       |C        |R6RS      |          |Official Git   |                                      |
 |[Racket][]      |C        |R6RS      |          |Official GitHub|NOTEST, with `srfi-lib` and `r6rs-lib`|
 |[Vicare][]      |C        |R6RS      |          |Official GitHub|                                      |
-|[Larceny][]     |Scheme, C|R6RS+R7RS |0.98*     |Official GitHub|NOTEST                                |
+|[Larceny][]     |Scheme, C|R6RS+R7RS |0.99*     |Official GitHub|NOTEST                                |
 |[ChezScheme][]  |C        |R6RS      |          |Official GitHub|SKIPTEST                              |
 |[Kawa][]        |Java     |R7RS      |          |GitHub Mirror  |NOTEST                                |
 

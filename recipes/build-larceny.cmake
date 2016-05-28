@@ -26,10 +26,6 @@ execute_process(
     COMMAND ${CMAKE_COMMAND} -E tar zxf ${archive_basename}
     RESULT_VARIABLE rr)
 
-
-set(ENV{LARCENY_ROOT}
-    ${CMAKE_CURRENT_BINARY_DIR}/${bin_basename})
-
 #
 # STEP1: Build larceny core
 #

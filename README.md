@@ -15,6 +15,7 @@ Build environments
  * Docker image build on `fedora/23-cloud-base`
 * [Linux Docker images][] on Docker hub
  * UbuntuLTS, Fedora, Alpine, official JDK8 and unofficial `32bit/ubuntu`
+* MacOS X with pkgsrc
 
 Prebuilt images
 ===============
@@ -35,7 +36,7 @@ Implementations
 |[Gauche][]      |C        |R7RS      |0.9.4+    |Official GitHub|                                      |
 |NMosh           |C++      |R6RS+R7RS-|current   |not yet        |                                      |
 |[Sagittarius][] |C        |R6RS+R7RS |0.7.1     |GitHub Mirror  |                                      |
-|[Chicken][]     |C        |R7RS      |4.10.1*   |Official Git   |SKIPTEST, with `r7rs` egg             |
+|[Chicken][]     |C        |R7RS      |4.11.0    |Official Git   |SKIPTEST, with `r7rs` egg             |
 |[Guile][]       |C        |R6RS      |          |Official Git   |                                      |
 |[Racket][]      |C        |R6RS      |          |Official GitHub|NOTEST, with `srfi-lib` and `r6rs-lib`|
 |[Vicare][]      |C        |R6RS      |          |Official GitHub|                                      |
@@ -47,7 +48,6 @@ Implementations
 * NOTEST: Yunibase does not support testing on this implementation
 * SKIPTEST: Yunibase always skips test on this implementation
 * Gauche: Uses patched version to build on Cygwin64 host(#5)
-* Chicken: Uses development snapshot to bootstrap current official git HEAD
 * Larceny: Uses binary distribution for Stable build
 
 Platform matrix
@@ -91,18 +91,18 @@ Windows
 
 Others
 ------
-|                |FBSD10 |FBSD11 |Remarks|
-|:---------------|:-----:|:-----:|:------|
-|(Foundation)    |freebsd|freebsd|       |
-|[Chibi-scheme][]|X      |X      |       |
-|[Gauche][]      |       |       |       |
-|NMosh           |X      |X      |       |
-|[Sagittarius][] |       |       |       |
-|[Chicken][]     |       |       |       |
-|[Guile][]       |       |       |       |
-|[Racket][]      |X      |X      |       |
-|[Vicare][]      |       |       |       |
-
+|                |OS X amd64|FBSD10 |FBSD11 |Remarks|
+|:---------------|:--------:|:-----:|:-----:|:------|
+|(Foundation)    |osx       |freebsd|freebsd|       |
+|[Chibi-scheme][]|X         |X      |X      |       |
+|[Gauche][]      |X         |       |       |       |
+|NMosh           |X         |X      |X      |       |
+|[Sagittarius][] |          |       |       |osx: Failed to bootstrap(#22)|
+|[Chicken][]     |X         |       |       |       |
+|[Guile][]       |          |       |       |       |
+|[Racket][]      |          |X      |X      |osx: Fails on raco install|
+|[Vicare][]      |          |       |       |       |
+|[ChezScheme][]  |X         |       |       |       |
 
 [Stable]: https://bitbucket.org/okuoku/yunibase-impl-stable
 [Current]: https://github.com/okuoku/yunibase/tree/master/impl-current

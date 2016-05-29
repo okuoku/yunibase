@@ -177,7 +177,9 @@ message(STATUS "We still have to workaround again...")
 
 workaround_touch_prebuilt_files(
     ${chicken_stable_src}
-    chicken-install.c) # This file needs to be newest
+    # This file needs to be newest
+    chicken-install.c
+    debugger-client.c) 
 
 set(chicken_current_src ${YUNIBASE_ROOT_CURRENT}/chicken)
 set(chicken_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/chicken)

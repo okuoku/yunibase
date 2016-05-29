@@ -159,6 +159,13 @@ add_vagrant_destroy(fedora-cloudbase-destroy
 add_dependencies(base fedora-cloudbase-base)
 add_dependencies(image fedora-cloudbase-image)
 
+add_vagrant_run(fedora-cloudbase-push0
+    fedora-cloudbase
+    sudo make push)
+add_dependencies(fedora-cloudbase-push0 fedora-cloudbase-init)
+add_vagrant_stop(fedora-cloudbase-push fedora-cloudbase)
+add_dependencies(fedora-cloudbase-push fedora-cloudbase-push0)
+
 # FBSD10
 register_vagrantfile(
     fbsd10-yunibuild

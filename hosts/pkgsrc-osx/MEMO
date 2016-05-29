@@ -1,0 +1,19 @@
+# Required packages:
+
+
+# chez
+
+libX11 xproto
+
+# nmosh
+
+gmp
+
+# vicare
+
+libtool
+
+# sagittarius
+
+pkg-config boehm-gc
+

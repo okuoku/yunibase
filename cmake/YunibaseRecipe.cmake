@@ -4,6 +4,7 @@
 #
 #   __MAKE_OPTS__ : Translates into make "-j N" option
 #   __INSTALL_PREFIX__ : Translates into option INSTALL_PREFIX
+#   __AUTOCONF_OPTS__ : Translates into autoconf options (CPPFLAGS LDFLAGS)
 #   MAKE : Translates into posix make
 #   GMAKE : Translates into GNU make
 #
@@ -18,6 +19,7 @@
 set(yunibase_recipe_replace_entries
     __MAKE_OPTS__      MAKE_OPTS
     __INSTALL_PREFIX__ INSTALL_PREFIX
+    __AUTOCONF_OPTS__  AUTOCONF_OPTS
     MAKE               MAKE
     GMAKE              GNU_MAKE
     )
@@ -63,6 +65,11 @@ macro(yunibase_recipe_set_default_opts prefix)
         set(_mymake gmake)
     else()
         set(_mymake make)
+    endif()
+    if(YUNIBASE_USE_PKGSRC_DEFAULTS)
+        set(${prefix}_AUTOCONF_OPTS "CPPFLAGS=-I/opt/pkg/include LDFLAGS=-L/opt/pkg/lib")
+    else()
+        set(${prefix}_AUTOCONF_OPTS "")
     endif()
     if(NOT ${prefix}_MAKE)
         set(${prefix}_MAKE ${_mymake})

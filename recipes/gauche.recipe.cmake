@@ -1,5 +1,6 @@
 set(RECIPE_GAUCHE # Recipe for Gauche 
     STEP "Configure" "./configure" "--prefix=__INSTALL_PREFIX__"
+    __AUTOCONF_OPTS__
     STEP "Build"     MAKE __MAKE_OPTS__
     STEP "Test"      MAKE check
     STEP "Install"   MAKE install

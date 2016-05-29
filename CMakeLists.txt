@@ -34,6 +34,13 @@ set(YUNIBASE_BUILD_STABLE_PREFIX
 set(YUNIBASE_BUILD_CURRENT_PREFIX
     ${CMAKE_CURRENT_BINARY_DIR}/current)
 
+if(APPLE)
+    # Perhaps NetBSD and MINIX, too
+    set(YUNIBASE_USE_PKGSRC_DEFAULTS TRUE)
+else()
+    set(YUNIBASE_USE_PKGSRC_DEFAULTS)
+endif()
+
 include(YunibaseWorkaroundFileTimestamp)
 include(YunibaseWorkaroundFileEdit)
 include(YunibaseRecipe)
@@ -116,18 +123,21 @@ elseif(YUNIBASE_POSTBOOTSTRAP)
     activate_recipe(VICARE CURRENT IGNORE_TEST_FAILURE SKIP_BOOTSTRAP)
 else()
     # Build all (stable + bootstrap + current)
-    activate_recipe(SAGITTARIUS STABLE SKIP_TEST)
-    activate_recipe(SAGITTARIUS CURRENT ${skip_test_cygwin} ${skip_test_wsl})
-    activate_recipe(GUILE CURRENT IGNORE_TEST_FAILURE)
+    if(NOT APPLE)
+        activate_recipe(SAGITTARIUS STABLE SKIP_TEST)
+        activate_recipe(SAGITTARIUS CURRENT 
+            ${skip_test_cygwin} ${skip_test_wsl})
+        activate_recipe(GUILE CURRENT IGNORE_TEST_FAILURE)
+        activate_recipe(KAWA CURRENT)
+        activate_recipe(VICARE CURRENT IGNORE_TEST_FAILURE)
+    endif()
     activate_recipe(GAUCHE STABLE ${allow_testfail_cygwin} ${skip_test_wsl})
     activate_recipe(GAUCHE CURRENT ${allow_testfail_cygwin} ${skip_test_wsl})
     activate_recipe(CHIBI_SCHEME CURRENT)
     activate_recipe(RACKET CURRENT)
     activate_recipe(NMOSH STABLE IGNORE_TEST_FAILURE)
-    activate_recipe(VICARE CURRENT IGNORE_TEST_FAILURE)
     activate_recipe(CHICKEN STABLE SKIP_TEST)
     activate_recipe(CHICKEN CURRENT SKIP_TEST)
-    activate_recipe(KAWA CURRENT)
     if(${CMAKE_SYSTEM_PROCESSOR} MATCHES "i?86" AND
             ${CMAKE_SYSTEM_NAME} MATCHES "Linux")
         # Larceny currently only available on Linux/i386

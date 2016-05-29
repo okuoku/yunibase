@@ -7,6 +7,8 @@
 
 if(CYGWIN)
     set(CHICKEN_ARG_PLATFORM "PLATFORM=cygwin")
+elseif(APPLE)
+    set(CHICKEN_ARG_PLATFORM "PLATFORM=macosx")
 else()
     set(CHICKEN_ARG_PLATFORM "PLATFORM=linux")
 endif()

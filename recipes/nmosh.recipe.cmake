@@ -10,6 +10,7 @@ endif()
 
 set(RECIPE_NMOSH # Recipe for NMosh/Psyntax-mosh
     STEP "Configure" "./configure" "--prefix=__INSTALL_PREFIX__"
+    __AUTOCONF_OPTS__
     ${RECIPE_NMOSH_GC}
     # It seems we cannot do "chmod -wx" on AUFS..
     # Set as r--rw-rw- instead.

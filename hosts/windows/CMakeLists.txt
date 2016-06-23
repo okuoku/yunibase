@@ -22,7 +22,7 @@ endmacro()
 
 set(CYGWIN_IMPLS
     CHIBI_SCHEME
-    # GAUCHE
+    GAUCHE
     # SAGITTARIUS
     CHICKEN
     NMOSH)

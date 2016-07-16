@@ -246,3 +246,15 @@ endif()
 
 register_recipe(CHEZ CURRENT
     chez_current)
+
+
+
+# Gambit (stable)
+set(gambit_stable_src ${YUNIBASE_ROOT_STABLE}/gambit)
+set(gambit_stable_dest ${YUNIBASE_BUILD_STABLE_PREFIX}/gambit)
+build_recipe(gambit_stable ${gambit_stable_src} ${gambit_stable_dest}
+    GAMBIT "" ${RECIPE_GAMBIT})
+
+register_recipe(GAMBIT STABLE
+    gambit_stable)
+

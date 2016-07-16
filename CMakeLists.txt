@@ -61,6 +61,7 @@ include(./recipes/sagittarius.recipe.cmake)
 include(./recipes/kawa.recipe.cmake)
 include(./recipes/larceny.recipe.cmake)
 include(./recipes/chez.recipe.cmake)
+include(./recipes/gambit.recipe.cmake)
 
 # Source definitions
 init_sources()
@@ -144,6 +145,7 @@ else()
         activate_recipe(LARCENY CURRENT)
     endif()
     activate_recipe(CHEZ CURRENT)
+    activate_recipe(GAMBIT STABLE)
 endif()
 
 if(YUNIBASE_ONLY)

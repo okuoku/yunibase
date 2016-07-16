@@ -26,7 +26,7 @@ build:
     - script:
         name: disable unused sources
         code: |
-            cd /yunisrc/yunibase && rm -rf impl-stable/chicken impl-stable/gauche impl-stable/sagittarius && find /yunisrc/yunibase -type d -empty | xargs rm -rf
+            cd /yunisrc/yunibase && rm -rf impl-stable/chicken impl-stable/gauche impl-stable/sagittarius impl-stable/gambit && find /yunisrc/yunibase -type d -empty | xargs rm -rf
     - script:
         name: build
         code: |

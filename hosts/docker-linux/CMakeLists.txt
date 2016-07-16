@@ -94,7 +94,12 @@ add_docker_yunibase(docker_yuni_default
 add_docker_yunibase(docker_yuni_ubuntu32
     "okuoku/yunibuild:latest-ubuntu32" "okuoku/yunibase:testing-ubuntu32"
     # Disabled: GUILE VICARE
-    CHIBI_SCHEME GAUCHE NMOSH SAGITTARIUS CHICKEN RACKET 
+    CHIBI_SCHEME 
+    #25: Disable BoehmGC based impl. for now
+    # GAUCHE 
+    # NMOSH 
+    # SAGITTARIUS 
+    CHICKEN RACKET 
     LARCENY CHEZ GAMBIT RAPID_GAMBIT
     )
 add_docker_yunibase(docker_yuni_fedora

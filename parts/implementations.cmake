@@ -185,6 +185,18 @@ message(STATUS "We still have to workaround again...")
 
 workaround_touch_prebuilt_files(
     ${chicken_stable_src}
+    setup-api.c)
+
+message(STATUS "We still have to workaround again...")
+
+workaround_touch_prebuilt_files(
+    ${chicken_stable_src}
+    setup-download.c)
+
+message(STATUS "We still have to workaround again...")
+
+workaround_touch_prebuilt_files(
+    ${chicken_stable_src}
     # This file needs to be newest
     chicken-install.c
     debugger-client.c) 

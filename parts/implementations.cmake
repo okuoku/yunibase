@@ -118,7 +118,9 @@ build_recipe(chibi_scheme_current
     ""
     ${RECIPE_CHIBI_SCHEME})
 
-register_recipe(CHIBI_SCHEME CURRENT chibi_scheme_current)
+register_recipe(CHIBI_SCHEME CURRENT 
+    # Depended on rapid-gambit
+    chibi_scheme_current)
 
 # Racket (current)
 set(racket_current_src ${YUNIBASE_ROOT_CURRENT}/racket/racket/src)
@@ -256,5 +258,25 @@ build_recipe(gambit_stable ${gambit_stable_src} ${gambit_stable_dest}
     GAMBIT "" ${RECIPE_GAMBIT})
 
 register_recipe(GAMBIT STABLE
+    gambit_stable)
+
+# Rapid-gambit (current)
+set(rapid_gambit_current_src ${YUNIBASE_ROOT_CURRENT}/rapid-gambit)
+set(rapid_gambit_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/rapid-gambit)
+set(ENVP_RAPID_GAMBIT_BOOTSTRAP
+    PATH "${YUNIBASE_BUILD_CURRENT_PREFIX}/chibi-scheme/bin:${YUNIBASE_BUILD_STABLE_PREFIX}/gambit/bin"
+    ${ld_library_path} ${YUNIBASE_BUILD_CURRENT_PREFIX}/chibi-scheme/lib)
+build_recipe(rapid_gambit_current
+    ${rapid_gambit_current_src}
+    ${rapid_gambit_current_dest}
+    RAPID_GAMBIT
+    "${ENVP_RAPID_GAMBIT_BOOTSTRAP}"
+    ${RECIPE_RAPID_GAMBIT})
+
+register_recipe(RAPID_GAMBIT CURRENT 
+    rapid_gambit_current)
+
+add_dependencies(rapid_gambit_current
+    chibi_scheme_current
     gambit_stable)
 

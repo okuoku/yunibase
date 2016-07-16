@@ -62,6 +62,7 @@ include(./recipes/kawa.recipe.cmake)
 include(./recipes/larceny.recipe.cmake)
 include(./recipes/chez.recipe.cmake)
 include(./recipes/gambit.recipe.cmake)
+include(./recipes/rapid-gambit.recipe.cmake)
 
 # Source definitions
 init_sources()
@@ -146,6 +147,7 @@ else()
     endif()
     activate_recipe(CHEZ CURRENT)
     activate_recipe(GAMBIT STABLE)
+    activate_recipe(RAPID_GAMBIT CURRENT)
 endif()
 
 if(YUNIBASE_ONLY)

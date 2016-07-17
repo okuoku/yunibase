@@ -23,7 +23,7 @@ Prebuilt images
 * [Linux Docker images][] on [Docker Hub][]
  * `okuoku/yunibase:testing` [![](https://badge.imagelayers.io/okuoku/yunibase:testing.svg)](https://imagelayers.io/?images=okuoku/yunibase:testing) - Ubuntu LTS
  * `okuoku/yunibase:testing-fedora` [![](https://badge.imagelayers.io/okuoku/yunibase:testing-fedora.svg)](https://imagelayers.io/?images=okuoku/yunibase:testing-fedora) - Fedora latest
- * `okuoku/yunibase:testing-alpine` [![](https://badge.imagelayers.io/okuoku/yunibase:testing-alpine.svg)](https://imagelayers.io/?images=okuoku/yunibase:testing-alpine) - Alpine Edge(Not used in Yuni for now)
+ * `okuoku/yunibase:testing-alpine` [![](https://badge.imagelayers.io/okuoku/yunibase:testing-alpine.svg)](https://imagelayers.io/?images=okuoku/yunibase:testing-alpine) - Alpine Edge
  * `okuoku/yunibase:testing-java` [![](https://badge.imagelayers.io/okuoku/yunibase:testing-java.svg)](https://imagelayers.io/?images=okuoku/yunibase:testing-java) - Java (JDK 8 from Docker official image)
  * `okuoku/yunibase:testing-ubuntu32` [![](https://badge.imagelayers.io/okuoku/yunibase:testing-ubuntu32.svg)](https://imagelayers.io/?images=okuoku/yunibase:testing-ubuntu32) - Ubuntu i686 LTS (from unofficial `32bit/ubuntu`)
 
@@ -42,6 +42,7 @@ Implementations
 |[Vicare][]      |C        |R6RS      |          |Official GitHub|                                      |
 |[Larceny][]     |Scheme, C|R6RS+R7RS |0.99*     |Official GitHub|NOTEST                                |
 |[ChezScheme][]  |C        |R6RS      |          |Official GitHub|SKIPTEST                              |
+|[Gambit][]      |C        |R4RS+R5RS |4.8.5     |not yet        |With [Rapid-gambit]                   |
 |[Kawa][]        |Java     |R7RS      |          |GitHub Mirror  |NOTEST                                |
 
 * [Stable][] implementations are only included if the implementation requires it to "bootstrap" [Current][] ones
@@ -59,18 +60,20 @@ Linux(amd64)
 |:---------------|:-------:|:----:|:----:|:---:|:-------:|:------|
 |(Foundation)    |glibc    |glibc |Musl  |Java8|glibc    |       |
 |[Chibi-scheme][]|X        |X     |X     |     |X        |       |
-|[Gauche][]      |X        |X     |      |     |X        |       |
-|NMosh           |X        |X     |      |     |X        |Also included in Java image to bootstrap Yuni|
-|[Sagittarius][] |X        |      |      |     |X        |       |
+|[Gauche][]      |X        |X     |      |     |         |       |
+|NMosh           |X        |X     |      |     |         |Also included in Java image to bootstrap Yuni|
+|[Sagittarius][] |X        |      |      |     |         |       |
 |[Chicken][]     |X        |X     |X     |     |X        |       |
 |[Guile][]       |X        |      |      |     |         |Not enabled except UbuntuLTS due to excessive build time|
 |[Racket][]      |X        |X     |      |     |X        |       |
 |[Vicare][]      |X        |X     |      |     |         |       |
 |[Larceny][]     |         |      |      |     |X        |       |
 |[ChezScheme][]  |X        |X     |X     |     |X        |       |
+|[Gambit][]      |X        |X     |      |     |X        |       |
 |[Kawa][]        |         |      |      |X    |         |       |
 
 * Ubuntu32: Run on amd64 kernel, using patched `uname` command to fake architecture as i686.
+* Ubuntu32: Disabled BoehmGC based implementations #25
 
 Windows
 -------
@@ -121,3 +124,5 @@ Others
 [Kawa]: http://www.gnu.org/software/kawa/
 [Larceny]: http://www.larcenists.org/
 [ChezScheme]: https://github.com/cisco/ChezScheme
+[Gambit]: http://gambitscheme.org/
+[Rapid-gambit]: https://github.com/okuoku/rapid-gambit

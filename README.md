@@ -35,7 +35,7 @@ Implementations
 |[Chibi-scheme][]|C        |R7RS      |          |Official GitHub|                                      |
 |[Gauche][]      |C        |R7RS      |0.9.4+    |Official GitHub|                                      |
 |NMosh           |C++      |R6RS+R7RS-|current   |not yet        |                                      |
-|[Sagittarius][] |C        |R6RS+R7RS |0.7.1     |GitHub Mirror  |                                      |
+|[Sagittarius][] |C        |R6RS+R7RS |0.7.5     |GitHub Mirror  |                                      |
 |[Chicken][]     |C        |R7RS      |4.11.0    |Official Git   |SKIPTEST, with `r7rs` egg             |
 |[Guile][]       |C        |R6RS      |          |Official Git   |                                      |
 |[Racket][]      |C        |R6RS      |          |Official GitHub|NOTEST, with `srfi-lib` and `r6rs-lib`|
@@ -89,6 +89,7 @@ Windows
 |[Guile][]       |        |         |       |
 |[Racket][]      |        |         |       |
 |[Vicare][]      |        |         |       |
+|[Gambit][]      |X       |         |       |
 
 * WSL: Windows Subsystem for Linux aka. "Bash on Windows"
 

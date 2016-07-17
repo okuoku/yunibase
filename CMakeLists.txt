@@ -12,8 +12,8 @@
 #
 #  YUNIBASE_POSTBOOTSTRAP: Assumes tree was bootstrapped
 #
+cmake_minimum_required(VERSION 2.8.4)
 project(yunibase NONE)
-cmake_minimum_required(VERSION 2.8)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
 
@@ -123,6 +123,8 @@ elseif(YUNIBASE_POSTBOOTSTRAP)
     activate_recipe(RACKET CURRENT)
     activate_recipe(NMOSH STABLE IGNORE_TEST_FAILURE)
     activate_recipe(VICARE CURRENT IGNORE_TEST_FAILURE SKIP_BOOTSTRAP)
+    activate_recipe(GAMBIT STABLE)
+    activate_recipe(RAPID_GAMBIT CURRENT)
 else()
     # Build all (stable + bootstrap + current)
     if(NOT APPLE)

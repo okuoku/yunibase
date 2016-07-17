@@ -21,6 +21,8 @@ macro(escape_args var first)
 endmacro()
 
 set(CYGWIN_IMPLS
+    GAMBIT
+    RAPID_GAMBIT
     CHIBI_SCHEME
     GAUCHE
     # SAGITTARIUS
@@ -28,6 +30,8 @@ set(CYGWIN_IMPLS
     NMOSH)
 
 set(NATIVE_IMPLS
+    GAMBIT
+    RAPID_GAMBIT
     # SAGITTARIUS
     CHIBI_SCHEME
     CHICKEN)

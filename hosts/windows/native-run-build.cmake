@@ -65,8 +65,15 @@ function(construct_tree sufx)
     # Bootstrap on Cygwin
     execute_process(
         COMMAND cyg64/bin/bash -l -c
-        "cmake \"-DONLY=${_onlyargs}\" -DBOOTSTRAP_ONLY=TRUE -DSRCROOT=${_msysloc}/yunisrc/yunibase.${sufx} -DBUILDROOT=/build.cygwinboot-${sufx} -P ${_buildonroot}")
+        "cmake \"-DONLY=${_onlyargs}\" -DBOOTSTRAP_ONLY=TRUE -DSRCROOT=${_msysloc}/yunisrc/yunibase.${sufx} -DBUILDROOT=/build.cygwinboot-${sufx} -P ${_buildonroot}"
+        RESULT_VARIABLE rr)
+    if(rr)
+        message(FATAL_ERROR "Failed to construct bootstrap tree ${sufx}")
+    endif()
 endfunction()
 
 construct_tree(win32)
 construct_tree(win64)
+
+# Build trees
+

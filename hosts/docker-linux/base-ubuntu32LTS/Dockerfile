@@ -1,4 +1,4 @@
-FROM 32bit/ubuntu:14.04
+FROM i386/ubuntu:xenial
 WORKDIR /build
 
 # Install required packages:

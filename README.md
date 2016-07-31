@@ -12,9 +12,9 @@ Build environments
  * Cygwin64
 * Vagrant
  * [Official FreeBSD Vagrant images][] on Atlas - `freebsd/FreeBSD-10.3-RELEASE` and `freebsd/FreeBSD-11.0-CURRENT` 
- * Docker image build on `fedora/23-cloud-base`
+ * Docker image build on `fedora/24-cloud-base`
 * [Linux Docker images][] on Docker hub
- * UbuntuLTS, Fedora, Alpine, official JDK8 and unofficial `32bit/ubuntu`
+ * UbuntuLTS, Fedora, Alpine, official JDK8 and unofficial `i386/ubuntu`
 * MacOS X with pkgsrc
 
 Prebuilt images
@@ -35,7 +35,7 @@ Implementations
 |[Chibi-scheme][]|C        |R7RS      |          |Official GitHub|                                      |
 |[Gauche][]      |C        |R7RS      |0.9.4+    |Official GitHub|                                      |
 |NMosh           |C++      |R6RS+R7RS-|current   |not yet        |                                      |
-|[Sagittarius][] |C        |R6RS+R7RS |0.7.5     |GitHub Mirror  |                                      |
+|[Sagittarius][] |C        |R6RS+R7RS |0.7.6     |GitHub Mirror  |                                      |
 |[Chicken][]     |C        |R7RS      |4.11.0    |Official Git   |SKIPTEST, with `r7rs` egg             |
 |[Guile][]       |C        |R6RS      |          |Official Git   |                                      |
 |[Racket][]      |C        |R6RS      |          |Official GitHub|NOTEST, with `srfi-lib` and `r6rs-lib`|
@@ -59,9 +59,9 @@ Linux(amd64)
 |                |UbuntuLTS|Fedora|Alpine|Java |Ubuntu32*|Remarks|
 |:---------------|:-------:|:----:|:----:|:---:|:-------:|:------|
 |(Foundation)    |glibc    |glibc |Musl  |Java8|glibc    |       |
-|[Chibi-scheme][]|X        |X     |X     |     |X        |       |
+|[Chibi-scheme][]|X        |X     |X     |     |X        |Also included in Java image to bootstrap Yuni|
 |[Gauche][]      |X        |X     |      |     |         |       |
-|NMosh           |X        |X     |      |     |         |Also included in Java image to bootstrap Yuni|
+|NMosh           |X        |X     |      |     |         |       |
 |[Sagittarius][] |X        |      |      |     |         |       |
 |[Chicken][]     |X        |X     |X     |     |X        |       |
 |[Guile][]       |X        |      |      |     |         |Not enabled except UbuntuLTS due to excessive build time|
@@ -69,7 +69,7 @@ Linux(amd64)
 |[Vicare][]      |X        |X     |      |     |         |       |
 |[Larceny][]     |         |      |      |     |X        |       |
 |[ChezScheme][]  |X        |X     |X     |     |X        |       |
-|[Gambit][]      |X        |X     |      |     |X        |       |
+|[Gambit][]      |         |      |      |     |         |Disabled due to excessive build time of rapid-gambit|
 |[Kawa][]        |         |      |      |X    |         |       |
 
 * Ubuntu32: Run on amd64 kernel, using patched `uname` command to fake architecture as i686.
@@ -102,7 +102,7 @@ Others
 |[Gauche][]      |X         |       |       |       |
 |NMosh           |X         |X      |X      |       |
 |[Sagittarius][] |          |       |       |osx: Failed to bootstrap(#22)|
-|[Chicken][]     |X         |       |       |       |
+|[Chicken][]     |X         |X      |       |       |
 |[Guile][]       |          |       |       |       |
 |[Racket][]      |          |X      |X      |osx: Fails on raco install|
 |[Vicare][]      |          |       |       |       |

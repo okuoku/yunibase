@@ -13,10 +13,20 @@ else()
 endif()
 
 # Guile (current)
+if(${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD")
+    set(ENVP_GUILE_BOOTSTRAP 
+        M4 gm4
+        CPPFLAGS -I/usr/local/include
+        LDFLAGS -L/usr/local/lib
+        BDW_GC_LIBS -lgc-threaded)
+else()
+    set(ENVP_GUILE_BOOTSTRAP "")
+endif()
+
 set(guile_current_src ${YUNIBASE_ROOT_CURRENT}/guile)
 set(guile_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/guile)
 build_recipe(guile_current ${guile_current_src} ${guile_current_dest}
-    GUILE "" ${RECIPE_GUILE})
+    GUILE "${ENVP_GUILE_BOOTSTRAP}" ${RECIPE_GUILE})
 register_recipe(GUILE CURRENT guile_current)
 
 # Sagittarius (stable + current)
@@ -72,10 +82,17 @@ if(EXISTS ${gauche_stable_src}/.gitignore)
 endif()
 
 # NMosh (stable)
+if(${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD")
+    set(ENVP_NMOSH_CONFIG
+        CPPFLAGS -I/usr/local/include
+        LDFLAGS -L/usr/local/lib)
+else()
+    set(ENVP_NMOSH_CONFIG "")
+endif()
 set(nmosh_stable_src ${YUNIBASE_ROOT_STABLE}/nmosh)
 set(nmosh_stable_dest ${YUNIBASE_BUILD_STABLE_PREFIX}/nmosh)
 build_recipe(nmosh_stable ${nmosh_stable_src} ${nmosh_stable_dest}
-    NMOSH "" ${RECIPE_NMOSH})
+    NMOSH "${ENVP_NMOSH_CONFIG}" ${RECIPE_NMOSH})
 
 register_recipe(NMOSH STABLE nmosh_stable)
 workaround_touch_prebuilt_files(

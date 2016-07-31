@@ -5,4 +5,3 @@ set(RECIPE_GUILE # Recipe for Guile
     # STEP "Test"      MAKE check
     STEP "Install"   MAKE install
 )
-

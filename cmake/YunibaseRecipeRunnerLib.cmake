@@ -1,7 +1,11 @@
 # 
 
 macro(apply_envp ev app)
-    set(ENV{${ev}} "${app}:$ENV{${ev}}")
+    if("$ENV{${ev}}" STREQUAL "")
+        set(ENV{${ev}} "${app}")
+    else()
+        set(ENV{${ev}} "${app}:$ENV{${ev}}")
+    endif()
     message(STATUS "ENV: ${ev} = $ENV{${ev}}")
     if("${ARGN}" STREQUAL "")
         # Complete

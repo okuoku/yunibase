@@ -1,5 +1,9 @@
+# boehm-gc seems broken for me..
 # Required packages:
 
+# pkgsrc
+
+digest
 
 # chez
 
@@ -7,7 +11,7 @@ libX11 xproto
 
 # nmosh
 
-gmp
+gmp oniguruma
 
 # vicare
 
@@ -15,5 +19,12 @@ libtool
 
 # sagittarius
 
-pkg-config boehm-gc
+pkgconf boehm-gc
 
+# Gauche
+
+autoconf automake
+
+# Guile
+
+gettext unistring readline

@@ -20,12 +20,14 @@ Build environments
 Prebuilt images
 ===============
 
+[![](https://images.microbadger.com/badges/image/okuoku/yunibase.svg)](http://microbadger.com/images/okuoku/yunibase "Get your own image badge on microbadger.com")
+
 * [Linux Docker images][] on [Docker Hub][]
- * `okuoku/yunibase:testing` [![](https://badge.imagelayers.io/okuoku/yunibase:testing.svg)](https://imagelayers.io/?images=okuoku/yunibase:testing) - Ubuntu LTS
- * `okuoku/yunibase:testing-fedora` [![](https://badge.imagelayers.io/okuoku/yunibase:testing-fedora.svg)](https://imagelayers.io/?images=okuoku/yunibase:testing-fedora) - Fedora latest
- * `okuoku/yunibase:testing-alpine` [![](https://badge.imagelayers.io/okuoku/yunibase:testing-alpine.svg)](https://imagelayers.io/?images=okuoku/yunibase:testing-alpine) - Alpine Edge
- * `okuoku/yunibase:testing-java` [![](https://badge.imagelayers.io/okuoku/yunibase:testing-java.svg)](https://imagelayers.io/?images=okuoku/yunibase:testing-java) - Java (JDK 8 from Docker official image)
- * `okuoku/yunibase:testing-ubuntu32` [![](https://badge.imagelayers.io/okuoku/yunibase:testing-ubuntu32.svg)](https://imagelayers.io/?images=okuoku/yunibase:testing-ubuntu32) - Ubuntu i686 LTS (from unofficial `32bit/ubuntu`)
+ * `okuoku/yunibase:testing` - Ubuntu LTS
+ * `okuoku/yunibase:testing-fedora` - Fedora latest
+ * `okuoku/yunibase:testing-alpine` - Alpine Edge
+ * `okuoku/yunibase:testing-java` - Java (JDK 8 from Docker official image)
+ * `okuoku/yunibase:testing-ubuntu32` - Ubuntu i686 LTS (from unofficial `i386/ubuntu`)
 
 Implementations
 ===============

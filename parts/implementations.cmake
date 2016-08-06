@@ -19,6 +19,10 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD")
         CPPFLAGS -I/usr/local/include
         LDFLAGS -L/usr/local/lib
         BDW_GC_LIBS -lgc-threaded)
+elseif(APPLE)
+    set(ENVP_GUILE_BOOTSTRAP 
+        CPPFLAGS -I/opt/pkg/include
+        LDFLAGS -L/opt/pkg/lib)
 else()
     set(ENVP_GUILE_BOOTSTRAP "")
 endif()
@@ -145,22 +149,35 @@ set(racket_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/racket)
 set(ENVP_RACKET_SETUP
     PATH ${YUNIBASE_BUILD_CURRENT_PREFIX}/racket/bin
     ${ld_library_path} ${YUNIBASE_BUILD_CURRENT_PREFIX}/racket/lib)
-build_recipe(racket_current
-    ${racket_current_src}
-    ${racket_current_dest}
-    RACKET
-    ""
-    ${RECIPE_RACKET})
-build_recipe(racket_current_setup
-    ${racket_current_src}
-    ${racket_current_dest}
-    RACKET
-    "${ENVP_RACKET_SETUP}"
-    ${RECIPE_RACKET_SETUP})
+if(APPLE)
+    # On macOS, we use unix-style installation here..
+    build_recipe(racket_current
+        ${racket_current_src}/../..
+        ${racket_current_dest}
+        RACKET
+        ""
+        ${RECIPE_RACKET_MACOS})
 
-register_recipe(RACKET CURRENT 
-    racket_current
-    racket_current_setup)
+    register_recipe(RACKET CURRENT 
+        racket_current)
+else()
+    build_recipe(racket_current
+        ${racket_current_src}
+        ${racket_current_dest}
+        RACKET
+        ""
+        ${RECIPE_RACKET})
+    build_recipe(racket_current_setup
+        ${racket_current_src}
+        ${racket_current_dest}
+        RACKET
+        "${ENVP_RACKET_SETUP}"
+        ${RECIPE_RACKET_SETUP})
+
+    register_recipe(RACKET CURRENT 
+        racket_current
+        racket_current_setup)
+endif()
 
 # Vicare (current)
 set(vicare_current_src ${YUNIBASE_ROOT_CURRENT}/vicare)

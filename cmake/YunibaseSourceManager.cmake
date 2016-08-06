@@ -52,3 +52,14 @@ macro(detect_source var nam flav)
     endif()
 endmacro()
 
+function(register_update_all)
+    add_custom_target(try-update-all
+        COMMAND git submodule foreach git fetch
+        # FIXME: Use repository database
+        COMMAND git submodule foreach git reset --hard origin/master
+        COMMAND git commit -a -m "UpdateImplementations"
+        COMMAND git submodule update --init --recursive
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        )
+endfunction()
+

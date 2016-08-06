@@ -172,3 +172,4 @@ endif()
 
 add_buildmgr_report()
 
+register_update_all()

@@ -101,10 +101,10 @@ Others
 |[Chibi-scheme][]|X         |X      |X      |       |
 |[Gauche][]      |X         |       |       |       |
 |NMosh           |X         |X      |X      |       |
-|[Sagittarius][] |          |       |       |osx: Failed to bootstrap(#22)|
+|[Sagittarius][] |X         |       |       |       |
 |[Chicken][]     |X         |X      |       |       |
-|[Guile][]       |          |       |       |       |
-|[Racket][]      |          |X      |X      |osx: Fails on raco install|
+|[Guile][]       |X         |       |       |       |
+|[Racket][]      |X         |X      |X      |       |
 |[Vicare][]      |          |       |       |       |
 |[ChezScheme][]  |X         |       |       |       |
 

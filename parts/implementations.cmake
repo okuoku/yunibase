@@ -231,9 +231,31 @@ message(STATUS "We still have to workaround again...")
 
 workaround_touch_prebuilt_files(
     ${chicken_stable_src}
-    # This file needs to be newest
-    chicken-install.c
+    # This file needs to be the newest
+    # chicken-install.c # FIXME: It seems we need do this in the loop...
     debugger-client.c) 
+
+while(true)
+    if(${chicken_stable_src}/setup-download.c IS_NEWER_THAN 
+            ${chicken_stable_src}/setup-api.c)
+        break()
+    endif()
+    message(STATUS "Touch Again(setup-download.c).")
+    workaround_touch_prebuilt_files(
+        ${chicken_stable_src}
+        setup-download.c)
+endwhile()
+
+while(true)
+    if(${chicken_stable_src}/chicken-install.c IS_NEWER_THAN
+            ${chicken_stable_src}/setup-download.c)
+        break()
+    endif()
+    message(STATUS "Touch Again(chicken-install.c).")
+    workaround_touch_prebuilt_files(
+        ${chicken_stable_src}
+        chicken-install.c)
+endwhile()
 
 set(chicken_current_src ${YUNIBASE_ROOT_CURRENT}/chicken)
 set(chicken_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/chicken)

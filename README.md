@@ -70,7 +70,7 @@ Linux(amd64)
 |[Racket][]      |X        |X     |      |     |X        |       |
 |[Vicare][]      |X        |X     |      |     |         |       |
 |[Larceny][]     |         |      |      |     |X        |       |
-|[ChezScheme][]  |X        |X     |X     |     |X        |       |
+|[ChezScheme][]  |X        |X     |      |     |X        |       |
 |[Gambit][]      |         |      |      |     |         |Disabled due to excessive build time of rapid-gambit|
 |[Kawa][]        |         |      |      |X    |         |       |
 

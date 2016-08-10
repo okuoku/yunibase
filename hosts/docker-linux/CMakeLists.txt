@@ -114,7 +114,8 @@ add_docker_yunibase(docker_yuni_fedora
     )
 add_docker_yunibase(docker_yuni_alpine
     "okuoku/yunibuild:latest-alpine" "okuoku/yunibase:testing-alpine"
-    CHIBI_SCHEME CHICKEN CHEZ)
+    CHIBI_SCHEME CHICKEN # CHEZ
+    )
 
 add_docker_yunibase(docker_yuni_java
     "okuoku/yunibuild:latest-java" "okuoku/yunibase:testing-java"

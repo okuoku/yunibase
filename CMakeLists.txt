@@ -135,7 +135,7 @@ else()
     activate_recipe(SAGITTARIUS CURRENT 
         ${skip_test_cygwin} ${skip_test_wsl})
     activate_recipe(GUILE CURRENT IGNORE_TEST_FAILURE)
-    activate_recipe(GAUCHE STABLE ${allow_testfail_cygwin} ${skip_test_wsl})
+    activate_recipe(GAUCHE STABLE SKIP_TEST)
     activate_recipe(GAUCHE CURRENT ${allow_testfail_cygwin} ${skip_test_wsl})
     activate_recipe(CHIBI_SCHEME CURRENT)
     activate_recipe(RACKET CURRENT)

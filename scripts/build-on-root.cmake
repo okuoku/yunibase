@@ -88,7 +88,8 @@ set(basedirs
     ${_mysrc}/hosts
     ${_mysrc}/parts
     ${_mysrc}/recipes
-    ${_mysrc}/scripts)
+    ${_mysrc}/scripts
+    ${_mysrc}/yuni)
 
 set(register_src_listpath .)
 include(${_mysrc}/sources-current.cmake)

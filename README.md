@@ -42,8 +42,9 @@ Implementations
 |[Guile][]       |C        |R6RS      |          |Official Git   |                                      |
 |[Racket][]      |C        |R6RS      |          |Official GitHub|NOTEST, with `srfi-lib` and `r6rs-lib`|
 |[Vicare][]      |C        |R6RS      |          |Official GitHub|                                      |
-|[Larceny][]     |Scheme, C|R6RS+R7RS |0.99*     |Official GitHub|NOTEST                                |
+|[Larceny][]     |Scheme, C|R6RS+R7RS |0.99      |Official GitHub|NOTEST                                |
 |[ChezScheme][]  |C        |R6RS      |          |Official GitHub|SKIPTEST                              |
+|[Picrin][]      |C        |R7RS      |          |Official GitHub|with yuniffi patches|
 |[Gambit][]      |C        |R4RS+R5RS |4.8.5     |not yet        |With [Rapid-gambit]                   |
 |[Kawa][]        |Java     |R7RS      |          |GitHub Mirror  |NOTEST                                |
 
@@ -58,7 +59,7 @@ Platform matrix
 
 Linux(amd64)
 ------------
-|                |UbuntuLTS|Fedora|Alpine|Java |Ubuntu32*|Remarks|
+|                |UbuntuLTS|Fedora|Alpine|Java |Ubuntu32 |Remarks|
 |:---------------|:-------:|:----:|:----:|:---:|:-------:|:------|
 |(Foundation)    |glibc    |glibc |Musl  |Java8|glibc    |       |
 |[Chibi-scheme][]|X        |X     |X     |     |X        |Also included in Java image to bootstrap Yuni|
@@ -71,6 +72,7 @@ Linux(amd64)
 |[Vicare][]      |X        |X     |      |     |         |       |
 |[Larceny][]     |         |      |      |     |X        |       |
 |[ChezScheme][]  |X        |X     |      |     |X        |       |
+|[Picrin][]      |X        |X     |X     |     |X        |       |
 |[Gambit][]      |         |      |      |     |         |Disabled due to excessive build time of rapid-gambit|
 |[Kawa][]        |         |      |      |X    |         |       |
 
@@ -129,3 +131,4 @@ Others
 [ChezScheme]: https://github.com/cisco/ChezScheme
 [Gambit]: http://gambitscheme.org/
 [Rapid-gambit]: https://github.com/okuoku/rapid-gambit
+[Picrin]: https://github.com/picrin-scheme/picrin

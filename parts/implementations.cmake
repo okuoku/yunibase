@@ -348,3 +348,23 @@ add_dependencies(rapid_gambit_current
     chibi_scheme_current
     gambit_stable)
 
+# Picrin
+set(picrin_current_src ${YUNIBASE_ROOT_CURRENT}/picrin)
+set(picrin_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/picrin)
+file(MAKE_DIRECTORY ${YUNIBASE_BUILD_CURRENT_PREFIX}/picrin/bin)
+set(YUNIFFI_PICRIN_PATH
+    ${YUNIBASE_ROOT_CURRENT}/../yuni/yunistub/picrin)
+set(YUNIFFI_INCLUDE_DIR
+    ${YUNIBASE_ROOT_CURRENT}/../yuni/yunistub/include)
+configure_file(
+    ${YUNIFFI_PICRIN_PATH}/nitro.mk.in
+    ${picrin_current_src}/contrib/99.yuni/nitro.mk @ONLY)
+build_recipe(picrin_current
+    ${picrin_current_src}
+    ${picrin_current_dest}
+    PICRIN
+    ""
+    ${RECIPE_PICRIN})
+register_recipe(PICRIN CURRENT
+    picrin_current)
+

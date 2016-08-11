@@ -356,9 +356,11 @@ set(YUNIFFI_PICRIN_PATH
     ${YUNIBASE_ROOT_CURRENT}/../yuni/yunistub/picrin)
 set(YUNIFFI_INCLUDE_DIR
     ${YUNIBASE_ROOT_CURRENT}/../yuni/yunistub/include)
-configure_file(
-    ${YUNIFFI_PICRIN_PATH}/nitro.mk.in
-    ${picrin_current_src}/contrib/99.yuni/nitro.mk @ONLY)
+if(EXISTS ${picrin_current_src}/Makefile)
+    configure_file(
+        ${YUNIFFI_PICRIN_PATH}/nitro.mk.in
+        ${picrin_current_src}/contrib/99.yuni/nitro.mk @ONLY)
+endif()
 build_recipe(picrin_current
     ${picrin_current_src}
     ${picrin_current_dest}

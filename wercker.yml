@@ -24,6 +24,10 @@ build:
         code: |
             cd /yunisrc/yunibase && git submodule update --init --recursive impl-current/chibi-scheme
     - script:
+        name: clone submodule yuni
+        code: |
+            cd /yunisrc/yunibase && git submodule update --init --recursive yuni
+    - script:
         name: disable unused sources
         code: |
             cd /yunisrc/yunibase && rm -rf impl-stable/chicken impl-stable/gauche impl-stable/sagittarius impl-stable/gambit && find /yunisrc/yunibase -type d -empty | xargs rm -rf

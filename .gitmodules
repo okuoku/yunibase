@@ -34,3 +34,9 @@
 [submodule "impl-current/rapid-gambit"]
 	path = impl-current/rapid-gambit
 	url = https://github.com/okuoku/rapid-gambit
+[submodule "impl-current/picrin"]
+	path = impl-current/picrin
+	url = https://github.com/picrin-scheme/picrin
+[submodule "yuni"]
+	path = yuni
+	url = https://github.com/okuoku/yuni

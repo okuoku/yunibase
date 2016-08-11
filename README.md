@@ -35,22 +35,20 @@ Implementations
 |                |Code     |Standard  |[Stable][]|[Current][]    |Remarks                               |
 |:---------------|:-------:|:--------:|:--------:|:-------------:|:-------------------------------------|
 |[Chibi-scheme][]|C        |R7RS      |          |Official GitHub|                                      |
+|[Chicken][]     |C        |R7RS      |4.11.0    |Official Git   |With `r7rs` egg                       |
 |[Gauche][]      |C        |R7RS      |0.9.4+    |Official GitHub|                                      |
-|NMosh           |C++      |R6RS+R7RS-|current   |not yet        |                                      |
 |[Sagittarius][] |C        |R6RS+R7RS |0.7.6     |GitHub Mirror  |                                      |
-|[Chicken][]     |C        |R7RS      |4.11.0    |Official Git   |SKIPTEST, with `r7rs` egg             |
+|NMosh           |C++      |R6RS+R7RS-|current   |not yet        |                                      |
+|[ChezScheme][]  |C        |R6RS      |          |Official GitHub|                                      |
 |[Guile][]       |C        |R6RS      |          |Official Git   |                                      |
-|[Racket][]      |C        |R6RS      |          |Official GitHub|NOTEST, with `srfi-lib` and `r6rs-lib`|
+|[Racket][]      |C        |R6RS      |          |Official GitHub|With `srfi-lib` and `r6rs-lib`        |
 |[Vicare][]      |C        |R6RS      |          |Official GitHub|                                      |
-|[Larceny][]     |Scheme, C|R6RS+R7RS |0.99      |Official GitHub|NOTEST                                |
-|[ChezScheme][]  |C        |R6RS      |          |Official GitHub|SKIPTEST                              |
-|[Picrin][]      |C        |R7RS      |          |Official GitHub|with yuniffi patches|
+|[Larceny][]     |Scheme, C|R6RS+R7RS |0.99      |Official GitHub|                                      |
+|[Picrin][]      |C        |R7RS      |          |Official GitHub|With yuniffi patches                  |
 |[Gambit][]      |C        |R4RS+R5RS |4.8.5     |not yet        |With [Rapid-gambit]                   |
-|[Kawa][]        |Java     |R7RS      |          |GitHub Mirror  |NOTEST                                |
+|[Kawa][]        |Java     |R7RS      |          |GitHub Mirror  |                                      |
 
 * [Stable][] implementations are only included if the implementation requires it to "bootstrap" [Current][] ones
-* NOTEST: Yunibase does not support testing on this implementation
-* SKIPTEST: Yunibase always skips test on this implementation
 * Gauche: Uses patched version to build on Cygwin64 host(#5)
 * Larceny: Uses binary distribution for Stable build
 
@@ -59,22 +57,22 @@ Platform matrix
 
 Linux(amd64)
 ------------
-|                |UbuntuLTS|Fedora|Alpine|Java |Ubuntu32 |Remarks|
-|:---------------|:-------:|:----:|:----:|:---:|:-------:|:------|
-|(Foundation)    |glibc    |glibc |Musl  |Java8|glibc    |       |
-|[Chibi-scheme][]|X        |X     |X     |     |X        |Also included in Java image to bootstrap Yuni|
-|[Gauche][]      |X        |X     |      |     |         |       |
-|NMosh           |X        |X     |      |     |         |       |
-|[Sagittarius][] |X        |      |      |     |         |       |
-|[Chicken][]     |X        |X     |X     |     |X        |       |
-|[Guile][]       |X        |      |      |     |         |Not enabled except UbuntuLTS due to excessive build time|
-|[Racket][]      |X        |X     |      |     |X        |       |
-|[Vicare][]      |X        |X     |      |     |         |       |
-|[Larceny][]     |         |      |      |     |X        |       |
-|[ChezScheme][]  |X        |X     |      |     |X        |       |
-|[Picrin][]      |X        |X     |X     |     |X        |       |
-|[Gambit][]      |         |      |      |     |         |Disabled due to excessive build time of rapid-gambit|
-|[Kawa][]        |         |      |      |X    |         |       |
+|                |UbuntuLTS|Fedora|Alpine|Java |Ubuntu32|Remarks|
+|:---------------|:-------:|:----:|:----:|:---:|:------:|:------|
+|(Foundation)    |glibc    |glibc |Musl  |Java8|glibc   |       |
+|[Chibi-scheme][]|X        |X     |X     |     |X       |Also included in Java image to bootstrap Yuni|
+|[Chicken][]     |X        |X     |X     |     |X       |       |
+|[Gauche][]      |X        |X     |      |     |        |       |
+|[Sagittarius][] |X        |      |      |     |        |       |
+|NMosh           |X        |X     |      |     |        |       |
+|[ChezScheme][]  |X        |X     |      |     |X       |       |
+|[Guile][]       |X        |      |      |     |        |Not enabled except UbuntuLTS due to excessive build time|
+|[Racket][]      |X        |X     |      |     |X       |       |
+|[Vicare][]      |X        |X     |      |     |        |       |
+|[Larceny][]     |         |      |      |     |X       |       |
+|[Picrin][]      |X        |X     |X     |     |X       |       |
+|[Gambit][]      |         |      |      |     |        |Disabled due to excessive build time of rapid-gambit|
+|[Kawa][]        |         |      |      |X    |        |       |
 
 * Ubuntu32: Run on amd64 kernel, using patched `uname` command to fake architecture as i686.
 * Ubuntu32: Disabled BoehmGC based implementations #25
@@ -86,13 +84,15 @@ Windows
 |(KernelABI)     |nt      |Linux 3.4|       |
 |(Foundation)    |newlib  |glibc    |       |
 |[Chibi-scheme][]|X       |X        |       |
-|[Gauche][]      |X       |X        |SKIPTEST on WSL       |
-|NMosh           |X       |X        |TESTFAIL       |
-|[Sagittarius][] |X       |X        |SKIPTEST on WSL       |
 |[Chicken][]     |X       |         |       |
+|[Gauche][]      |X       |X        |SKIPTEST on WSL       |
+|[Sagittarius][] |X       |X        |SKIPTEST on WSL       |
+|NMosh           |X       |X        |TESTFAIL       |
+|[ChezScheme][]  |        |         |       |
 |[Guile][]       |        |         |       |
 |[Racket][]      |        |         |       |
 |[Vicare][]      |        |         |       |
+|[Picrin][]      |        |         |       |
 |[Gambit][]      |X       |         |       |
 
 * WSL: Windows Subsystem for Linux aka. "Bash on Windows"
@@ -103,14 +103,16 @@ Others
 |:---------------|:--------:|:-----:|:-----:|:------|
 |(Foundation)    |osx       |freebsd|freebsd|       |
 |[Chibi-scheme][]|X         |X      |X      |       |
-|[Gauche][]      |X         |       |       |       |
-|NMosh           |X         |X      |X      |       |
-|[Sagittarius][] |X         |       |       |       |
 |[Chicken][]     |X         |X      |       |       |
+|[Gauche][]      |X         |       |       |       |
+|[Sagittarius][] |X         |       |       |       |
+|NMosh           |X         |X      |X      |       |
+|[ChezScheme][]  |X         |       |       |       |
 |[Guile][]       |X         |       |       |       |
 |[Racket][]      |X         |X      |X      |       |
 |[Vicare][]      |          |       |       |       |
-|[ChezScheme][]  |X         |       |       |       |
+|[Picrin][]      |          |       |       |       |
+|[Gambit][]      |          |       |       |       |
 
 [Stable]: https://bitbucket.org/okuoku/yunibase-impl-stable
 [Current]: https://github.com/okuoku/yunibase/tree/master/impl-current

@@ -357,6 +357,12 @@ set(YUNIFFI_PICRIN_PATH
 set(YUNIFFI_INCLUDE_DIR
     ${YUNIBASE_ROOT_CURRENT}/../yuni/yunistub/include)
 if(EXISTS ${picrin_current_src}/Makefile)
+    find_library(picrin_libdl dl)
+    if(picrin_libdl)
+        set(YUNIFFI_PICRIN_LIBDL "-ldl")
+    else()
+        set(YUNIFFI_PICRIN_LIBDL "")
+    endif()
     configure_file(
         ${YUNIFFI_PICRIN_PATH}/nitro.mk.in
         ${picrin_current_src}/contrib/99.yuni/nitro.mk @ONLY)

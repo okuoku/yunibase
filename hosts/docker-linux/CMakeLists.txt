@@ -8,7 +8,8 @@ include(YunibaseStampVersion)
 
 add_custom_target(base)   # Update base environment
 add_custom_target(sync)   # Update Scheme implementations
-add_custom_target(image)  # Build yunibase images
+add_custom_target(image)  # Build yunibase images (without yuni)
+add_custom_target(yuniimage) # Install yuni on yunibase images
 add_custom_target(taste)  # Check latest sources
 add_custom_target(push)   # Push built images
 add_custom_target(stamp)  # Stamp current repository version
@@ -53,6 +54,7 @@ function(add_docker_yunibase tgt image tag)
         "-DONLY=${_str}"
         -DCIDFILE=${CMAKE_CURRENT_BINARY_DIR}/cid${tgt}
         -DTAG=${tag}
+        -DSTAMP=${CMAKE_CURRENT_LIST_DIR}/_stamp.txt
         -P ${CMAKE_CURRENT_LIST_DIR}/docker-run-build.cmake
         COMMENT "Building yunibase image...(${image} => ${tag})")
 endfunction()
@@ -146,6 +148,34 @@ add_dependencies(docker_yuni_ubuntu32 stamp)
 add_dependencies(docker_yuni_fedora stamp)
 add_dependencies(docker_yuni_alpine stamp)
 add_dependencies(docker_yuni_java stamp)
+
+#
+# yuniimage
+# 
+
+function(add_docker_yuniimage tgt from to)
+    add_custom_target(${tgt}
+        COMMAND ${CMAKE_COMMAND}
+        -DIMAGE=${from}
+        -DBUILDYUNI=TRUE
+        -DCIDFILE=${CMAKE_CURRENT_BINARY_DIR}/cid${tgt}
+        -DTAG=${to}
+        -DSTAMP=${CMAKE_CURRENT_LIST_DIR}/_stamp.txt
+        -P ${CMAKE_CURRENT_LIST_DIR}/docker-run-build.cmake
+        COMMENT "Building yuni image...(${from} => ${to})")
+    add_dependencies(yuniimage ${tgt})
+endfunction()
+
+add_docker_yuniimage(yuniimage_default 
+    "okuoku/yunibase:testing" "okuoku/yunibase:latest")
+add_docker_yuniimage(yuniimage_ubuntu32
+    "okuoku/yunibase:testing-ubuntu32" "okuoku/yunibase:yuni-ubuntu32")
+add_docker_yuniimage(yuniimage_fedora
+    "okuoku/yunibase:testing-fedora" "okuoku/yunibase:yuni-fedora")
+add_docker_yuniimage(yuniimage_java
+    "okuoku/yunibase:testing-java" "okuoku/yunibase:yuni-java")
+add_docker_yuniimage(yuniimage_alpine
+    "okuoku/yunibase:testing-alpine" "okuoku/yunibase:yuni-alpine")
 
 #
 # yunitest

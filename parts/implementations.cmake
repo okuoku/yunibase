@@ -357,7 +357,13 @@ set(YUNIFFI_PICRIN_PATH
 set(YUNIFFI_INCLUDE_DIR
     ${YUNIBASE_ROOT_CURRENT}/../yuni/yunistub/include)
 if(EXISTS ${picrin_current_src}/Makefile)
-    find_library(picrin_libdl dl)
+    if(${CMAKE_SYSTEM_NAME} STREQUAL Linux)
+        # Glibc has libdl, Musl too
+        set(picrin_libdl 1)
+    else()
+        # FIXME: We do project(NONE) so don't rely on this
+        find_library(picrin_libdl dl)
+    endif()
     if(picrin_libdl)
         set(YUNIFFI_PICRIN_LIBDL "-ldl")
     else()

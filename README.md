@@ -15,7 +15,7 @@ Build environments
  * Docker image build on `fedora/24-cloud-base`
 * [Linux Docker images][] on Docker hub
  * UbuntuLTS, Fedora, Alpine, official JDK8 and unofficial `i386/ubuntu`
-* MacOS X with pkgsrc
+* macOS with pkgsrc
 
 Prebuilt images
 ===============
@@ -36,21 +36,19 @@ Implementations
 |:---------------|:-------:|:--------:|:--------:|:-------------:|:-------------------------------------|
 |[Chibi-scheme][]|C        |R7RS      |          |Official GitHub|                                      |
 |[Chicken][]     |C        |R7RS      |4.11.0    |Official Git   |With `r7rs` egg                       |
-|[Gauche][]      |C        |R7RS      |0.9.4+    |Official GitHub|                                      |
+|[Gauche][]      |C        |R7RS      |0.9.4+    |Official GitHub|Stable: patched for Cygwin64 host(#5) |
 |[Sagittarius][] |C        |R6RS+R7RS |0.7.6     |GitHub Mirror  |                                      |
 |NMosh           |C++      |R6RS+R7RS-|current   |not yet        |                                      |
 |[ChezScheme][]  |C        |R6RS      |          |Official GitHub|                                      |
 |[Guile][]       |C        |R6RS      |          |Official Git   |                                      |
 |[Racket][]      |C        |R6RS      |          |Official GitHub|With `srfi-lib` and `r6rs-lib`        |
 |[Vicare][]      |C        |R6RS      |          |Official GitHub|                                      |
-|[Larceny][]     |Scheme, C|R6RS+R7RS |0.99      |Official GitHub|                                      |
+|[Larceny][]     |Scheme, C|R6RS+R7RS |0.99      |Official GitHub|Stable: Uses binary                   |
 |[Picrin][]      |C        |R7RS      |          |Official GitHub|With yuniffi patches                  |
 |[Gambit][]      |C        |R4RS+R5RS |4.8.5     |not yet        |With [Rapid-gambit]                   |
 |[Kawa][]        |Java     |R7RS      |          |GitHub Mirror  |                                      |
 
 * [Stable][] implementations are only included if the implementation requires it to "bootstrap" [Current][] ones
-* Gauche: Uses patched version to build on Cygwin64 host(#5)
-* Larceny: Uses binary distribution for Stable build
 
 Platform matrix
 ===============
@@ -99,7 +97,7 @@ Windows
 
 Others
 ------
-|                |OS X amd64|FBSD10 |FBSD11 |Remarks|
+|                |macOS     |FBSD10 |FBSD11 |Remarks|
 |:---------------|:--------:|:-----:|:-----:|:------|
 |(Foundation)    |osx       |freebsd|freebsd|       |
 |[Chibi-scheme][]|X         |X      |X      |       |
@@ -111,7 +109,7 @@ Others
 |[Guile][]       |X         |       |       |       |
 |[Racket][]      |X         |X      |X      |       |
 |[Vicare][]      |          |       |       |       |
-|[Picrin][]      |          |       |       |       |
+|[Picrin][]      |X         |       |       |       |
 |[Gambit][]      |          |       |       |       |
 
 [Stable]: https://bitbucket.org/okuoku/yunibase-impl-stable

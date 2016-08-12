@@ -2,8 +2,10 @@
 #
 # INPUTS:
 #   CLEANSOURCES: remove copied sources
+#   CLEANBUILDROOT: remove build working dirs
 #   BUILDROOT: 
 #   SRCROOT:
+#   YUNIBASEROOT: YUNIBASE_TARGET_PREFIX
 #   INPLACE: Do not copy source tree at all
 #   BOOTSTRAP_ONLY: YUNIBASE_BOOTSTRAP_ONLY
 #   POSTBOOTSTRAP: YUNIBASE_POSTBOOTSTRAP
@@ -172,6 +174,12 @@ else()
     set(_bootstraparg)
 endif()
 
+if(YUNIBASEROOT)
+    set(_yunibaseroot "-DYUNIBASE_TARGET_PREFIX=${YUNIBASEROOT}")
+else()
+    set(_yunibaseroot "")
+endif()
+
 if(INPLACE)
     message(STATUS "Using existing yunibase ${_myroot}")
 else()
@@ -184,6 +192,7 @@ execute_process(COMMAND
     ${CMAKE_COMMAND} "${_onlyarg}" "${_exceptarg}" 
     "${_bootstraparg}"
     "${_usegmakearg}"
+    "${_yunibaseroot}"
     ${_myroot}
     RESULT_VARIABLE rr
     WORKING_DIRECTORY ${_buildroot}
@@ -208,6 +217,14 @@ if(CLEANSOURCES AND NOT INPLACE)
         message(STATUS "Removing source tree...")
         execute_process(COMMAND
             ${CMAKE_COMMAND} -E remove_directory /yunisrc)
+    endif()
+endif()
+
+if(CLEANBUILDROOT AND NOT INPLACE)
+    if(EXISTS ${BUILDROOT})
+        message(STATUS "Removing builddir...")
+        execute_process(COMMAND
+            ${CMAKE_COMMAND} -E remove_directory ${BUILDROOT})
     endif()
 endif()
 

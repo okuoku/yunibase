@@ -42,11 +42,12 @@ execute_process(
     COMMAND docker run
     --cidfile=${CIDFILE}
     -it
-    -v ${_mysrc}:/yunibase:Z
+    -v ${_mysrc}:/yunibase.build:Z
     ${IMAGE}
     cmake "${_onlyarg}" "${_exceptarg}"
     -DCLEANSOURCES=TRUE
-    -P /yunibase/scripts/build-on-root.cmake
+    -DYUNIBASEROOT=/yunibase
+    -P /yunibase.build/scripts/build-on-root.cmake
     RESULT_VARIABLE rr)
 
 if(rr)

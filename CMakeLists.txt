@@ -2,13 +2,16 @@
 # 
 # INPUTs:
 #
+#  YUNIBASE_TARGET_PREFIX: The `yunibase` directory
+#
 #  YUNIBASE_ONLY: Enable some implementations. 
 #    YUNIBASE_ONLY=GAUCHE
 #    YUNIBASE_ONLY=GAUCHE_STABLE
 #
 #  YUNIBASE_EXCEPT: Disable some implementations. 
 #
-#  YUNIBASE_BOOTSTRAP_ONLY: Only bootstrap the tree
+#  YUNIBASE_BOOTSTRAP_ONLY: Only bootstrap the tree 
+#                          (prepare for ready-to-build)
 #
 #  YUNIBASE_POSTBOOTSTRAP: Assumes tree was bootstrapped
 #
@@ -29,10 +32,17 @@ set(YUNIBASE_BUILD_LOG_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/logs)
 # Defaults
 set(YUNIBASE_ROOT_STABLE ${CMAKE_CURRENT_LIST_DIR}/impl-stable)
 set(YUNIBASE_ROOT_CURRENT ${CMAKE_CURRENT_LIST_DIR}/impl-current)
-set(YUNIBASE_BUILD_STABLE_PREFIX
-    ${CMAKE_CURRENT_BINARY_DIR}/stable)
-set(YUNIBASE_BUILD_CURRENT_PREFIX
-    ${CMAKE_CURRENT_BINARY_DIR}/current)
+if(YUNIBASE_TARGET_PREFIX)
+    set(YUNIBASE_BUILD_STABLE_PREFIX
+        ${YUNIBASE_TARGET_PREFIX}/stable)
+    set(YUNIBASE_BUILD_CURRENT_PREFIX
+        ${YUNIBASE_TARGET_PREFIX}/current)
+else()
+    set(YUNIBASE_BUILD_STABLE_PREFIX
+        ${CMAKE_CURRENT_BINARY_DIR}/stable)
+    set(YUNIBASE_BUILD_CURRENT_PREFIX
+        ${CMAKE_CURRENT_BINARY_DIR}/current)
+endif()
 
 if(APPLE)
     # Perhaps NetBSD and MINIX, too

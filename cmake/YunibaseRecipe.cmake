@@ -4,7 +4,7 @@
 #
 #   __MAKE_OPTS__ : Translates into make "-j N" option
 #   __INSTALL_PREFIX__ : Translates into option INSTALL_PREFIX
-#   __AUTOCONF_OPTS__ : Translates into autoconf options (CPPFLAGS LDFLAGS)
+#   __AUTOCONF_OPTS__ : Translates into autoconf options (CPPFLAGS LDFLAGS etc)
 #   MAKE : Translates into posix make
 #   GMAKE : Translates into GNU make
 #
@@ -66,10 +66,13 @@ macro(yunibase_recipe_set_default_opts prefix)
     else()
         set(_mymake make)
     endif()
+    set(${prefix}_AUTOCONF_OPTS "")
     if(YUNIBASE_USE_PKGSRC_DEFAULTS)
-        set(${prefix}_AUTOCONF_OPTS "CPPFLAGS=-I/opt/pkg/include LDFLAGS=-L/opt/pkg/lib")
-    else()
-        set(${prefix}_AUTOCONF_OPTS "")
+        set(${prefix}_AUTOCONF_OPTS "CPPFLAGS=-I/opt/pkg/include LDFLAGS=-L/opt/pkg/lib ${${prefix}_AUTOCONF_OPTS}")
+    endif()
+    if(YUNIBASE_BOOTSTRAP_ONLY)
+        # FIXME: Hardcoded
+        set(${prefix}_AUTOCONF_OPTS "--build=x86_64-pc-msys")
     endif()
     if(NOT ${prefix}_MAKE)
         set(${prefix}_MAKE ${_mymake})

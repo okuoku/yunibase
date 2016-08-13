@@ -114,28 +114,29 @@ endif()
 if(YUNIBASE_BOOTSTRAP_ONLY)
     # Build only STABLEs and bootstrap.
     # Saggitarius, Gauche, Guile, Vicare
-    # FIXME: Chicken has no separate bootstrap phase.
     # Including VM generations
-    activate_recipe(SAGITTARIUS STABLE SKIP_TEST)
-    activate_recipe(SAGITTARIUS CURRENT BOOTSTRAP_ONLY)
+    #activate_recipe(SAGITTARIUS STABLE SKIP_TEST)
+    #activate_recipe(SAGITTARIUS CURRENT BOOTSTRAP_ONLY)
     activate_recipe(GAUCHE STABLE SKIP_TEST)
     activate_recipe(GAUCHE CURRENT BOOTSTRAP_ONLY)
+    # Bootstram impl
+    activate_recipe(CHICKEN STABLE SKIP_TEST)
     # Just for autotools
     activate_recipe(GUILE CURRENT BOOTSTRAP_ONLY)
-    activate_recipe(VICARE CURRENT BOOTSTRAP_ONLY)
+    #activate_recipe(VICARE CURRENT BOOTSTRAP_ONLY)
 elseif(YUNIBASE_POSTBOOTSTRAP)
     # Build only CURRENT flavors
-    # FIXME: Chicken has no separate bootstrap phase.
     # We skip most STABLE flavor except NMosh here.
-    activate_recipe(SAGITTARIUS CURRENT SKIP_BOOTSTRAP ${skip_test_cygwin})
-    activate_recipe(GUILE CURRENT IGNORE_TEST_FAILURE SKIP_BOOTSTRAP)
+    # FIXME: Implement boehm-gc installation
+    #activate_recipe(SAGITTARIUS CURRENT SKIP_BOOTSTRAP ${skip_test_cygwin})
+    #activate_recipe(GUILE CURRENT IGNORE_TEST_FAILURE SKIP_BOOTSTRAP)
     activate_recipe(GAUCHE CURRENT SKIP_BOOTSTRAP ${allow_testfail_cygwin})
     activate_recipe(CHIBI_SCHEME CURRENT)
     activate_recipe(RACKET CURRENT)
-    activate_recipe(NMOSH STABLE IGNORE_TEST_FAILURE)
+    #activate_recipe(NMOSH STABLE IGNORE_TEST_FAILURE)
     activate_recipe(VICARE CURRENT SKIP_TEST SKIP_BOOTSTRAP)
-    activate_recipe(GAMBIT STABLE)
-    activate_recipe(RAPID_GAMBIT CURRENT)
+    #activate_recipe(GAMBIT STABLE)
+    #activate_recipe(RAPID_GAMBIT CURRENT)
     activate_recipe(PICRIN CURRENT)
 else()
     # Build all (stable + bootstrap + current)

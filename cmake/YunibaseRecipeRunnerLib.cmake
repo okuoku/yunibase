@@ -36,7 +36,7 @@ macro(get_current_timestamp var_year var)
 endmacro()
 
 macro(try_process result resultsym time workdir outlog errlog timeout)
-    # ARGN = CMD
+    set(_cmd ${ARGN})
     set(_do_next TRUE)
     if(${timeout} EQUAL 0)
         set(_timeoutarg "")
@@ -44,14 +44,29 @@ macro(try_process result resultsym time workdir outlog errlog timeout)
         message(STATUS "Timeout: ${timeout}")
         set(_timeoutarg TIMEOUT ${timeout})
     endif()
+    if(WIN32)
+        list(GET _cmd 0 _cmdname)
+        # Consider UTF8 BOM...
+        if(EXISTS ${workdir}/${_cmdname})
+            file(READ ${workdir}/${_cmdname} _header LIMIT 8)
+            if(${_header} MATCHES "[^#]*#!")
+                message(STATUS 
+                    "It seems ${_cmdname} is a shell script. (Use sh)")
+                set(_cmd "sh" ${_cmd})
+            endif()
+        endif()
+    endif()
     while(_do_next)
         get_current_timestamp(start_year start_time)
-        execute_process(COMMAND ${ARGN}
+        execute_process(COMMAND ${_cmd}
             WORKING_DIRECTORY ${workdir}
             OUTPUT_FILE ${outlog}
             ERROR_FILE ${errlog}
             ${_timeoutarg}
             RESULT_VARIABLE rr)
+        if(rr)
+            message(STATUS "Error: ${rr}")
+        endif()
         get_current_timestamp(end_year end_time)
         set(_do_next FALSE)
     endwhile()

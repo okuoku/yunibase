@@ -82,16 +82,16 @@ Windows
 |(KernelABI)     |nt      |Linux 3.4|       |
 |(Foundation)    |newlib  |glibc    |       |
 |[Chibi-scheme][]|X       |X        |       |
-|[Chicken][]     |X       |         |       |
+|[Chicken][]     |X       |X        |       |
 |[Gauche][]      |X       |X        |SKIPTEST on WSL       |
 |[Sagittarius][] |X       |X        |SKIPTEST on WSL       |
-|NMosh           |X       |X        |TESTFAIL       |
-|[ChezScheme][]  |        |         |       |
-|[Guile][]       |        |         |       |
+|NMosh           |X       |         |TESTFAIL       |
+|[ChezScheme][]  |        |X        |       |
+|[Guile][]       |        |X        |       |
 |[Racket][]      |        |         |       |
 |[Vicare][]      |        |         |       |
-|[Picrin][]      |        |         |       |
-|[Gambit][]      |X       |         |       |
+|[Picrin][]      |        |X        |       |
+|[Gambit][]      |        |         |       |
 
 * WSL: Windows Subsystem for Linux aka. "Bash on Windows"
 

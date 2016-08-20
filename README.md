@@ -23,11 +23,11 @@ Prebuilt images
 [![](https://images.microbadger.com/badges/image/okuoku/yunibase.svg)](http://microbadger.com/images/okuoku/yunibase "Get your own image badge on microbadger.com")
 
 * [Linux Docker images][] on [Docker Hub][]
- * `okuoku/yunibase:testing` - Ubuntu LTS
- * `okuoku/yunibase:testing-fedora` - Fedora latest
- * `okuoku/yunibase:testing-alpine` - Alpine Edge
- * `okuoku/yunibase:testing-java` - Java (JDK 8 from Docker official image)
- * `okuoku/yunibase:testing-ubuntu32` - Ubuntu i686 LTS (from unofficial `i386/ubuntu`)
+ * `okuoku/yunibase:latest` - Ubuntu LTS (16.04)
+ * `okuoku/yunibase:yuni-fedora` - Fedora latest
+ * `okuoku/yunibase:yuni-alpine` - Alpine Edge
+ * `okuoku/yunibase:yuni-java` - Java (JDK 8 from Docker official image)
+ * `okuoku/yunibase:yuni-ubuntu32` - Ubuntu i686 LTS (16.04 from unofficial `i386/ubuntu`)
 
 Implementations
 ===============
@@ -61,7 +61,7 @@ Linux(amd64)
 |[Chibi-scheme][]|X        |X     |X     |     |X       |Also included in Java image to bootstrap Yuni|
 |[Chicken][]     |X        |X     |X     |     |X       |       |
 |[Gauche][]      |X        |X     |      |     |        |       |
-|[Sagittarius][] |X        |      |      |     |        |       |
+|[Sagittarius][] |X        |X     |      |     |        |       |
 |NMosh           |X        |X     |      |     |        |       |
 |[ChezScheme][]  |X        |X     |      |     |X       |       |
 |[Guile][]       |X        |      |      |     |        |Not enabled except UbuntuLTS due to excessive build time|

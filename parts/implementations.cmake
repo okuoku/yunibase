@@ -112,8 +112,6 @@ workaround_touch_prebuilt_files(
     install-sh
     depcomp
     mkinstalldirs
-    config.h.in
-    config.h
     config.sub
     src/Instruction.h
     src/main.cpp

@@ -50,3 +50,8 @@ register_source(PICRIN CURRENT
     "impl-current/picrin"
     GIT
     "origin/master")
+
+register_source(MIT_SCHEME CURRENT
+    "impl-current/mit-scheme"
+    GIT
+    "origin/master")

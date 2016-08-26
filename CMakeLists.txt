@@ -74,6 +74,7 @@ include(./recipes/chez.recipe.cmake)
 include(./recipes/gambit.recipe.cmake)
 include(./recipes/rapid-gambit.recipe.cmake)
 include(./recipes/picrin.recipe.cmake)
+include(./recipes/mit-scheme.recipe.cmake)
 
 # Source definitions
 init_sources()
@@ -164,6 +165,12 @@ else()
     activate_recipe(GAMBIT STABLE)
     activate_recipe(RAPID_GAMBIT CURRENT)
     activate_recipe(PICRIN CURRENT)
+    message(STATUS "CPU = ${CMAKE_SYSTEM_PROCESSOR}")
+    if(${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_64" AND
+            ${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+        activate_recipe(MIT_SCHEME STABLE)
+        activate_recipe(MIT_SCHEME CURRENT)
+    endif()
 endif()
 
 if(YUNIBASE_ONLY)

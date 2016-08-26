@@ -380,3 +380,33 @@ build_recipe(picrin_current
 register_recipe(PICRIN CURRENT
     picrin_current)
 
+# MIT/GNU Scheme
+set(mit_scheme_stable_src ${YUNIBASE_ROOT_STABLE}/mit-scheme-amd64)
+set(mit_scheme_stable_dest ${YUNIBASE_BUILD_STABLE_PREFIX}/mit-scheme)
+set(mit_scheme_current_src ${YUNIBASE_ROOT_CURRENT}/mit-scheme)
+set(mit_scheme_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/mit-scheme)
+build_recipe(mit_scheme_stable
+    ${mit_scheme_stable_src}/src
+    ${mit_scheme_stable_dest}
+    MIT_SCHEME
+    ""
+    ${RECIPE_MIT_SCHEME_AMD64})
+register_recipe(MIT_SCHEME STABLE
+    mit_scheme_stable)
+
+set(ENVP_MIT_SCHEME_BOOTSTRAP
+    PATH ${YUNIBASE_BUILD_STABLE_PREFIX}/mit-scheme/bin
+    ${ld_library_path} ${YUNIBASE_BUILD_STABLE_PREFIX}/mit-scheme/lib)
+
+build_recipe(mit_scheme_current
+    ${mit_scheme_current_src}/src
+    ${mit_scheme_current_dest}
+    MIT_SCHEME
+    "${ENVP_MIT_SCHEME_BOOTSTRAP}"
+    ${RECIPE_MIT_SCHEME_BOOTSTRAP})
+
+register_recipe(MIT_SCHEME CURRENT
+    mit_scheme_current)
+
+add_dependencies(mit_scheme_current mit_scheme_stable)
+

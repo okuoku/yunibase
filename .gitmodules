@@ -40,3 +40,6 @@
 [submodule "yuni"]
 	path = yuni
 	url = https://github.com/okuoku/yuni
+[submodule "impl-current/mit-scheme"]
+	path = impl-current/mit-scheme
+	url = git://git.savannah.gnu.org/mit-scheme.git

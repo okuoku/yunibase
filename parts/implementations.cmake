@@ -130,11 +130,13 @@ workaround_touch_prebuilt_files(
 # Chibi scheme (current)
 set(chibi_scheme_current_src ${YUNIBASE_ROOT_CURRENT}/chibi-scheme)
 set(chibi_scheme_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/chibi-scheme)
+set(ENVP_CHIBI_SCHEME_SETUP
+    ${ld_library_path} ${YUNIBASE_BUILD_CURRENT_PREFIX}/chibi-scheme/lib)
 build_recipe(chibi_scheme_current
     ${chibi_scheme_current_src}
     ${chibi_scheme_current_dest}
     CHIBI_SCHEME
-    ""
+    "${ENVP_CHIBI_SCHEME_SETUP}"
     ${RECIPE_CHIBI_SCHEME})
 
 register_recipe(CHIBI_SCHEME CURRENT 

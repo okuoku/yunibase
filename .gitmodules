@@ -43,3 +43,6 @@
 [submodule "impl-current/mit-scheme"]
 	path = impl-current/mit-scheme
 	url = git://git.savannah.gnu.org/mit-scheme.git
+[submodule "impl-current/gambit"]
+	path = impl-current/gambit
+	url = https://github.com/gambit/gambit.git

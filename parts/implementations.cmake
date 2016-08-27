@@ -319,13 +319,24 @@ register_recipe(CHEZ CURRENT
 
 
 
-# Gambit (stable)
+# Gambit (stable + current)
 set(gambit_stable_src ${YUNIBASE_ROOT_STABLE}/gambit)
 set(gambit_stable_dest ${YUNIBASE_BUILD_STABLE_PREFIX}/gambit)
+set(gambit_current_src ${YUNIBASE_ROOT_CURRENT}/gambit)
+set(gambit_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/gambit)
 build_recipe(gambit_stable ${gambit_stable_src} ${gambit_stable_dest}
     GAMBIT "" ${RECIPE_GAMBIT})
 
 register_recipe(GAMBIT STABLE
+    gambit_stable)
+
+build_recipe(gambit_current ${gambit_current_src} ${gambit_current_dest}
+    GAMBIT "" ${RECIPE_GAMBIT_BOOTSTRAP})
+
+register_recipe(GAMBIT CURRENT
+    gambit_current)
+
+add_dependencies(gambit_current
     gambit_stable)
 
 # Rapid-gambit (current)

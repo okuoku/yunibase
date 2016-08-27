@@ -55,3 +55,8 @@ register_source(MIT_SCHEME CURRENT
     "impl-current/mit-scheme"
     GIT
     "origin/master")
+
+register_source(GAMBIT CURRENT
+    "impl-current/gambit"
+    GIT
+    "origin/master")

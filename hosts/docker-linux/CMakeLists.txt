@@ -91,9 +91,10 @@ add_dependencies(push docker_push_yunibuild)
 add_docker_yunibase(docker_yuni_default
     "okuoku/yunibuild:latest" "okuoku/yunibase:testing"
     CHIBI_SCHEME GAUCHE NMOSH SAGITTARIUS CHICKEN GUILE RACKET VICARE CHEZ
-    # GAMBIT 
+    GAMBIT 
     # RAPID_GAMBIT
     PICRIN
+    MIT_SCHEME
     )
 add_docker_yunibase(docker_yuni_ubuntu32
     "okuoku/yunibuild:latest-ubuntu32" "okuoku/yunibase:testing-ubuntu32"
@@ -105,7 +106,7 @@ add_docker_yunibase(docker_yuni_ubuntu32
     # SAGITTARIUS 
     CHICKEN RACKET 
     LARCENY CHEZ 
-    # GAMBIT 
+    GAMBIT 
     # RAPID_GAMBIT
     PICRIN
     )
@@ -113,9 +114,10 @@ add_docker_yunibase(docker_yuni_fedora
     "okuoku/yunibuild:latest-fedora" "okuoku/yunibase:testing-fedora"
     # Disabled: SAGITTARIUS GUILE
     CHIBI_SCHEME GAUCHE NMOSH CHICKEN RACKET VICARE CHEZ 
-    # GAMBIT 
+    GAMBIT 
     # RAPID_GAMBIT
     PICRIN
+    MIT_SCHEME
     )
 add_docker_yunibase(docker_yuni_alpine
     "okuoku/yunibuild:latest-alpine" "okuoku/yunibase:testing-alpine"

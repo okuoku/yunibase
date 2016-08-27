@@ -3,7 +3,7 @@ Yunibase
 
 [![wercker status](https://app.wercker.com/status/0c36dd5ef969e9f4d3ff7e5ca759faba/m "wercker status")](https://app.wercker.com/project/bykey/0c36dd5ef969e9f4d3ff7e5ca759faba)
 
-This is Yunibase, collection of R6RS/R7RS implementations to test [Yuni R6RS/R7RS portability library][].
+This is Yunibase, collection of R5RS/R6RS/R7RS implementations to test [Yuni R6RS/R7RS portability library][].
 
 Build environments
 ==================
@@ -32,21 +32,22 @@ Prebuilt images
 Implementations
 ===============
 
-|                |Code     |Standard  |[Stable][]|[Current][]    |Remarks                               |
-|:---------------|:-------:|:--------:|:--------:|:-------------:|:-------------------------------------|
-|[Chibi-scheme][]|C        |R7RS      |          |Official GitHub|                                      |
-|[Chicken][]     |C        |R7RS      |4.11.0    |Official Git   |With `r7rs` egg                       |
-|[Gauche][]      |C        |R7RS      |0.9.4+    |Official GitHub|Stable: patched for Cygwin64 host(#5) |
-|[Sagittarius][] |C        |R6RS+R7RS |0.7.7     |GitHub Mirror  |                                      |
-|NMosh           |C++      |R6RS+R7RS-|current   |not yet        |                                      |
-|[ChezScheme][]  |C        |R6RS      |          |Official GitHub|                                      |
-|[Guile][]       |C        |R6RS      |          |Official Git   |                                      |
-|[Racket][]      |C        |R6RS      |          |Official GitHub|With `srfi-lib` and `r6rs-lib`        |
-|[Vicare][]      |C        |R6RS      |          |Official GitHub|                                      |
-|[Larceny][]     |Scheme, C|R6RS+R7RS |0.99      |Official GitHub|Stable: Uses binary                   |
-|[Picrin][]      |C        |R7RS      |          |Official GitHub|With yuniffi patches                  |
-|[Gambit][]      |C        |R4RS+R5RS |4.8.5     |not yet        |With [Rapid-gambit]                   |
-|[Kawa][]        |Java     |R7RS      |          |GitHub Mirror  |                                      |
+|                  |Code     |Standard  |[Stable][]|[Current][]    |Remarks                               |
+|:-----------------|:-------:|:--------:|:--------:|:-------------:|:-------------------------------------|
+|[Chibi-scheme][]  |C        |R7RS      |          |Official GitHub|                                      |
+|[Chicken][]       |C        |R7RS      |4.11.0    |Official Git   |With `r7rs` egg                       |
+|[Gauche][]        |C        |R7RS      |0.9.4+    |Official GitHub|Stable: patched for Cygwin64 host(#5) |
+|[Sagittarius][]   |C        |R6RS+R7RS |0.7.7     |GitHub Mirror  |                                      |
+|NMosh             |C++      |R6RS+R7RS-|current   |not yet        |                                      |
+|[ChezScheme][]    |C        |R6RS      |          |Official GitHub|                                      |
+|[Guile][]         |C        |R6RS      |          |Official Git   |                                      |
+|[Racket][]        |C        |R6RS      |          |Official GitHub|With `srfi-lib` and `r6rs-lib`        |
+|[Vicare][]        |C        |R6RS      |          |Official GitHub|                                      |
+|[Larceny][]       |C        |R6RS+R7RS |0.99      |Official GitHub|Stable: Uses binary                   |
+|[Picrin][]        |C        |R7RS      |          |Official GitHub|With yuniffi patches                  |
+|[Gambit][]        |C        |R5RS      |4.8.5     |not yet        |                                      |
+|[MIT/GNU Scheme][]|C        |R5RS      |9.2       |Official Git   |amd64 only                            |
+|[Kawa][]          |Java     |R7RS      |          |GitHub Mirror  |                                      |
 
 * [Stable][] implementations are only included if the implementation requires it to "bootstrap" [Current][] ones
 
@@ -55,22 +56,23 @@ Platform matrix
 
 Linux(amd64)
 ------------
-|                |UbuntuLTS|Fedora|Alpine|Java |Ubuntu32|Remarks|
-|:---------------|:-------:|:----:|:----:|:---:|:------:|:------|
-|(Foundation)    |glibc    |glibc |Musl  |Java8|glibc   |       |
-|[Chibi-scheme][]|X        |X     |X     |     |X       |Also included in Java image to bootstrap Yuni|
-|[Chicken][]     |X        |X     |X     |     |X       |       |
-|[Gauche][]      |X        |X     |      |     |        |       |
-|[Sagittarius][] |X        |X     |      |     |        |       |
-|NMosh           |X        |X     |      |     |        |       |
-|[ChezScheme][]  |X        |X     |      |     |X       |       |
-|[Guile][]       |X        |      |      |     |        |Not enabled except UbuntuLTS due to excessive build time|
-|[Racket][]      |X        |X     |      |     |X       |       |
-|[Vicare][]      |X        |X     |      |     |        |       |
-|[Larceny][]     |         |      |      |     |X       |       |
-|[Picrin][]      |X        |X     |X     |     |X       |       |
-|[Gambit][]      |         |      |      |     |        |Disabled due to excessive build time of rapid-gambit|
-|[Kawa][]        |         |      |      |X    |        |       |
+|                  |UbuntuLTS|Fedora|Alpine|Java |Ubuntu32|Remarks|
+|:-----------------|:-------:|:----:|:----:|:---:|:------:|:------|
+|(Foundation)      |glibc    |glibc |Musl  |Java8|glibc   |       |
+|[Chibi-scheme][]  |X        |X     |X     |     |X       |Also included in Java image to bootstrap Yuni|
+|[Chicken][]       |X        |X     |X     |     |X       |       |
+|[Gauche][]        |X        |X     |      |     |        |       |
+|[Sagittarius][]   |X        |X     |      |     |        |       |
+|NMosh             |X        |X     |      |     |        |       |
+|[ChezScheme][]    |X        |X     |      |     |X       |       |
+|[Guile][]         |X        |      |      |     |        |Not enabled except UbuntuLTS due to excessive build time|
+|[Racket][]        |X        |X     |      |     |X       |       |
+|[Vicare][]        |X        |X     |      |     |        |       |
+|[Larceny][]       |         |      |      |     |X       |       |
+|[Picrin][]        |X        |X     |X     |     |X       |       |
+|[Gambit][]        |X        |X     |      |     |X       |       |
+|[MIT/GNU Scheme][]|X        |X     |      |     |        |       |
+|[Kawa][]          |         |      |      |X    |        |       |
 
 * Ubuntu32: Run on amd64 kernel, using patched `uname` command to fake architecture as i686.
 * Ubuntu32: Disabled BoehmGC based implementations #25
@@ -132,3 +134,4 @@ Others
 [Gambit]: http://gambitscheme.org/
 [Rapid-gambit]: https://github.com/okuoku/rapid-gambit
 [Picrin]: https://github.com/picrin-scheme/picrin
+[MIT/GNU Scheme]: https://www.gnu.org/software/mit-scheme/

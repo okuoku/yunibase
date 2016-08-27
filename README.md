@@ -45,7 +45,7 @@ Implementations
 |[Vicare][]        |C        |R6RS      |          |Official GitHub|                                      |
 |[Larceny][]       |C        |R6RS+R7RS |0.99      |Official GitHub|Stable: Uses binary                   |
 |[Picrin][]        |C        |R7RS      |          |Official GitHub|With yuniffi patches                  |
-|[Gambit][]        |C        |R5RS      |4.8.5     |not yet        |                                      |
+|[Gambit][]        |C        |R5RS      |4.8.5     |Official GitHub|                                      |
 |[MIT/GNU Scheme][]|C        |R5RS      |9.2       |Official Git   |amd64 only                            |
 |[Kawa][]          |Java     |R7RS      |          |GitHub Mirror  |                                      |
 
@@ -56,44 +56,44 @@ Platform matrix
 
 Linux(amd64)
 ------------
-|                  |UbuntuLTS|Fedora|Alpine|Java |Ubuntu32|Remarks|
-|:-----------------|:-------:|:----:|:----:|:---:|:------:|:------|
-|(Foundation)      |glibc    |glibc |Musl  |Java8|glibc   |       |
-|[Chibi-scheme][]  |X        |X     |X     |     |X       |Also included in Java image to bootstrap Yuni|
-|[Chicken][]       |X        |X     |X     |     |X       |       |
-|[Gauche][]        |X        |X     |      |     |        |       |
-|[Sagittarius][]   |X        |X     |      |     |        |       |
-|NMosh             |X        |X     |      |     |        |       |
-|[ChezScheme][]    |X        |X     |      |     |X       |       |
-|[Guile][]         |X        |      |      |     |        |Not enabled except UbuntuLTS due to excessive build time|
-|[Racket][]        |X        |X     |      |     |X       |       |
-|[Vicare][]        |X        |X     |      |     |        |       |
-|[Larceny][]       |         |      |      |     |X       |       |
-|[Picrin][]        |X        |X     |X     |     |X       |       |
-|[Gambit][]        |X        |X     |      |     |X       |       |
-|[MIT/GNU Scheme][]|X        |X     |      |     |        |       |
-|[Kawa][]          |         |      |      |X    |        |       |
+|                  |UbuntuLTS|Fedora|Alpine|Ubuntu32|Remarks|
+|:-----------------|:-------:|:----:|:----:|:------:|:------|
+|(Foundation)      |glibc    |glibc |Musl  |glibc   |       |
+|[Chibi-scheme][]  |X        |X     |X     |X       |       |
+|[Chicken][]       |X        |X     |X     |X       |       |
+|[Gauche][]        |X        |X     |      |        |       |
+|[Sagittarius][]   |X        |X     |      |        |       |
+|NMosh             |X        |X     |      |        |       |
+|[ChezScheme][]    |X        |X     |      |X       |       |
+|[Guile][]         |X        |      |      |        |Not enabled except UbuntuLTS due to excessive build time|
+|[Racket][]        |X        |X     |      |X       |       |
+|[Vicare][]        |X        |X     |      |        |       |
+|[Larceny][]       |         |      |      |X       |       |
+|[Picrin][]        |X        |X     |X     |X       |       |
+|[Gambit][]        |X        |X     |      |X       |       |
+|[MIT/GNU Scheme][]|X        |X     |      |        |       |
 
 * Ubuntu32: Run on amd64 kernel, using patched `uname` command to fake architecture as i686.
 * Ubuntu32: Disabled BoehmGC based implementations #25
 
 Windows
 -------
-|                |Cygwin64|WSL      |Remarks|
-|:---------------|:------:|:-------:|:------|
-|(KernelABI)     |nt      |Linux 3.4|       |
-|(Foundation)    |newlib  |glibc    |       |
-|[Chibi-scheme][]|X       |X        |       |
-|[Chicken][]     |X       |X        |       |
-|[Gauche][]      |X       |X        |SKIPTEST on WSL       |
-|[Sagittarius][] |X       |X        |SKIPTEST on WSL       |
-|NMosh           |X       |         |TESTFAIL       |
-|[ChezScheme][]  |        |X        |       |
-|[Guile][]       |        |X        |       |
-|[Racket][]      |        |         |       |
-|[Vicare][]      |        |         |       |
-|[Picrin][]      |        |X        |       |
-|[Gambit][]      |        |         |       |
+|                  |Cygwin64|WSL      |Remarks|
+|:-----------------|:------:|:-------:|:------|
+|(KernelABI)       |nt      |Linux 3.4|       |
+|(Foundation)      |newlib  |glibc    |       |
+|[Chibi-scheme][]  |X       |X        |       |
+|[Chicken][]       |X       |X        |       |
+|[Gauche][]        |X       |X        |SKIPTEST on WSL       |
+|[Sagittarius][]   |X       |X        |SKIPTEST on WSL       |
+|NMosh             |X       |         |TESTFAIL       |
+|[ChezScheme][]    |        |X        |       |
+|[Guile][]         |        |X        |       |
+|[Racket][]        |        |         |       |
+|[Vicare][]        |        |         |       |
+|[Picrin][]        |        |X        |       |
+|[Gambit][]        |        |X        |TESTFAIL on WSL       |
+|[MIT/GNU Scheme][]|        |X        |       |
 
 * WSL: Windows Subsystem for Linux aka. "Bash on Windows"
 

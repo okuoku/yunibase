@@ -53,13 +53,18 @@ macro(detect_source var nam flav)
 endmacro()
 
 function(register_update_all)
-    add_custom_target(try-update-all
+    add_custom_target(do-try-update-all
         COMMAND git submodule foreach git fetch
         # FIXME: Use repository database
         COMMAND git submodule foreach git reset --hard origin/master
-        COMMAND git commit -a -m "UpdateImplementations"
+        COMMAND git commit -a -m "Update Implementations"
         COMMAND git submodule update --init --recursive
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
         )
+    # Enforce reconfigure to touch-workaround stable flav
+    add_custom_target(try-update-all
+        COMMAND ${CMAKE_COMMAND} .
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+    add_dependencies(try-update-all do-try-update-all)
 endfunction()
 

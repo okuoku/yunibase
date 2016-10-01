@@ -362,7 +362,6 @@ add_dependencies(rapid_gambit_current
 # Picrin
 set(picrin_current_src ${YUNIBASE_ROOT_CURRENT}/picrin)
 set(picrin_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/picrin)
-file(MAKE_DIRECTORY ${YUNIBASE_BUILD_CURRENT_PREFIX}/picrin/bin)
 set(YUNIFFI_PICRIN_PATH
     ${YUNIBASE_ROOT_CURRENT}/../yuni/yunistub/picrin)
 set(YUNIFFI_INCLUDE_DIR

@@ -16,6 +16,19 @@ set(archive_basename
 set(url_larceny_bin
     http://www.larcenists.org/LarcenyReleases/${bin_basename}.tar.gz)
 
+#
+# Cleanup current build
+#
+
+file(GLOB_RECURSE fasls src/*.fasl lib/*.fasl)
+message(STATUS "Removing current build(fasl)...")
+foreach(e ${fasls})
+    message(STATUS "${e}")
+    file(REMOVE "${e}")
+endforeach()
+
+
+
 # Download and expand binary distribution
 
 message(STATUS "Downloading Larceny binary(${bin_basename})...")
@@ -27,8 +40,22 @@ execute_process(
     RESULT_VARIABLE rr)
 
 #
+# Output files
+#
+
+set(iasn_heap src/Build/iasn-larceny-heap.fasl)
+
+#
+# STEP0: Cleanup current image
+#
+
+file(REMOVE ${iasn_heap})
+
+#
 # STEP1: Build larceny core
 #
+
+file(WRITE empty.bin)
 
 file(WRITE step1.scm
     "(load \"setup.sch\")
@@ -46,8 +73,14 @@ message(STATUS "Step1...")
 
 execute_process(
     COMMAND ${bin_basename}/larceny
-    RESULT_VARIABLE rr
-    INPUT_FILE step1.scm)
+    --
+    step1.scm
+    INPUT_FILE empty.bin
+    RESULT_VARIABLE rr)
+
+if(NOT EXISTS ${iasn_heap})
+    message(FATAL_ERROR "Step1 did not generate ${iasn_heap}")
+endif()
 
 if(rr)
     message(FATAL_ERROR "Something wrong(${rr})")
@@ -63,9 +96,10 @@ file(WRITE step2.scm
 
 message(STATUS "Step2(larceny)...")
 
+
 execute_process(
     COMMAND ./larceny.bin
-    -stopcopy -- src/Build/iasn-larceny-heap.fasl
+    -stopcopy -- ${iasn_heap}
     RESULT_VARIABLE rr
     INPUT_FILE step2.scm)
 
@@ -130,6 +164,12 @@ file(COPY
     PATTERN ".git" EXCLUDE
     PATTERN ${archive_basename} EXCLUDE
     PATTERN ${bin_basename} EXCLUDE)
+
+if(IS_DIRECTORY ${PREFIX}/bin)
+    file(REMOVE_RECURSE ${PREFIX}/bin)
+elseif(EXISTS ${PREFIX}/bin)
+    message(FATAL_ERROR "What??")
+endif()
 
 file(RENAME ${PREFIX}/${repos_basename} ${PREFIX}/bin)
 

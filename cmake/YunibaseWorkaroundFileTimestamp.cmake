@@ -3,13 +3,25 @@ find_program(workaround_touch_use_touch_command
 function(workaround_touch_prebuilt_files base)
     # FIXME: Special WAR for absolute paths
     if("${base}" STREQUAL "/")
-        set(pths ${ARGN})
+        set(pths0 ${ARGN})
     else()
-        set(pths)
+        set(pths0)
         foreach(e ${ARGN})
-            list(APPEND pths ${base}/${e})
+            list(APPEND pths0 ${base}/${e})
         endforeach()
     endif()
+    # GLOB over directories
+    set(pths)
+    foreach(e ${pths0})
+        if(IS_DIRECTORY ${e})
+            # Expand a directory into files
+            file(GLOB_RECURSE content ${e}/*)
+            list(APPEND pths ${content})
+        elseif(EXISTS ${e})
+            # Do not create nonexistent dir/files
+            list(APPEND pths ${e})
+        endif()
+    endforeach()
     if(workaround_touch_use_touch_command)
         message(STATUS "Workaround: Touch (w/ touch)")
         foreach(e ${pths})

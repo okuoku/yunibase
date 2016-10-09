@@ -83,6 +83,19 @@ if(EXISTS ${gauche_stable_src}/.gitignore)
     workaround_touch_prebuilt_files(
         ${gauche_stable_src}
         ${gauche_war_touch_files})
+
+    # doc/srfis.texi
+    while(true)
+        if(${gauche_stable_src}/doc/srfis.texi
+                IS_NEWER_THAN
+                ${gauche_stable_src}/src/srfis.scm)
+            break()
+        endif()
+        message(STATUS "Touch Again(srfis.texi).")
+        workaround_touch_prebuilt_files(
+            ${gauche_stable_src}
+            doc/srfis.texi)
+    endwhile()
 endif()
 
 # NMosh (stable)

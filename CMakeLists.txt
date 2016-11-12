@@ -58,6 +58,14 @@ include(YunibaseBuildManager)
 include(YunibaseUpdateManager) # Depends on Recipe/Build
 include(YunibaseSourceManager) # Depends on UpdateMgr
 
+# Configure parallel build
+include(ProcessorCount)
+ProcessorCount(__processor_count)
+if(NOT __processor_count EQUAL 0)
+    set(YUNIBASE_MAKE_PARALLEL "-j${__processor_count}")
+else()
+    set(YUNIBASE_MAKE_PARALLEL "-j1")
+endif()
 
 # Instanciate recipe templates
 include(./recipes/nmosh.recipe.cmake)

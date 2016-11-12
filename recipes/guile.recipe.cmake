@@ -7,7 +7,7 @@ endif()
 set(RECIPE_GUILE # Recipe for Guile
     STEP "Bootstrap" ${RECIPE_GUILE_AUTOGEN}
     STEP "Configure" "./configure" "--prefix=__INSTALL_PREFIX__"
-    STEP "Build"     MAKE __MAKE_OPTS__
+    STEP "Build"     MAKE __MAKE_PARALLEL__ __MAKE_OPTS__
     # STEP "Test"      MAKE check
     STEP "Install"   MAKE install
 )

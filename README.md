@@ -96,6 +96,7 @@ Windows
 |[MIT/GNU Scheme][]|        |X        |       |
 
 * WSL: Windows Subsystem for Linux aka. "Bash on Windows"
+* [WSL Release Note][]
 
 Others
 ------
@@ -135,3 +136,4 @@ Others
 [Rapid-gambit]: https://github.com/okuoku/rapid-gambit
 [Picrin]: https://github.com/picrin-scheme/picrin
 [MIT/GNU Scheme]: https://www.gnu.org/software/mit-scheme/
+[WSL Release Note]: https://msdn.microsoft.com/en-us/commandline/wsl/release_notes

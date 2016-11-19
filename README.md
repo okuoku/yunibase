@@ -37,7 +37,7 @@ Implementations
 |[Chibi-scheme][]  |C        |R7RS      |          |Official GitHub|                                      |
 |[Chicken][]       |C        |R7RS      |4.11.0    |Official Git   |With `r7rs` egg                       |
 |[Gauche][]        |C        |R7RS      |0.9.5     |Official GitHub| |
-|[Sagittarius][]   |C        |R6RS+R7RS |0.7.9     |GitHub Mirror  |                                      |
+|[Sagittarius][]   |C        |R6RS+R7RS |0.7.10    |GitHub Mirror  |                                      |
 |NMosh             |C++      |R6RS+R7RS-|current   |not yet        |                                      |
 |[ChezScheme][]    |C        |R6RS      |          |Official GitHub|                                      |
 |[Guile][]         |C        |R6RS      |          |Official Git   |                                      |
@@ -45,7 +45,7 @@ Implementations
 |[Vicare][]        |C        |R6RS      |          |Official GitHub|                                      |
 |[Larceny][]       |C        |R6RS+R7RS |0.99      |Official GitHub|Stable: Uses binary                   |
 |[Picrin][]        |C        |R7RS      |          |Official GitHub|With yuniffi patches                  |
-|[Gambit][]        |C        |R5RS      |4.8.5     |Official GitHub|                                      |
+|[Gambit][]        |C        |R5RS      |4.8.6     |Official GitHub|                                      |
 |[MIT/GNU Scheme][]|C        |R5RS      |9.2       |Official Git   |amd64 only                            |
 |[Kawa][]          |Java     |R7RS      |          |GitHub Mirror  |                                      |
 

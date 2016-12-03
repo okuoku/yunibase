@@ -24,7 +24,7 @@
 	url = https://github.com/spurious/sagittarius-scheme-mirror
 [submodule "impl-current/kawa"]
 	path = impl-current/kawa
-	url = https://github.com/spurious/kawa-mirror.git
+	url = https://gitlab.com/kashell/Kawa.git
 [submodule "impl-current/larceny"]
 	path = impl-current/larceny
 	url = https://github.com/larcenists/larceny

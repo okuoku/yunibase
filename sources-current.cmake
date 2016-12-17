@@ -97,3 +97,8 @@ register_source(RACKET DEP
     GIT
     "origin/master")
 
+register_source(RACKET DEP
+    "impl-current/racket-pkgs/typed-racket"
+    GIT
+    "origin/master")
+

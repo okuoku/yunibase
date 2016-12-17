@@ -62,10 +62,12 @@ include(YunibaseSourceManager) # Depends on UpdateMgr
 include(ProcessorCount)
 ProcessorCount(__processor_count)
 if(NOT __processor_count EQUAL 0)
-    set(YUNIBASE_MAKE_PARALLEL "-j${__processor_count}")
+    set(YUNIBASE_MAKE_JOBS "${__processor_count}")
 else()
-    set(YUNIBASE_MAKE_PARALLEL "-j1")
+    set(YUNIBASE_MAKE_JOBS "1")
 endif()
+
+set(YUNIBASE_MAKE_PARALLEL "-j${YUNIBASE_MAKE_JOBS}")
 
 # Instanciate recipe templates
 include(./recipes/nmosh.recipe.cmake)

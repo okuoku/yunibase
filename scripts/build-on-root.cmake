@@ -124,7 +124,7 @@ function(setup_sources)
         list(REMOVE_ITEM impls ${EXCEPT})
     endif()
     foreach(e ${impls})
-        foreach(flav STABLE CURRENT)
+        foreach(flav STABLE CURRENT DEP)
             if(srcdir_${e}_${flav})
                 # FIXME: Uncool
                 if(${flav} STREQUAL STABLE)

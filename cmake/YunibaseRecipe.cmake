@@ -4,6 +4,7 @@
 #
 #   __MAKE_OPTS__ : Obsolete
 #   __MAKE_PARALLEL__ : Translates into make "-j N" option
+#   __MAKE_JOBS__ : Translates into N portion of make "-j N" option
 #   __INSTALL_PREFIX__ : Translates into option INSTALL_PREFIX
 #   __AUTOCONF_OPTS__ : Translates into autoconf options (CPPFLAGS LDFLAGS etc)
 #   MAKE : Translates into posix make
@@ -20,6 +21,7 @@
 set(yunibase_recipe_replace_entries
     __MAKE_OPTS__      MAKE_OPTS
     __MAKE_PARALLEL__  MAKE_PARALLEL
+    __MAKE_JOBS__      MAKE_JOBS
     __INSTALL_PREFIX__ INSTALL_PREFIX
     __AUTOCONF_OPTS__  AUTOCONF_OPTS
     MAKE               MAKE
@@ -84,6 +86,7 @@ macro(yunibase_recipe_set_default_opts prefix)
     endif()
     # MAKE_PARALLEL cannot be overriden
     set(${prefix}_MAKE_PARALLEL "${YUNIBASE_MAKE_PARALLEL}")
+    set(${prefix}_MAKE_JOBS "${YUNIBASE_MAKE_JOBS}")
 endmacro()
 
 macro(build_recipe tgt source_dir install_dir prefix envp)

@@ -62,6 +62,16 @@ register_source(GAMBIT CURRENT
     "origin/master")
 
 # Deps
+register_source(CHICKEN DEP
+    "impl-current/chicken-eggs/chicken-r7rs"
+    GIT
+    "origin/master")
+
+register_source(CHICKEN DEP
+    "impl-current/chicken-eggs/chicken-r7rs-deps"
+    GIT
+    "origin/master")
+
 register_source(RACKET DEP
     "impl-current/racket-pkgs/scheme-lib"
     GIT

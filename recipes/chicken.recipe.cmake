@@ -33,6 +33,16 @@ set(RECIPE_CHICKEN_TEST
     TIMEOUT:600
 )
 set(RECIPE_CHICKEN_SETUP
-    STEP "Setup"
-    chicken-install r7rs
+    STEP "SetupMake" ${CMAKE_COMMAND} 
+    -DSRC=${YUNIBASE_ROOT_CURRENT}/chicken-eggs/chicken-r7rs-deps/make
+    -P ${CMAKE_CURRENT_SOURCE_DIR}/recipes/build-chicken-egg.cmake
+    STEP "SetupMatchable" ${CMAKE_COMMAND} 
+    -DSRC=${YUNIBASE_ROOT_CURRENT}/chicken-eggs/chicken-r7rs-deps/matchable
+    -P ${CMAKE_CURRENT_SOURCE_DIR}/recipes/build-chicken-egg.cmake
+    STEP "SetupNumbers" ${CMAKE_COMMAND} 
+    -DSRC=${YUNIBASE_ROOT_CURRENT}/chicken-eggs/chicken-r7rs-deps/numbers
+    -P ${CMAKE_CURRENT_SOURCE_DIR}/recipes/build-chicken-egg.cmake
+    STEP "SetupR7RS" ${CMAKE_COMMAND} 
+    -DSRC=${YUNIBASE_ROOT_CURRENT}/chicken-eggs/chicken-r7rs
+    -P ${CMAKE_CURRENT_SOURCE_DIR}/recipes/build-chicken-egg.cmake
 )

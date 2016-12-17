@@ -70,3 +70,9 @@
 [submodule "impl-current/racket-pkgs/typed-racket"]
 	path = impl-current/racket-pkgs/typed-racket
 	url = https://github.com/racket/typed-racket
+[submodule "impl-current/chicken-eggs/chicken-r7rs"]
+	path = impl-current/chicken-eggs/chicken-r7rs
+	url = git://code.call-cc.org/chicken-r7rs
+[submodule "impl-current/chicken-eggs/chicken-r7rs-deps"]
+	path = impl-current/chicken-eggs/chicken-r7rs-deps
+	url = https://bitbucket.org/okuoku/chicken-r7rs-deps

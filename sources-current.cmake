@@ -60,3 +60,40 @@ register_source(GAMBIT CURRENT
     "impl-current/gambit"
     GIT
     "origin/master")
+
+# Deps
+register_source(RACKET DEP
+    "impl-current/racket-pkgs/scheme-lib"
+    GIT
+    "origin/master")
+
+register_source(RACKET DEP
+    "impl-current/racket-pkgs/errortrace"
+    GIT
+    "origin/master")
+
+register_source(RACKET DEP
+    "impl-current/racket-pkgs/sandbox-lib"
+    GIT
+    "origin/master")
+
+register_source(RACKET DEP
+    "impl-current/racket-pkgs/compatibility"
+    GIT
+    "origin/master")
+
+register_source(RACKET DEP
+    "impl-current/racket-pkgs/r5rs"
+    GIT
+    "origin/master")
+
+register_source(RACKET DEP
+    "impl-current/racket-pkgs/r6rs"
+    GIT
+    "origin/master")
+
+register_source(RACKET DEP
+    "impl-current/racket-pkgs/srfi"
+    GIT
+    "origin/master")
+

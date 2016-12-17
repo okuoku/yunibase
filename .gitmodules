@@ -46,3 +46,27 @@
 [submodule "impl-current/gambit"]
 	path = impl-current/gambit
 	url = https://github.com/gambit/gambit.git
+[submodule "impl-current/racket-pkgs/scheme-lib"]
+	path = impl-current/racket-pkgs/scheme-lib
+	url = https://github.com/racket/scheme-lib
+[submodule "impl-current/racket-pkgs/errortrace"]
+	path = impl-current/racket-pkgs/errortrace
+	url = https://github.com/racket/errortrace
+[submodule "impl-current/racket-pkgs/sandbox-lib"]
+	path = impl-current/racket-pkgs/sandbox-lib
+	url = https://github.com/racket/sandbox-lib
+[submodule "impl-current/racket-pkgs/compatibility"]
+	path = impl-current/racket-pkgs/compatibility
+	url = https://github.com/racket/compatibility
+[submodule "impl-current/racket-pkgs/r5rs"]
+	path = impl-current/racket-pkgs/r5rs
+	url = https://github.com/racket/r5rs
+[submodule "impl-current/racket-pkgs/r6rs"]
+	path = impl-current/racket-pkgs/r6rs
+	url = https://github.com/racket/r6rs
+[submodule "impl-current/racket-pkgs/srfi"]
+	path = impl-current/racket-pkgs/srfi
+	url = https://github.com/racket/srfi
+[submodule "impl-current/racket-pkgs/typed-racket"]
+	path = impl-current/racket-pkgs/typed-racket
+	url = https://github.com/racket/typed-racket

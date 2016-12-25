@@ -92,7 +92,7 @@ Windows
 |[Racket][]        |        |         |       |
 |[Vicare][]        |        |         |       |
 |[Picrin][]        |        |X        |       |
-|[Gambit][]        |        |X        |TESTFAIL on WSL       |
+|[Gambit][]        |X       |X        |TESTFAIL on WSL       |
 |[MIT/GNU Scheme][]|        |X        |       |
 
 * WSL: Windows Subsystem for Linux aka. "Bash on Windows"

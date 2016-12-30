@@ -219,8 +219,9 @@ build_recipe(chicken_stable_setup ${chicken_stable_src} ${chicken_stable_dest}
 
 register_recipe(CHICKEN STABLE 
     chicken_stable
-    chicken_stable_setup
-    chicken_stable_test)
+    #chicken_stable_setup
+    #chicken_stable_test
+    )
 
 file(GLOB chicken_stable_csrcs ${chicken_stable_src}/*.c)
 
@@ -282,7 +283,7 @@ build_recipe(chicken_current ${chicken_current_src} ${chicken_current_dest}
     CHICKEN "${ENVP_CHICKEN_BUILD}" ${RECIPE_CHICKEN})
 build_recipe(chicken_current_test ${chicken_current_src} ${chicken_current_dest}
     CHICKEN "${ENVP_CHICKEN_SETUP}" ${RECIPE_CHICKEN_TEST})
-add_dependencies(chicken_current chicken_stable_setup)
+add_dependencies(chicken_current chicken_stable)
 build_recipe(chicken_current_setup 
     ${chicken_current_src} 
     ${chicken_current_dest}

@@ -47,7 +47,7 @@ Implementations
 |[Picrin][]        |C        |R7RS      |          |Official GitHub|With yuniffi patches                  |
 |[Gambit][]        |C        |R5RS      |4.8.7     |Official GitHub|                                      |
 |[MIT/GNU Scheme][]|C        |R5RS      |9.2       |Official Git   |amd64 only                            |
-|[Kawa][]          |Java     |R7RS      |          |GitHub Mirror  |                                      |
+|[Kawa][]          |Java     |R7RS      |          |Official Git   |                                      |
 
 * [Stable][] implementations are only included if the implementation requires it to "bootstrap" [Current][] ones
 

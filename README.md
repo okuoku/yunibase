@@ -37,7 +37,7 @@ Implementations
 |[Chibi-scheme][]  |C        |R7RS      |          |Official GitHub|                                      |
 |[Chicken][]       |C        |R7RS      |4.11.0    |Official Git   |With `r7rs` egg                       |
 |[Gauche][]        |C        |R7RS      |0.9.5     |Official GitHub| |
-|[Sagittarius][]   |C        |R6RS+R7RS |0.7.11    |GitHub Mirror  |                                      |
+|[Sagittarius][]   |C        |R6RS+R7RS |0.8.0     |GitHub Mirror  |                                      |
 |NMosh             |C++      |R6RS+R7RS-|current   |not yet        |                                      |
 |[ChezScheme][]    |C        |R6RS      |          |Official GitHub|                                      |
 |[Guile][]         |C        |R6RS      |          |Official Git   |                                      |

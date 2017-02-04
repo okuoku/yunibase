@@ -45,7 +45,7 @@ Implementations
 |[Vicare][]        |C        |R6RS      |          |Official GitHub|                                      |
 |[Larceny][]       |C        |R6RS+R7RS |0.99      |Official GitHub|Stable: Uses binary                   |
 |[Picrin][]        |C        |R7RS      |          |Official GitHub|With yuniffi patches                  |
-|[Gambit][]        |C        |R5RS      |4.8.7     |Official GitHub|                                      |
+|[Gambit][]        |C        |R5RS      |4.8.8     |Official GitHub|                                      |
 |[MIT/GNU Scheme][]|C        |R5RS      |9.2       |Official Git   |amd64 only                            |
 |[Kawa][]          |Java     |R7RS      |          |Official Git   |                                      |
 

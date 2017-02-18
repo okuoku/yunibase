@@ -1,8 +1,8 @@
 # Bootstrap for yunibase build environment for Windows(native)
 
-set(url_ninja "https://github.com/ninja-build/ninja/releases/download/v1.6.0/ninja-win.zip")
-set(name_cmake "cmake-3.4.3-win32-x86")
-set(url_cmake "https://cmake.org/files/v3.4/${name_cmake}.zip")
+set(url_ninja "https://github.com/ninja-build/ninja/releases/download/v1.7.2/ninja-win.zip")
+set(name_cmake "cmake-3.7.2-win64-x64")
+set(url_cmake "https://cmake.org/files/v3.7/${name_cmake}.zip")
 
 file(MAKE_DIRECTORY archives)
 

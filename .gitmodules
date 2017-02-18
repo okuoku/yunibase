@@ -1,6 +1,6 @@
 [submodule "impl-stable"]
 	path = impl-stable
-	url = https://okuoku@bitbucket.org/okuoku/yunibase-impl-stable.git
+	url = https://bitbucket.org/okuoku/yunibase-impl-stable.git
 [submodule "impl-current/gauche"]
 	path = impl-current/gauche
 	url = https://github.com/shirok/Gauche

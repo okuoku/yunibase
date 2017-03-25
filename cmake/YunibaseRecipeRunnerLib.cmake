@@ -15,24 +15,29 @@ macro(apply_envp ev app)
 endmacro()
 
 macro(get_current_timestamp var_year var)
-    # Require CMake 3.0
-    #  Year2@day@hour24@min@sec
-    #  fix??: It breaks if build covered the century..
-    string(TIMESTAMP _currenttime "%y@%j@%H@%M@%S")
-    if(${_currenttime} MATCHES "(..)@(...)@(..)@(..)@(..)")
-        set(_year2 ${CMAKE_MATCH_1})
-        set(_day ${CMAKE_MATCH_2})
-        set(_hour ${CMAKE_MATCH_3})
-        set(_min ${CMAKE_MATCH_4})
-        set(_sec ${CMAKE_MATCH_5})
-    else()
-        message(FATAL_ERROR "Huh? ${_currenttime}")
-    endif()
+    if(NOT CMAKE_VERSION VERSION_LESS "2.8.11")
+        # Require CMake 3.0
+        #  Year2@day@hour24@min@sec
+        #  fix??: It breaks if build covered the century..
+        string(TIMESTAMP _currenttime "%y@%j@%H@%M@%S")
+        if(${_currenttime} MATCHES "(..)@(...)@(..)@(..)@(..)")
+            set(_year2 ${CMAKE_MATCH_1})
+            set(_day ${CMAKE_MATCH_2})
+            set(_hour ${CMAKE_MATCH_3})
+            set(_min ${CMAKE_MATCH_4})
+            set(_sec ${CMAKE_MATCH_5})
+        else()
+            message(FATAL_ERROR "Huh? ${_currenttime}")
+        endif()
 
-    set(${var_year} ${_year2})
-    # Do the math(TM)
-    math(EXPR ${var} 
-        "(((${_day} * 24) + ${_hour}) * 60 + ${_min}) * 60 + ${_sec}")
+        set(${var_year} ${_year2})
+        # Do the math(TM)
+        math(EXPR ${var} 
+            "(((${_day} * 24) + ${_hour}) * 60 + ${_min}) * 60 + ${_sec}")
+    else()
+        set(${var_year} 0)
+        set(${var} 0)
+    endif()
 endmacro()
 
 macro(try_process result resultsym time workdir outlog errlog timeout)
@@ -84,7 +89,11 @@ macro(try_process result resultsym time workdir outlog errlog timeout)
 endmacro()
 
 function(gen_report prefix reportfile result duration)
-    string(TIMESTAMP _timestamp)
+    if(NOT CMAKE_VERSION VERSION_LESS "2.8.11")
+        string(TIMESTAMP _timestamp)
+    else()
+        set(_timestamp "0000")
+    endif()
 
     file(WRITE ${reportfile}
         "set(${prefix}_RESULT ${result})\n")

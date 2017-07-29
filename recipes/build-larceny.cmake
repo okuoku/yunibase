@@ -31,8 +31,19 @@ endforeach()
 
 # Download and expand binary distribution
 
-message(STATUS "Downloading Larceny binary(${bin_basename})...")
-file(DOWNLOAD ${url_larceny_bin} ./${archive_basename})
+message(STATUS "Downloading Larceny binary(${url_larceny_bin})...")
+#file(DOWNLOAD 
+#    ${url_larceny_bin} ./${archive_basename}
+#    SHOW_PROGRESS LOG mm)
+#
+#message(STATUS "Log: ${mm}")
+execute_process(
+    COMMAND wget -O ${archive_basename} ${url_larceny_bin}
+    RESULT_VARIABLE rr)
+
+if(rr)
+    message(FATAL_ERROR "wget: ${rr}")
+endif()
 
 message(STATUS "Extract Larceny binary...")
 execute_process(

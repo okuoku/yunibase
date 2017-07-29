@@ -12,13 +12,14 @@ WORKDIR /build
 #  Larceny: nasm
 #  Chez: ncurses x11 libc6-dev-i386
 #  Sagittarius: zlib1g-dev
+#  wget: For larceny workaround
 RUN apt-get update && apt-get install -y \
 cmake gcc g++ \
 autoconf automake \
 libgmp-dev libonig-dev \
 libtool flex gettext pkg-config libunistring-dev libffi-dev libgc-dev \
 time texinfo nasm \
-ncurses-dev libx11-dev g++-multilib zlib1g-dev
+ncurses-dev libx11-dev g++-multilib zlib1g-dev wget
 
 # 32bitness
 RUN mv /bin/uname /bin/uname.orig && \

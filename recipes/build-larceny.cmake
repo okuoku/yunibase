@@ -155,7 +155,7 @@ message(STATUS "Step3...")
 
 execute_process(
     COMMAND ./larceny
-    -r5rs -- step3.scm
+    -- step3.scm
     RESULT_VARIABLE rr)
 
 if(rr)

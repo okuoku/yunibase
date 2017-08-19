@@ -73,6 +73,7 @@ if(BUILDYUNI)
         cmake "${_onlyarg}" "${_exceptarg}"
         -DCLEAN=TRUE
         -DVERBOSE=TRUE
+        -DSKIP_LONGRUN=TRUE
         -P 
         /yunibase.build/yuni/integration/buildhost-yunibase/test-on-root.cmake
         RESULT_VARIABLE rr)

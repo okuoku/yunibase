@@ -49,7 +49,9 @@ register_source(RAPID_GAMBIT CURRENT
 register_source(PICRIN CURRENT
     "impl-current/picrin"
     GIT
-    "origin/master")
+    "956ea81f63afcbb131ba7605e5e4f1acf59183f0"
+    # "origin/master"
+    )
 
 register_source(MIT_SCHEME CURRENT
     "impl-current/mit-scheme"

@@ -73,19 +73,19 @@ function(register_update_one ident)
         set(tag ${__yunibase_srcmgr_${ident}_tag})
         set(tgt do-try-update-${ident})
 
-        if(NOT IS_DIRECTORY ${pth})
-            message(FATAL_ERROR "Something wrong ${nam} ${flav}")
-        endif()
+        if(IS_DIRECTORY ${pth})
+            if(${pth} STREQUAL ${CMAKE_SOURCE_DIR})
+                message(FATAL_ERROR "Something wrong ${nam} ${flav}")
+            endif()
 
-        if(${pth} STREQUAL ${CMAKE_SOURCE_DIR})
-            message(FATAL_ERROR "Something wrong ${nam} ${flav}")
+            add_custom_target(${tgt}
+                COMMAND git fetch
+                COMMAND git reset --hard ${tag}
+                WORKING_DIRECTORY ${pth})
+            add_dependencies(do-try-update-all-commit ${tgt})
+        else()
+            message(STATUS "Ignore ${nam} ${flav}(${pth} not found?)")
         endif()
-
-        add_custom_target(${tgt}
-            COMMAND git fetch
-            COMMAND git reset --hard ${tag}
-            WORKING_DIRECTORY ${pth})
-        add_dependencies(do-try-update-all-commit ${tgt})
     endif()
 endfunction()
 

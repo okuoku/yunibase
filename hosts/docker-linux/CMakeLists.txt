@@ -111,7 +111,8 @@ add_docker_yunibase(docker_yuni_ubuntu32
     # SAGITTARIUS 
     CHICKEN RACKET 
     LARCENY CHEZ 
-    GAMBIT 
+    # FIXME: Gambit crashes on Ubuntu32
+    # GAMBIT 
     # RAPID_GAMBIT
     PICRIN
     )

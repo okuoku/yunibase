@@ -93,6 +93,9 @@ init_git_repositories() # Begin list-of repositories
 include(./impl-stable/sources.cmake)
 include(./sources-current.cmake)
 
+register_source(YUNI CURRENT yuni GIT origin/master)
+register_source(IMPL-STABLE CURRENT impl-stable GIT origin/master)
+
 init_recipe() # Begin list-of recipes
 include(./parts/implementations.cmake)
 create_git_repository_handlers()

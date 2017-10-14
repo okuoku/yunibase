@@ -27,4 +27,4 @@ autoconf automake
 
 # Guile
 
-gettext unistring readline
+gettext unistring readline libltdl

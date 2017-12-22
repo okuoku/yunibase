@@ -14,7 +14,7 @@ register_source(RACKET CURRENT
 register_source(CHICKEN CURRENT
     "impl-current/chicken"
     GIT
-    "origin/master")
+    "origin/chicken-4")
 register_source(VICARE CURRENT
     "impl-current/vicare"
     GIT

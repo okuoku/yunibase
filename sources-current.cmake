@@ -114,3 +114,14 @@ register_source(RACKET DEP
     GIT
     "origin/master")
 
+# CHICKEN5
+#register_source(CHICKEN5 CURRENT
+#    "impl-current/chicken5"
+#    GIT
+#    "origin/master")
+#
+#register_source(CHICKEN5 DEP
+#    "impl-current/chicken-eggs/chicken-r7rs"
+#    GIT
+#    "origin/master")
+

@@ -76,3 +76,12 @@
 [submodule "impl-current/chicken-eggs/chicken-r7rs-deps"]
 	path = impl-current/chicken-eggs/chicken-r7rs-deps
 	url = https://bitbucket.org/okuoku/chicken-r7rs-deps
+[submodule "impl-current/chicken5"]
+	path = impl-current/chicken5
+	url = git://code.call-cc.org/chicken-core
+[submodule "impl-current/chicken5-eggs/chicken-r7rs"]
+	path = impl-current/chicken5-eggs/chicken-r7rs
+	url = git://code.call-cc.org/chicken-r7rs
+[submodule "impl-current/chicken5-eggs/chicken-r7rs-deps"]
+	path = impl-current/chicken5-eggs/chicken-r7rs-deps
+	url = https://bitbucket.org/okuoku/chicken-r7rs-deps

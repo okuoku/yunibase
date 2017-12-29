@@ -16,6 +16,18 @@ add_custom_target(stamp)  # Stamp current repository version
 add_custom_target(yunitest) # Test with ${YUNIBASE_WITH_YUNI}
 
 # Globals
+set(YUNIBASE_MASTER_REMOTE "none" 
+    CACHE STRING "Master Git local name to sync with")
+
+if(NOT ${YUNIBASE_MASTER_REMOTE} STREQUAL "none")
+    add_custom_target(try-master-sync
+        COMMAND git fetch ${YUNIBASE_MASTER_REMOTE}
+        COMMAND git reset --hard ${YUNIBASE_MASTER_REMOTE}/master
+        COMMAND git submodule update --init --recursive
+        WORKING_DIRECTORY ${YUNIBASE_REPO_ROOT}
+        )
+endif()
+
 
 # Paths
 set(BUILDCTX_NONE 

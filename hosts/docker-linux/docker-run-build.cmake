@@ -67,7 +67,7 @@ if(BUILDYUNI)
     execute_process(
         COMMAND docker run
         --cidfile=${CIDFILE}
-        -it
+        -i
         -v ${_mysrc}:/yunibase.build:Z
         ${IMAGE}
         cmake "${_onlyarg}" "${_exceptarg}"
@@ -82,7 +82,7 @@ else()
     execute_process(
         COMMAND docker run
         --cidfile=${CIDFILE}
-        -it
+        -i
         -v ${_mysrc}:/yunibase.build:Z
         ${IMAGE}
         cmake "${_onlyarg}" "${_exceptarg}"

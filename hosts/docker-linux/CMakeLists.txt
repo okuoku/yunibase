@@ -66,6 +66,7 @@ function(add_docker_yunibase tgt image tag)
         COMMAND ${CMAKE_COMMAND}
         -DIMAGE=${image}
         "-DONLY=${_str}"
+        -DLOGFILE=${CMAKE_CURRENT_BINARY_DIR}/${tgt}.log
         -DCIDFILE=${CMAKE_CURRENT_BINARY_DIR}/cid${tgt}
         -DTAG=${tag}
         -DSTAMP=${CMAKE_CURRENT_LIST_DIR}/_stamp.txt
@@ -186,6 +187,7 @@ function(add_docker_yuniimage tgt from to)
         COMMAND ${CMAKE_COMMAND}
         -DIMAGE=${from}
         -DBUILDYUNI=TRUE
+        -DLOGFILE=${CMAKE_CURRENT_BINARY_DIR}/${tgt}.log
         -DCIDFILE=${CMAKE_CURRENT_BINARY_DIR}/cid${tgt}
         -DTAG=${to}
         -DSTAMP=${CMAKE_CURRENT_LIST_DIR}/_stamp.txt

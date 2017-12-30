@@ -9,6 +9,7 @@
 #   EXCEPT: EXCEPT
 #   STAMP: Stamp file
 #   CIDFILE: absolute path to cidfile (will be removed/replaced)
+#   LOGFILE: absolute path to logfile
 
 if(BUILDYUNI)
     set(_myname "yuniimage")
@@ -76,6 +77,8 @@ if(BUILDYUNI)
         -DSKIP_LONGRUN=TRUE
         -P 
         /yunibase.build/yuni/integration/buildhost-yunibase/test-on-root.cmake
+        OUTPUT_FILE ${LOGFILE}
+        ERROR_FILE ${LOGFILE}
         RESULT_VARIABLE rr)
 else()
     # Build yunibase image(Scheme implementations)
@@ -89,6 +92,8 @@ else()
         -DCLEANSOURCES=TRUE
         -DYUNIBASEROOT=/yunibase
         -P /yunibase.build/scripts/build-on-root.cmake
+        OUTPUT_FILE ${LOGFILE}
+        ERROR_FILE ${LOGFILE}
         RESULT_VARIABLE rr)
 endif()
 

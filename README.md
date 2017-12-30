@@ -37,13 +37,13 @@ Implementations
 |[Chibi-scheme][]  |C        |R7RS      |          |Official GitHub|                                      |
 |[Chicken][]       |C        |R7RS      |4.13.0    |Official Git   |With `r7rs` egg                       |
 |[Gauche][]        |C        |R7RS      |0.9.5     |Official GitHub| |
-|[Sagittarius][]   |C        |R6RS+R7RS |0.8.8     |GitHub Mirror  |                                      |
+|[Sagittarius][]   |C        |R6RS+R7RS |0.8.9     |GitHub Mirror  |                                      |
 |NMosh             |C++      |R6RS+R7RS-|current   |not yet        |                                      |
 |[ChezScheme][]    |C        |R6RS      |          |Official GitHub|                                      |
 |[Guile][]         |C        |R6RS      |          |Official Git   |                                      |
 |[Racket][]        |C        |R6RS      |          |Official GitHub|With `srfi-lib` and `r6rs-lib`        |
 |[Vicare][]        |C        |R6RS      |          |Official GitHub|                                      |
-|[Larceny][]       |C        |R6RS+R7RS |0.99      |Official GitHub|Stable: Uses binary                   |
+|[Larceny][]       |C        |R6RS+R7RS |1.3       |Official GitHub|Stable: Uses binary                   |
 |[Picrin][]        |C        |R7RS      |          |Official GitHub|With yuniffi patches                  |
 |[Gambit][]        |C        |R5RS      |4.8.8+    |Official GitHub|                                      |
 |[MIT/GNU Scheme][]|C        |R5RS      |9.2       |Official Git   |amd64 only                            |

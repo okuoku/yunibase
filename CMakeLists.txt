@@ -57,6 +57,7 @@ include(YunibaseRecipe)
 include(YunibaseBuildManager)
 include(YunibaseUpdateManager) # Depends on Recipe/Build
 include(YunibaseSourceManager) # Depends on UpdateMgr
+include(YunibaseArtifactUpload)
 
 # Configure parallel build
 include(ProcessorCount)
@@ -207,3 +208,22 @@ endif()
 add_buildmgr_report()
 
 register_update_all()
+
+# Bintray
+
+if(YUNIBASE_BINTRAY_USERNAME)
+    set(secretfile
+        ${CMAKE_CURRENT_BINARY_DIR}/secret.txt)
+    set(pkgname "yunibase-ubuntu-chibi-scheme")
+    set(impl "chibi-scheme")
+    set(archive "${CMAKE_CURRENT_BINARY_DIR}/${pkgname}.tar.gz")
+
+    yunibase_artifact_gen_secretfile(${secretfile})
+
+    yunibase_artifact_archive(test_archive0 ${impl} ${archive} ${secretfile})
+    yunibase_artifact_upload(test_upload0 ${pkgname} ${archive} ${secretfile})
+endif()
+
+
+
+

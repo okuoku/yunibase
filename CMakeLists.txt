@@ -272,3 +272,28 @@ if(YUNIBASE_BINTRAY_USERNAME)
     endif()
     yunibase_artifact_gen_secretfile(${secretfile})
 endif()
+
+# License handling
+
+function(register_impl sym nam)
+    set(opts "")
+    set(oneargs "")
+    set(multargs LICENSE_FILES)
+    cmake_parse_arguments(arg "${opts}" "${oneargs}" 
+        "${multargs}" ${ARGN})
+    detect_source(srcpath ${sym} CURRENT)
+    if(srcpath)
+        foreach(f ${arg_LICENSE_FILES})
+            set(pth ${srcpath}/${f})
+            if(NOT EXISTS ${pth})
+                message(FATAL_ERROR "${sym}: License file ${pth} not found.")
+            endif()
+            file(INSTALL ${pth} DESTINATION 
+                ${YUNIBASE_BUILD_CURRENT_PREFIX}/${nam})
+        endforeach()
+    endif()
+endfunction()
+
+include(./distrib.cmake)
+
+

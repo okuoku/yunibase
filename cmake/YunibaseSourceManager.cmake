@@ -67,7 +67,6 @@ macro(detect_source var nam flav)
 endmacro()
 
 function(register_update_one ident)
-    message(STATUS "ident: ${ident}")
     if(${__yunibase_srcmgr_${ident}_type} STREQUAL GIT)
         set(pth ${__yunibase_srcmgr_${ident}_path})
         set(tag ${__yunibase_srcmgr_${ident}_tag})

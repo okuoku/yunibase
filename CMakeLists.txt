@@ -15,6 +15,9 @@
 #
 #  YUNIBASE_POSTBOOTSTRAP: Assumes tree was bootstrapped
 #
+#  YUNIBASE_ARCHIVE_TAG: Archive tag (ubuntu, cyg64, ...)
+#  YUNIBASE_ARCHIVE_OUTPUT_DIR: Override archive output path
+#
 cmake_minimum_required(VERSION 2.8.4)
 project(yunibase NONE)
 
@@ -209,21 +212,63 @@ add_buildmgr_report()
 
 register_update_all()
 
+# Archive
+set(secretfile ${CMAKE_CURRENT_BINARY_DIR}/secret.txt)
+
+set(archive_tgts)
+set(upload_tgts)
+
+function(proc_archive impl sym)
+    check_target_name(enabled ${sym})
+    if(enabled)
+        set(tgta "archive-${impl}")
+        set(tgtu "upload-${impl}")
+        set(tag ${YUNIBASE_ARCHIVE_TAG})
+        set(pkgname "yunibase-${tag}-${impl}")
+        set(archive "${YUNIBASE_ARCHIVE_OUTPUT_DIR}/${pkgname}.tar.gz")
+
+        # Create archive target
+        yunibase_artifact_archive(${tgta} ${impl} ${archive})
+        if(YUNIBASE_BINTRAY_USERNAME)
+            yunibase_artifact_upload(${tgtu} ${pkgname} ${archive} ${secretfile})
+        endif()
+        list(APPEND archive_tgts ${tgta})
+        set(archive_tgts ${archive_tgts} PARENT_SCOPE)
+        list(APPEND upload_tgts ${tgtu})
+        set(upload_tgts ${upload_tgts} PARENT_SCOPE)
+    endif()
+endfunction()
+
+if(YUNIBASE_ARCHIVE_TAG)
+    if(NOT YUNIBASE_ARCHIVE_OUTPUT_DIR)
+        set(YUNIBASE_ARCHIVE_OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/archive")
+    endif()
+    file(MAKE_DIRECTORY ${YUNIBASE_ARCHIVE_OUTPUT_DIR})
+
+    # Register impls
+    ## R7RS
+    proc_archive(chibi-scheme   CHIBI_SCHEME_CURRENT)
+    proc_archive(sagittarius    SAGITTARIUS_CURRENT)
+    proc_archive(larceny        LARCENY_CURRENT)
+    proc_archive(chicken        CHICKEN_CURRENT)
+    proc_archive(gauche         GAUCHE_CURRENT)
+    ## R6RS
+    proc_archive(vicare         VICARE_CURRENT)
+    proc_archive(guile          GUILE_CURRENT)
+    proc_archive(chez           CHEZ_CURRENT)
+    proc_archive(racket         RACKET_CURRENT)
+    ## R5RS
+    proc_archive(gambit         GAMBIT_CURRENT)
+    proc_archive(mit-scheme     MIT_SCHEME_CURRENT)
+
+    add_custom_target(archive-all DEPENDS ${archive_tgts})
+endif()
+
 # Bintray
 
 if(YUNIBASE_BINTRAY_USERNAME)
-    set(secretfile
-        ${CMAKE_CURRENT_BINARY_DIR}/secret.txt)
-    set(pkgname "yunibase-ubuntu-chibi-scheme")
-    set(impl "chibi-scheme")
-    set(archive "${CMAKE_CURRENT_BINARY_DIR}/${pkgname}.tar.gz")
-
+    if(NOT YUNIBASE_ARCHIVE_TAG)
+        message(FATAL_ERROR "What are you going to upload?")
+    endif()
     yunibase_artifact_gen_secretfile(${secretfile})
-
-    yunibase_artifact_archive(test_archive0 ${impl} ${archive} ${secretfile})
-    yunibase_artifact_upload(test_upload0 ${pkgname} ${archive} ${secretfile})
 endif()
-
-
-
-

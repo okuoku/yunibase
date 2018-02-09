@@ -9,8 +9,8 @@ WORKDIR /build
 #  Guile: libtool flex gettext-devel pkgconfig libunistring-devel libffi-devel
 #         gc-devel libtool-ltdl-devel
 #  Vicare: texinfo
-#  Sagittarius: zlib-devel
+#  Sagittarius: zlib-devel openssl-devel
 #  Chez: ncurses x11
 RUN dnf install -y make cmake gcc gcc-c++ autoconf automake gmp-devel oniguruma-devel libtool flex gettext-devel pkgconfig libunistring-devel libffi-devel gc-devel libtool-ltdl-devel texinfo zlib-devel \
-ncurses-devel libX11-devel
+ncurses-devel libX11-devel openssl-devel
 

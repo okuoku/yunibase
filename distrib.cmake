@@ -1,7 +1,7 @@
 register_impl(
     GAUCHE gauche
     LICENSE_FILES COPYING
-    )
+    REQUIRE_STABLE)
 
 register_impl(
     CHIBI_SCHEME chibi-scheme
@@ -35,7 +35,8 @@ register_impl(
 
 register_impl(
     SAGITTARIUS sagittarius
-    LICENSE_FILES COPYING)
+    LICENSE_FILES COPYING
+    REQUIRE_STABLE)
 
 register_impl(
     KAWA kawa
@@ -43,10 +44,11 @@ register_impl(
 
 register_impl(
     MIT_SCHEME mit-scheme
-    LICENSE_FILES src/COPYING)
+    LICENSE_FILES src/COPYING
+    REQUIRE_STABLE)
 
 register_impl(
     GAMBIT gambit
     LICENSE_FILES LICENSE-2.0.txt
-    )
+    REQUIRE_STABLE)
 

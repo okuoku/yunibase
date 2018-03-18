@@ -276,7 +276,7 @@ endif()
 # License handling
 
 function(register_impl sym nam)
-    set(opts "")
+    set(opts REQUIRE_STABLE)
     set(oneargs "")
     set(multargs LICENSE_FILES)
     cmake_parse_arguments(arg "${opts}" "${oneargs}" 
@@ -290,6 +290,17 @@ function(register_impl sym nam)
             endif()
             file(INSTALL ${pth} DESTINATION 
                 ${YUNIBASE_BUILD_CURRENT_PREFIX}/${nam})
+        endforeach()
+    endif()
+    detect_source(srcpath_stable ${sym} STABLE)
+    if(srcpath_stable)
+        foreach(f ${arg_LICENSE_FILES})
+            set(pth ${srcpath_stable}/${f})
+            if(NOT EXISTS ${pth})
+                message(FATAL_ERROR "${sym}: License file ${pth} not found.")
+            endif()
+            file(INSTALL ${pth} DESTINATION 
+                ${YUNIBASE_BUILD_STABLE_PREFIX}/${nam})
         endforeach()
     endif()
 endfunction()

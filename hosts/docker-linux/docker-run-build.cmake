@@ -90,7 +90,7 @@ else()
         ${IMAGE}
         cmake "${_onlyarg}" "${_exceptarg}"
         -DCLEANSOURCES=TRUE
-        -DYUNIBASEROOT=/yunibase
+        -DYUNIBASEROOT=/opt/yunibase
         -P /yunibase.build/scripts/build-on-root.cmake
         OUTPUT_FILE ${LOGFILE}
         ERROR_FILE ${LOGFILE}

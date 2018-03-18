@@ -5,12 +5,19 @@
 #   YUNIBASE_ROOT_STABLE : Path to stable base
 #   YUNIBASE_BUILD_STABLE_PREFIX : Install path (stable)
 #   YUNIBASE_BUILD_CURRENT_PREFIX : Install path (current)
+#   YUNIBASE_PREBUILT_STABLE : Assume we already have stable impl. (Bool)
 
 if(APPLE)
     set(ld_library_path DYLD_LIBRARY_PATH)
 else()
     set(ld_library_path LD_LIBRARY_PATH)
 endif()
+
+function(depends_current_stable current stable)
+    if(NOT YUNIBASE_PREBUILT_STABLE)
+        add_dependencies(${current} ${stable})
+    endif()
+endfunction()
 
 # Guile (current)
 if(${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD")
@@ -49,7 +56,7 @@ set(ENVP_SAGITTARIUS_BOOTSTRAP
 build_recipe(sagittarius_current ${sagittarius_current_src}
     ${sagittarius_current_dest}
     SAGITTARIUS "${ENVP_SAGITTARIUS_BOOTSTRAP}" ${BOOTSTRAP_SAGITTARIUS})
-add_dependencies(sagittarius_current sagittarius_stable)
+depends_current_stable(sagittarius_current sagittarius_stable)
 register_recipe(SAGITTARIUS STABLE sagittarius_stable)
 register_recipe(SAGITTARIUS CURRENT sagittarius_current)
 
@@ -66,7 +73,7 @@ set(ENVP_GAUCHE # Use stable on build-current
 set(gauche_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/gauche)
 build_recipe(gauche_current ${gauche_current_src} ${gauche_current_dest}
     GAUCHE "${ENVP_GAUCHE}" ${BOOTSTRAP_GAUCHE})
-add_dependencies(gauche_current gauche_stable)
+depends_current_stable(gauche_current gauche_stable)
 
 register_recipe(GAUCHE STABLE gauche_stable)
 register_recipe(GAUCHE CURRENT gauche_current)
@@ -283,7 +290,7 @@ build_recipe(chicken_current ${chicken_current_src} ${chicken_current_dest}
     CHICKEN "${ENVP_CHICKEN_BUILD}" ${RECIPE_CHICKEN})
 build_recipe(chicken_current_test ${chicken_current_src} ${chicken_current_dest}
     CHICKEN "${ENVP_CHICKEN_SETUP}" ${RECIPE_CHICKEN_TEST})
-add_dependencies(chicken_current chicken_stable)
+depends_current_stable(chicken_current chicken_stable)
 build_recipe(chicken_current_setup 
     ${chicken_current_src} 
     ${chicken_current_dest}
@@ -350,8 +357,7 @@ build_recipe(gambit_current ${gambit_current_src} ${gambit_current_dest}
 register_recipe(GAMBIT CURRENT
     gambit_current)
 
-add_dependencies(gambit_current
-    gambit_stable)
+depends_current_stable(gambit_current gambit_stable)
 
 # Rapid-gambit (current)
 set(rapid_gambit_current_src ${YUNIBASE_ROOT_CURRENT}/rapid-gambit)
@@ -434,5 +440,5 @@ build_recipe(mit_scheme_current
 register_recipe(MIT_SCHEME CURRENT
     mit_scheme_current)
 
-add_dependencies(mit_scheme_current mit_scheme_stable)
+depends_current_stable(mit_scheme_current mit_scheme_stable)
 

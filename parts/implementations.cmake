@@ -148,20 +148,20 @@ workaround_touch_prebuilt_files(
     src/NumberScanner.cpp)
 
 # Chibi scheme (current)
-set(chibi_scheme_current_src ${YUNIBASE_ROOT_CURRENT}/chibi-scheme)
-set(chibi_scheme_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/chibi-scheme)
+set(chibi-scheme_current_src ${YUNIBASE_ROOT_CURRENT}/chibi-scheme)
+set(chibi-scheme_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/chibi-scheme)
 set(ENVP_CHIBI_SCHEME_SETUP
     ${ld_library_path} ${YUNIBASE_BUILD_CURRENT_PREFIX}/chibi-scheme/lib)
-build_recipe(chibi_scheme_current
-    ${chibi_scheme_current_src}
-    ${chibi_scheme_current_dest}
+build_recipe(chibi-scheme_current
+    ${chibi-scheme_current_src}
+    ${chibi-scheme_current_dest}
     CHIBI_SCHEME
     "${ENVP_CHIBI_SCHEME_SETUP}"
     ${RECIPE_CHIBI_SCHEME})
 
 register_recipe(CHIBI_SCHEME CURRENT 
     # Depended on rapid-gambit
-    chibi_scheme_current)
+    chibi-scheme_current)
 
 # Racket (current)
 set(racket_current_src ${YUNIBASE_ROOT_CURRENT}/racket/racket/src)
@@ -376,7 +376,7 @@ register_recipe(RAPID_GAMBIT CURRENT
     rapid_gambit_current)
 
 add_dependencies(rapid_gambit_current
-    chibi_scheme_current
+    chibi-scheme_current
     gambit_stable)
 
 # Picrin
@@ -413,32 +413,32 @@ register_recipe(PICRIN CURRENT
     picrin_current)
 
 # MIT/GNU Scheme
-set(mit_scheme_stable_src ${YUNIBASE_ROOT_STABLE}/mit-scheme-amd64)
-set(mit_scheme_stable_dest ${YUNIBASE_BUILD_STABLE_PREFIX}/mit-scheme)
-set(mit_scheme_current_src ${YUNIBASE_ROOT_CURRENT}/mit-scheme)
-set(mit_scheme_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/mit-scheme)
-build_recipe(mit_scheme_stable
-    ${mit_scheme_stable_src}/src
-    ${mit_scheme_stable_dest}
+set(mit-scheme_stable_src ${YUNIBASE_ROOT_STABLE}/mit-scheme-amd64)
+set(mit-scheme_stable_dest ${YUNIBASE_BUILD_STABLE_PREFIX}/mit-scheme)
+set(mit-scheme_current_src ${YUNIBASE_ROOT_CURRENT}/mit-scheme)
+set(mit-scheme_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/mit-scheme)
+build_recipe(mit-scheme_stable
+    ${mit-scheme_stable_src}/src
+    ${mit-scheme_stable_dest}
     MIT_SCHEME
     ""
     ${RECIPE_MIT_SCHEME_AMD64})
 register_recipe(MIT_SCHEME STABLE
-    mit_scheme_stable)
+    mit-scheme_stable)
 
 set(ENVP_MIT_SCHEME_BOOTSTRAP
     PATH ${YUNIBASE_BUILD_STABLE_PREFIX}/mit-scheme/bin
     ${ld_library_path} ${YUNIBASE_BUILD_STABLE_PREFIX}/mit-scheme/lib)
 
-build_recipe(mit_scheme_current
-    ${mit_scheme_current_src}/src
-    ${mit_scheme_current_dest}
+build_recipe(mit-scheme_current
+    ${mit-scheme_current_src}/src
+    ${mit-scheme_current_dest}
     MIT_SCHEME
     "${ENVP_MIT_SCHEME_BOOTSTRAP}"
     ${RECIPE_MIT_SCHEME_BOOTSTRAP})
 
 register_recipe(MIT_SCHEME CURRENT
-    mit_scheme_current)
+    mit-scheme_current)
 
-depends_current_stable(mit_scheme_current mit_scheme_stable)
+depends_current_stable(mit-scheme_current mit-scheme_stable)
 

@@ -259,6 +259,7 @@ if(YUNIBASE_ARCHIVE_TAG)
     proc_archive(gauche         current GAUCHE_CURRENT)
     proc_archive(gauche         stable  GAUCHE_STABLE)
     proc_archive(kawa           current KAWA_CURRENT)
+    proc_archive(picrin         current PICRIN_CURRENT)
     ## R6RS
     proc_archive(vicare         current VICARE_CURRENT)
     proc_archive(guile          current GUILE_CURRENT)

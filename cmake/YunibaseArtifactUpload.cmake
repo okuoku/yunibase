@@ -8,10 +8,10 @@
 #   YUNIBASE_BINTRAY_APIKEY: Api key for bintray
 # 
 
-function(yunibase_artifact_archive tgt impl outpath)
+function(yunibase_artifact_archive tgt impl branch outpath)
     add_custom_target(${tgt}
         ${CMAKE_COMMAND} -E tar "cvzf" ${outpath} ${impl}
-        WORKING_DIRECTORY ${YUNIBASE_BUILD_CURRENT_PREFIX})
+        WORKING_DIRECTORY ${YUNIBASE_BUILD_${branch}_PREFIX})
 endfunction()
 
 function(yunibase_artifact_gen_secretfile fil)

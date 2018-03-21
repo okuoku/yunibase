@@ -17,7 +17,8 @@ add_custom_target(yunitest) # Test with ${YUNIBASE_WITH_YUNI}
 set(impls)
 
 macro(register_impl sym nam)
-    list(FIND ARGN REQUIRE_STABLE qq)
+    set(_lis ${ARGN})
+    list(FIND _lis REQUIRE_STABLE qq)
     if(NOT ${qq} EQUAL -1)
         set(impl_${sym}_REQUIRE_STABLE ON)
     endif()

@@ -16,7 +16,7 @@ register_impl(
 register_impl(
     CHICKEN chicken
     LICENSE_FILES LICENSE
-    )
+    REQUIRE_STABLE)
 
 register_impl(
     VICARE vicare

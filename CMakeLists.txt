@@ -243,7 +243,7 @@ function(proc_archive impl branch sym)
         list(APPEND upload_tgts ${tgtu})
         set(upload_tgts ${upload_tgts} PARENT_SCOPE)
 
-        add_dependencies(${tgta} ${impl}_${branch})
+        add_dependencies(${tgta} all_${sym})
     endif()
 endfunction()
 

@@ -35,6 +35,8 @@ macro(register_recipe nam flav)
         file(APPEND ${_logtop}
             "include(${YUNIBASE_BUILD_REPORT_PREFIX}/${e}.cmake OPTIONAL)\n")
     endforeach()
+    add_custom_target(all_${nam}_${flav})
+    add_dependencies(all_${nam}_${flav} ${_first})
 endmacro()
 
 function(init_config_directory)

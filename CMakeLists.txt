@@ -322,6 +322,6 @@ if(YUNIBASE_PREBUILT_STABLE)
         WORKING_DIRECTORY ${YUNIBASE_BUILD_STABLE_PREFIX})
 endif()
 
-include(./distrib.cmake)
+include(./parts/distrib.cmake)
 
 

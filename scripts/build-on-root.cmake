@@ -92,8 +92,7 @@ endif()
 # Register source paths
 set(basefiles
     ${_mysrc}/CMakeLists.txt
-    ${_mysrc}/sources-current.cmake
-    ${_mysrc}/distrib.cmake)
+    ${_mysrc}/sources-current.cmake)
 
 set(basedirs
     ${_mysrc}/cmake

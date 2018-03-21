@@ -51,4 +51,12 @@ register_impl(
     GAMBIT gambit
     LICENSE_FILES LICENSE-2.0.txt
     REQUIRE_STABLE)
-
+register_impl(
+    CHEZ chez
+    LICENSE_FILES NOTICE LICENSE)
+register_impl(
+    PICRIN picrin
+    LICENSE_FILES LICENSE)
+register_impl(
+    LARCENY larceny
+    LICENSE_FILES COPYRIGHT)

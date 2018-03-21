@@ -297,9 +297,6 @@ endfunction()
 
 add_docker_push(docker_push_yunibuild "okuoku/yunibuild")
 
-add_dependencies(base docker_base_default docker_base_ubuntu32
-    docker_base_fedora docker_base_alpine docker_base_java
-    docker_base_raspbian)
 add_dependencies(push docker_push_yunibuild)
 
 # 

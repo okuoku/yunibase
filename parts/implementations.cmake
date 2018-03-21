@@ -5,7 +5,7 @@
 #   YUNIBASE_ROOT_STABLE : Path to stable base
 #   YUNIBASE_BUILD_STABLE_PREFIX : Install path (stable)
 #   YUNIBASE_BUILD_CURRENT_PREFIX : Install path (current)
-#   YUNIBASE_PREBUILT_STABLE : Assume we already have stable impl. (Bool)
+#   YUNIBASE_PREBUILT_STABLE : Assume we already have stable impl. (Path)
 
 if(APPLE)
     set(ld_library_path DYLD_LIBRARY_PATH)

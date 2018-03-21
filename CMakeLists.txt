@@ -17,6 +17,7 @@
 #
 #  YUNIBASE_ARCHIVE_TAG: Archive tag (ubuntu, cyg64, ...)
 #  YUNIBASE_ARCHIVE_OUTPUT_DIR: Override archive output path
+#  YUNIBASE_PREBUILT_STABLE: Archive path to prebuilt stable 
 #
 cmake_minimum_required(VERSION 2.8.4)
 project(yunibase NONE)
@@ -218,13 +219,13 @@ set(secretfile ${CMAKE_CURRENT_BINARY_DIR}/secret.txt)
 set(archive_tgts)
 set(upload_tgts)
 
-function(proc_archive impl sym)
+function(proc_archive impl branch sym)
     check_target_name(enabled ${sym})
     if(enabled)
-        set(tgta "archive-${impl}")
-        set(tgtu "upload-${impl}")
+        set(tgta "archive-${impl}-${branch}")
+        set(tgtu "upload-${impl}-${branch}")
         set(tag ${YUNIBASE_ARCHIVE_TAG})
-        set(pkgname "yunibase-${tag}-${impl}")
+        set(pkgname "yunibase_${tag}_${impl}_${branch}")
         set(archive "${YUNIBASE_ARCHIVE_OUTPUT_DIR}/${pkgname}.tar.gz")
 
         # Create archive target
@@ -236,6 +237,8 @@ function(proc_archive impl sym)
         set(archive_tgts ${archive_tgts} PARENT_SCOPE)
         list(APPEND upload_tgts ${tgtu})
         set(upload_tgts ${upload_tgts} PARENT_SCOPE)
+
+        add_dependencies(${tgta} ${impl}_${branch})
     endif()
 endfunction()
 
@@ -247,19 +250,25 @@ if(YUNIBASE_ARCHIVE_TAG)
 
     # Register impls
     ## R7RS
-    proc_archive(chibi-scheme   CHIBI_SCHEME_CURRENT)
-    proc_archive(sagittarius    SAGITTARIUS_CURRENT)
-    proc_archive(larceny        LARCENY_CURRENT)
-    proc_archive(chicken        CHICKEN_CURRENT)
-    proc_archive(gauche         GAUCHE_CURRENT)
+    proc_archive(chibi-scheme   current CHIBI_SCHEME_CURRENT)
+    proc_archive(sagittarius    current SAGITTARIUS_CURRENT)
+    proc_archive(sagittarius    stable  SAGITTARIUS_STABLE)
+    proc_archive(larceny        current LARCENY_CURRENT)
+    proc_archive(chicken        current CHICKEN_CURRENT)
+    proc_archive(chicken        stable  CHICKEN_STABLE)
+    proc_archive(gauche         current GAUCHE_CURRENT)
+    proc_archive(gauche         stable  GAUCHE_STABLE)
+    proc_archive(kawa           current KAWA_CURRENT)
     ## R6RS
-    proc_archive(vicare         VICARE_CURRENT)
-    proc_archive(guile          GUILE_CURRENT)
-    proc_archive(chez           CHEZ_CURRENT)
-    proc_archive(racket         RACKET_CURRENT)
+    proc_archive(vicare         current VICARE_CURRENT)
+    proc_archive(guile          current GUILE_CURRENT)
+    proc_archive(chez           current CHEZ_CURRENT)
+    proc_archive(racket         current RACKET_CURRENT)
     ## R5RS
-    proc_archive(gambit         GAMBIT_CURRENT)
-    proc_archive(mit-scheme     MIT_SCHEME_CURRENT)
+    proc_archive(gambit         current GAMBIT_CURRENT)
+    proc_archive(gambit         stable  GAMBIT_STABLE)
+    proc_archive(mit-scheme     current MIT_SCHEME_CURRENT)
+    proc_archive(mit-scheme     stable  MIT_SCHEME_STABLE)
 
     add_custom_target(archive-all DEPENDS ${archive_tgts})
 endif()
@@ -304,6 +313,14 @@ function(register_impl sym nam)
         endforeach()
     endif()
 endfunction()
+
+# Prebuilt stable
+if(YUNIBASE_PREBUILT_STABLE)
+    file(MAKE_DIRECTORY ${YUNIBASE_BUILD_STABLE_PREFIX})
+    execute_process(
+        COMMAND ${CMAKE_COMMAND} -E tar xvf ${YUNIBASE_PREBUILT_STABLE}
+        WORKING_DIRECTORY ${YUNIBASE_BUILD_STABLE_PREFIX})
+endif()
 
 include(./distrib.cmake)
 

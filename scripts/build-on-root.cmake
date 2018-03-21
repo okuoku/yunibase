@@ -13,6 +13,10 @@
 #   EXCEPT: List of excluded impl.
 #   USE_GMAKE: YUNIBASE_USE_GMAKE
 #   ALTPREFIX: Setup Envvar LDFLAGS and CPPFLAGS for ALTPREFIX
+#   PREBUILT_STABLE: YUNIBASE_PREBUILT_STABLE
+#   BUILDTARGET: Target to run
+#   ARCHIVE_TAG: YUNIBASE_ARCHIVE_TAG
+#   ARCHIVE_OUTPUT_DIR: YUNIBASE_ARCHIVE_OUTPUT_DIR
 
 if(CLEANSOURCES AND INPLACE)
     message(FATAL_ERROR "Why?")
@@ -206,13 +210,36 @@ else()
     setup_sources()
 endif()
 
+if(PREBUILT_STABLE)
+    set(_prebuilt_stablearg "-DYUNIBASE_PREBUILT_STABLE=${PREBUILT_STABLE}")
+else()
+    set(_prebuilt_stablearg)
+endif()
+
+if(ARCHIVE_TAG)
+    set(_archive_tagarg "-DYUNIBASE_ARCHIVE_TAG=${ARCHIVE_TAG}")
+else()
+    set(_archive_tagarg)
+endif()
+
+if(ARCHIVE_OUTPUT_DIR)
+    set(_archive_output_dirarg 
+        "-DYUNIBASE_ARCHIVE_OUTPUT_DIR=${ARCHIVE_OUTPUT_DIR}")
+else()
+    set(_archive_output_dirarg)
+endif()
+
+
 message(STATUS "Configure(${_myroot})... ${_myargs}")
 
 execute_process(COMMAND
     ${CMAKE_COMMAND} "${_onlyarg}" "${_exceptarg}" 
     "${_bootstraparg}"
     "${_usegmakearg}"
+    "${_prebuilt_stablearg}"
     "${_yunibaseroot}"
+    ${_archive_tagarg}
+    ${_archive_output_dirarg}
     ${_myroot}
     RESULT_VARIABLE rr
     WORKING_DIRECTORY ${_buildroot}
@@ -221,10 +248,18 @@ if(rr)
     message(FATAL_ERROR "Faild to configure tree")
 endif()
 
-message(STATUS "Building...")
+if(BUILDTARGET)
+    message(STATUS "Building(${BUILDTARGET})...")
+    set(_buildtarget --target ${BUILDTARGET})
+else()
+    message(STATUS "Building...")
+    set(_buildtarget)
+endif()
+
 
 execute_process(COMMAND
     ${CMAKE_COMMAND} --build .
+    ${_buildtarget}
     RESULT_VARIABLE rr
     WORKING_DIRECTORY ${_buildroot})
 

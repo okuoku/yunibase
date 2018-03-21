@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(yunibuild-docker-linux NONE)
 
-set(YUNIBASE_REPO_ROOT ${CMAKE_CURRENT_LIST_DIR}/../../)
+set(YUNIBASE_REPO_ROOT ${CMAKE_CURRENT_LIST_DIR}/../..)
 list(APPEND CMAKE_MODULE_PATH ${YUNIBASE_REPO_ROOT}/cmake)
 
 include(YunibaseStampVersion)
@@ -10,10 +10,75 @@ add_custom_target(base)   # Update base environment
 add_custom_target(sync)   # Update Scheme implementations
 add_custom_target(image)  # Build yunibase images (without yuni)
 add_custom_target(yuniimage) # Install yuni on yunibase images
-add_custom_target(taste)  # Check latest sources
 add_custom_target(push)   # Push built images
 add_custom_target(stamp)  # Stamp current repository version
 add_custom_target(yunitest) # Test with ${YUNIBASE_WITH_YUNI}
+
+set(impls)
+
+macro(register_impl sym nam)
+    list(FIND ARGN REQUIRE_STABLE qq)
+    if(NOT ${qq} EQUAL -1)
+        set(impl_${sym}_REQUIRE_STABLE ON)
+    endif()
+    list(APPEND impls ${sym})
+    set(impl_${sym}_name ${nam})
+endmacro()
+
+include(${YUNIBASE_REPO_ROOT}/parts/distrib.cmake)
+
+macro(impl_name var sym)
+    set(${var} ${impl_${sym}_name})
+endmacro()
+
+macro(impl_require_stable_p var sym)
+    if(impl_${sym}_REQUIRE_STABLE)
+        set(${var} ON)
+    else()
+        set(${var} OFF)
+    endif()
+endmacro()
+
+# FIXME: Use Git-archive deploy later
+set(sourcesyms)
+macro(register_source sym branch pth mode tag)
+    if(${mode} STREQUAL DEP)
+        # Dependencies
+        get_filename_component(dirname ${pth} NAME)
+        set(sourcesym ${sym}_DEP_${dirname})
+        list(APPEND impl_${sym}_CURRENT_sourcesyms ${sourcesym})
+    else()
+        # STABLE or CURRENT
+        set(sourcesym ${sym}_${branch})
+        list(APPEND impl_${sym}_${branch}_sourcesyms ${sourcesym})
+    endif()
+    set(source_${sourcesym}_tagprotocol ${mode})
+    set(source_${sourcesym}_tag ${tag})
+    set(source_${sourcesym}_tagpath ${source_root}/${pth})
+    list(APPEND sourcesyms ${sourcesym})
+endmacro()
+
+set(tree CURRENT)
+set(source_root ${YUNIBASE_REPO_ROOT})
+include(${YUNIBASE_REPO_ROOT}/sources-current.cmake)
+set(source_root ${YUNIBASE_REPO_ROOT}/impl-stable)
+set(tree STABLE)
+include(${YUNIBASE_REPO_ROOT}/impl-stable/sources.cmake)
+
+function(add_source_gentag dest sourcesym)
+    add_custom_command(OUTPUT ${dest}
+        COMMAND ${CMAKE_COMMAND} 
+        -DTAGPROTOCOL=${source_${sourcesym}_tagprotocol}
+        -DTAG=${source_${sourcesym}_tag}
+        -DTAGPATH=${source_${sourcesym}_tagpath}
+        -DDEST=${dest}
+        -P ${YUNIBASE_REPO_ROOT}/hosts/docker-linux/update-tagfile.cmake
+        COMMEND "Updating tagfile for ${sourcesym}")
+endfunction()
+
+macro(impl_sourcesyms var sym branch)
+    set(${var} impl_${sym}_${branch}_sourcesyms)
+endmacro()
 
 # Globals
 set(YUNIBASE_MASTER_REMOTE "none" 
@@ -28,30 +93,165 @@ if(NOT ${YUNIBASE_MASTER_REMOTE} STREQUAL "none")
         )
 endif()
 
+#
+# Source tags
+#
+#   Source tags are located in ${CMAKE_CURRENT_BINARY_DIR}/tags and
+#   triggers docker-builds.
+#
 
-# Paths
-set(BUILDCTX_NONE 
-    "${YUNIBASE_REPO_ROOT}/hosts/docker-linux")
-set(BASE_FEDORA 
-    "${YUNIBASE_REPO_ROOT}/hosts/docker-linux/base-fedora/Dockerfile")
-set(BASE_ALPINE
-    "${YUNIBASE_REPO_ROOT}/hosts/docker-linux/base-alpine/Dockerfile")
-set(BASE_DEFAULT 
-    "${YUNIBASE_REPO_ROOT}/hosts/docker-linux/base-ubuntuLTS/Dockerfile")
-set(BASE_UBUNTU32
-    "${YUNIBASE_REPO_ROOT}/hosts/docker-linux/base-ubuntu32LTS/Dockerfile")
-set(BASE_JAVA
-    "${YUNIBASE_REPO_ROOT}/hosts/docker-linux/base-java/Dockerfile")
-set(BASE_RASPBIAN
-    "${YUNIBASE_REPO_ROOT}/hosts/docker-linux/base-raspbian/Dockerfile")
+set(tagfileroot ${CMAKE_CURRENT_BINARY_DIR}/tags)
 
-function(add_docker_build tgt dockerfile tag root)
+file(MAKE_DIRECTORY ${tagfileroot})
+
+foreach(sourcesym ${sourcesyms})
+    add_source_gentag(${tagfileroot}/${sourcesym}.tag ${sourcesym})
+endforeach()
+
+#
+# Docker builds
+#
+
+function(add_docker_build tgt dockerfile tag root) # Only for add_root
     add_custom_target(${tgt}
         COMMAND docker build --no-cache
         --tag "${tag}" -f ${dockerfile} ${root}
         COMMENT "Building dockerfile...(${tgt} => ${tag})"
         WORKING_DIRECTORY ${YUNIBASE_REPO_ROOT})
 endfunction()
+
+macro(archive_name var impl branch rootname)
+    impl_name(_implnam ${impl})
+    if(${branch} STREQUAL STABLE)
+        set(${var} yunibase_${rootname}_${_implnam}_stable.tar.gz)
+    else()
+        set(${var} yunibase_${rootname}_${_implnam}_current.tar.gz)
+    endif()
+endmacro()
+
+function(add_docker_archive_build impl branch rootname)
+    # FIXME: Special handling for "ubuntu64" (as it is default)
+    if(${rootname} STREQUAL ubuntu64)
+        set(tagsufx "")
+    else()
+        set(tagsufx "-${rootname}")
+    endif()
+    impl_name(implnam ${impl})
+    impl_require_stable_p(require_stable ${impl})
+    set(archiveroot ${CMAKE_CURRENT_BINARY_DIR}/archive)
+    archive_name(archivename ${impl} ${branch} ${rootname})
+    set(dest ${archiveroot}/${archivename})
+    if(${branch} STREQUAL STABLE)
+        set(targetname archive-${implnam}-stable)
+    else()
+        set(targetname archive-${implnam}-current)
+    endif()
+    if(require_stable)
+        # Generate dependency with stable build
+        archive_name(stablename ${impl} STABLE ${rootname})
+        set(stabledepends ${archiveroot}/${stablename})
+        set(prebuilt_stablearg "-DPREBUILT_STABLE=${stablename}")
+    else()
+        set(stabledepends)
+        set(prebuilt_stablearg)
+    endif()
+    add_custom_command(OUTPUT ${dest}
+        COMMAND ${CMAKE_COMMAND}
+        -DIMAGE="okuoku/yunibuild:latest${tagsufx}"
+        -DLOGFILE=${CMAKE_CURRENT_BINARY_DIR}/${rootname}_${impl}_${branch}_log.txt
+        -DARCHIVEDIR=${archiveroot}
+        -DARCHIVEPREFIX=${rootname}
+        -DTARGET=${targetname}
+        ${prebuilt_stablearg}
+        -DONLY=${impl}
+        -P ${CMAKE_CURRENT_LIST_DIR}/docker-build-archive.cmake
+        # FIXME: Add tagfile here
+        DEPENDS ${stabledepends}
+        COMMENT "Building impl archive(${impl}_${branch} with ${rootname})")
+endfunction()
+
+macro(add_root rootname ctxname)
+    # FIXME: Special handling for "ubuntu64" (as it is default)
+    if(${rootname} STREQUAL ubuntu64)
+        set(tagsufx "")
+    else()
+        set(tagsufx "-${rootname}")
+    endif()
+
+    # Generate base target
+    set(tgt_base docker_base_${rootname})
+    add_docker_build(${tgt_base}
+        # Dockerfile
+        "${YUNIBASE_REPO_ROOT}/hosts/docker-linux/base-${ctxname}/Dockerfile"
+        # Tag
+        "okuoku/yunibuild:latest${tagsufx}"
+        # Build context
+        "${YUNIBASE_REPO_ROOT}/hosts/docker-linux")
+    add_dependencies(base ${tgt_base})
+
+    # Generate per-impl build targets
+    foreach(impl ${impls})
+        impl_require_stable_p(require_stable ${impl})
+        impl_name(implnam ${impl})
+        if(require_stable)
+            add_docker_archive_build(${impl} STABLE ${rootname})
+        endif()
+        add_docker_archive_build(${impl} CURRENT ${rootname})
+    endforeach()
+endmacro()
+
+macro(enable_impl rootname)
+    set(_archiveroot ${CMAKE_CURRENT_BINARY_DIR}/archive)
+    set(_archivepaths)
+    foreach(impl ${ARGN})
+        archive_name(_archivename ${impl} CURRENT ${rootname})
+        list(APPEND _archivepaths ${_archiveroot}/${_archivename})
+    endforeach()
+    add_custom_target(archives-${rootname}
+        DEPENDS ${_archivepaths})
+endmacro()
+
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/archive)
+
+add_root(ubuntu64 ubuntuLTS)
+add_root(fedora fedora)
+add_root(alpine alpine)
+add_root(ubuntu32 ubuntu32LTS)
+add_root(java java)
+add_root(raspbian raspbian)
+
+enable_impl(ubuntu64
+    CHIBI_SCHEME GAUCHE NMOSH SAGITTARIUS CHICKEN GUILE RACKET VICARE CHEZ
+    GAMBIT PICRIN MIT_SCHEME)
+enable_impl(ubuntu32
+    # Disabled: GUILE VICARE
+    CHIBI_SCHEME 
+    #25: Disable BoehmGC based impl. for now
+    # GAUCHE 
+    # NMOSH 
+    # SAGITTARIUS 
+    CHICKEN RACKET 
+    LARCENY CHEZ 
+    # FIXME: Gambit crashes on Ubuntu32
+    # GAMBIT 
+    # RAPID_GAMBIT
+    PICRIN)
+enable_impl(fedora
+    # Disabled: SAGITTARIUS GUILE
+    CHIBI_SCHEME GAUCHE NMOSH CHICKEN RACKET VICARE CHEZ 
+    GAMBIT 
+    PICRIN
+    MIT_SCHEME)
+enable_impl(alpine
+    CHIBI_SCHEME CHICKEN # CHEZ
+    PICRIN)
+enable_impl(java
+    CHIBI_SCHEME
+    KAWA)
+enable_impl(raspbian
+    CHIBI_SCHEME
+    CHICKEN
+    GAMBIT)
 
 macro(escape_args var first)
     set(${var} "${first}")
@@ -84,18 +284,7 @@ endfunction()
 #
 # BASE IMAGES
 #
-add_docker_build(docker_base_default
-    ${BASE_DEFAULT} "okuoku/yunibuild:latest" ${BUILDCTX_NONE})
-add_docker_build(docker_base_ubuntu32
-    ${BASE_UBUNTU32} "okuoku/yunibuild:latest-ubuntu32" ${BUILDCTX_NONE})
-add_docker_build(docker_base_fedora 
-    ${BASE_FEDORA} "okuoku/yunibuild:latest-fedora" ${BUILDCTX_NONE})
-add_docker_build(docker_base_alpine
-    ${BASE_ALPINE} "okuoku/yunibuild:latest-alpine" ${BUILDCTX_NONE})
-add_docker_build(docker_base_java
-    ${BASE_JAVA} "okuoku/yunibuild:latest-java" ${BUILDCTX_NONE})
-add_docker_build(docker_base_raspbian # multiarch
-    ${BASE_RASPBIAN} "okuoku/yunibuild:latest-raspbian" ${BUILDCTX_NONE})
+
 add_docker_push(docker_push_yunibuild "okuoku/yunibuild")
 
 add_dependencies(base docker_base_default docker_base_ubuntu32

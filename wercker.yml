@@ -10,7 +10,7 @@ build:
     - script:
         name: mkdirs
         code: |
-            mkdir -p /yunisrc && mkdir -p /yunibase
+            mkdir -p /yunisrc && mkdir -p /opt/yunibase
     - script:
         name: clone yunibase (again)
         code: |
@@ -34,7 +34,7 @@ build:
     - script:
         name: build
         code: |
-            cd /yunibase && cmake /yunisrc/yunibase && make
+            cd /opt/yunibase && cmake /yunisrc/yunibase && make
     - script:
         name: clone yuni
         code: |

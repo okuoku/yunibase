@@ -10,6 +10,8 @@
 #   STAMP: Stamp file
 #   CIDFILE: absolute path to cidfile (will be removed/replaced)
 #   LOGFILE: absolute path to logfile
+#   ARCHIVEDIR: absolute path to archive output dir
+#   ARCHIVEPREFIX: prefix for archive
 
 if(BUILDYUNI)
     set(_myname "yuniimage")
@@ -86,12 +88,14 @@ else()
         COMMAND docker run
         --cidfile=${CIDFILE}
         -i
+        -v ${ARCHIVEDIR}:/yunibase.archive
         -v ${_mysrc}:/yunibase.build:Z
         ${IMAGE}
         cmake "${_onlyarg}" "${_exceptarg}"
-        -DCLEANSOURCES=TRUE
         -DYUNIBASEROOT=/opt/yunibase
-        -P /yunibase.build/scripts/build-on-root.cmake
+        -DARCHIVEDIR=/yunibase.archive
+        -DARCHIVEPREFIX=${ARCHIVEPREFIX}
+        -P /yunibase.build/scripts/deploy-archives.cmake
         OUTPUT_FILE ${LOGFILE}
         ERROR_FILE ${LOGFILE}
         RESULT_VARIABLE rr)

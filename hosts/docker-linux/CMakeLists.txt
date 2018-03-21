@@ -112,6 +112,15 @@ foreach(sourcesym ${sourcesyms})
 endforeach()
 
 #
+# Version stamp (for docker image)
+#
+
+add_yunibase_stamp_version(stamp_version
+    ${YUNIBASE_REPO_ROOT}
+    ${CMAKE_CURRENT_LIST_DIR}/_stamp.txt)
+add_dependencies(stamp stamp_version)
+
+#
 # Docker builds
 #
 
@@ -208,6 +217,30 @@ macro(add_root rootname ctxname)
     endforeach()
 endmacro()
 
+function(add_docker_yunibase tgt rootname) # only for enable_impl
+    # FIXME: Special handling for "ubuntu64" (as it is default)
+    if(${rootname} STREQUAL ubuntu64)
+        set(tagsufx "")
+    else()
+        set(tagsufx "-${rootname}")
+    endif()
+    set(image "okuoku/yunibuild:latest${tagsufx}")
+    set(tag "okuoku/yunibase:testing${tagsufx}")
+    set(archiveroot ${CMAKE_CURRENT_BINARY_DIR}/archive)
+    add_custom_target(${tgt}
+        COMMAND ${CMAKE_COMMAND}
+        -DIMAGE=${image}
+        -DLOGFILE=${CMAKE_CURRENT_BINARY_DIR}/${tgt}.log
+        -DCIDFILE=${CMAKE_CURRENT_BINARY_DIR}/cid${tgt}
+        -DTAG=${tag}
+        -DSTAMP=${CMAKE_CURRENT_LIST_DIR}/_stamp.txt
+        -DARCHIVEDIR=${archiveroot}
+        -DARCHIVEPREFIX=${rootname}
+        -P ${CMAKE_CURRENT_LIST_DIR}/docker-run-build.cmake
+        COMMENT "Building yunibase image...(${image} => ${tag})")
+    add_dependencies(image ${tgt})
+endfunction()
+
 macro(enable_impl rootname)
     set(_archiveroot ${CMAKE_CURRENT_BINARY_DIR}/archive)
     set(_archivepaths)
@@ -222,6 +255,8 @@ macro(enable_impl rootname)
     endforeach()
     add_custom_target(archives-${rootname}
         DEPENDS ${_archivepaths})
+    add_docker_yunibase(image-${rootname} ${rootname})
+    add_dependencies(image-${rootname} archives-${rootname} stamp)
 endmacro()
 
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/archive)
@@ -266,27 +301,6 @@ enable_impl(raspbian
     CHICKEN
     GAMBIT)
 
-macro(escape_args var first)
-    set(${var} "${first}")
-    foreach(e ${ARGN})
-        set(${var} "${${var}}\\;${e}")
-    endforeach()
-endmacro()
-
-function(add_docker_yunibase tgt image tag)
-    escape_args(_str ${ARGN})
-    add_custom_target(${tgt}
-        COMMAND ${CMAKE_COMMAND}
-        -DIMAGE=${image}
-        "-DONLY=${_str}"
-        -DLOGFILE=${CMAKE_CURRENT_BINARY_DIR}/${tgt}.log
-        -DCIDFILE=${CMAKE_CURRENT_BINARY_DIR}/cid${tgt}
-        -DTAG=${tag}
-        -DSTAMP=${CMAKE_CURRENT_LIST_DIR}/_stamp.txt
-        -P ${CMAKE_CURRENT_LIST_DIR}/docker-run-build.cmake
-        COMMENT "Building yunibase image...(${image} => ${tag})")
-endfunction()
-
 function(add_docker_push tgt repo)
     add_custom_target(${tgt}
         COMMAND docker push ${repo}
@@ -294,88 +308,11 @@ function(add_docker_push tgt repo)
         )
 endfunction()
 
-#
-# BASE IMAGES
-#
-
 add_docker_push(docker_push_yunibuild "okuoku/yunibuild")
-
 add_dependencies(push docker_push_yunibuild)
 
-# 
-# Yunibase IMAGES
-#
-add_docker_yunibase(docker_yuni_default
-    "okuoku/yunibuild:latest" "okuoku/yunibase:testing"
-    CHIBI_SCHEME GAUCHE NMOSH SAGITTARIUS CHICKEN GUILE RACKET VICARE CHEZ
-    GAMBIT 
-    # RAPID_GAMBIT
-    PICRIN
-    MIT_SCHEME
-    )
-add_docker_yunibase(docker_yuni_ubuntu32
-    "okuoku/yunibuild:latest-ubuntu32" "okuoku/yunibase:testing-ubuntu32"
-    # Disabled: GUILE VICARE
-    CHIBI_SCHEME 
-    #25: Disable BoehmGC based impl. for now
-    # GAUCHE 
-    # NMOSH 
-    # SAGITTARIUS 
-    CHICKEN RACKET 
-    LARCENY CHEZ 
-    # FIXME: Gambit crashes on Ubuntu32
-    # GAMBIT 
-    # RAPID_GAMBIT
-    PICRIN
-    )
-add_docker_yunibase(docker_yuni_fedora
-    "okuoku/yunibuild:latest-fedora" "okuoku/yunibase:testing-fedora"
-    # Disabled: SAGITTARIUS GUILE
-    CHIBI_SCHEME GAUCHE NMOSH CHICKEN RACKET VICARE CHEZ 
-    GAMBIT 
-    # RAPID_GAMBIT
-    PICRIN
-    MIT_SCHEME
-    )
-add_docker_yunibase(docker_yuni_alpine
-    "okuoku/yunibuild:latest-alpine" "okuoku/yunibase:testing-alpine"
-    CHIBI_SCHEME CHICKEN # CHEZ
-    PICRIN
-    )
-
-add_docker_yunibase(docker_yuni_java
-    "okuoku/yunibuild:latest-java" "okuoku/yunibase:testing-java"
-    CHIBI_SCHEME
-    KAWA)
-
-add_docker_yunibase(docker_yuni_raspbian
-    "okuoku/yunibuild:latest-raspbian" "okuoku/yunibase:testing-raspbian"
-    CHIBI_SCHEME
-    CHICKEN
-    GAMBIT)
-
 add_docker_push(docker_push_yunibase "okuoku/yunibase")
-
-add_dependencies(image docker_yuni_default docker_yuni_ubuntu32
-    docker_yuni_fedora docker_yuni_alpine docker_yuni_java
-    docker_yuni_raspbian)
-
 add_dependencies(push docker_push_yunibase)
-
-#
-# Version stamp
-#
-
-add_yunibase_stamp_version(stamp_version
-    ${YUNIBASE_REPO_ROOT}
-    ${CMAKE_CURRENT_LIST_DIR}/_stamp.txt)
-add_dependencies(stamp stamp_version)
-add_dependencies(docker_yuni_default stamp)
-add_dependencies(docker_yuni_ubuntu32 stamp)
-add_dependencies(docker_yuni_fedora stamp)
-add_dependencies(docker_yuni_alpine stamp)
-add_dependencies(docker_yuni_java stamp)
-add_dependencies(docker_yuni_raspbian stamp)
 
 #
 # yuniimage

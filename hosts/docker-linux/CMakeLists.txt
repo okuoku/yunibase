@@ -14,6 +14,9 @@ add_custom_target(push)   # Push built images
 add_custom_target(stamp)  # Stamp current repository version
 add_custom_target(yunitest) # Test with ${YUNIBASE_WITH_YUNI}
 
+
+add_custom_target(update-tagfiles) # Update tagfiles (internal target)
+
 set(impls)
 
 macro(register_impl sym nam)
@@ -45,7 +48,7 @@ endmacro()
 # FIXME: Use Git-archive deploy later
 set(sourcesyms)
 macro(register_source sym branch pth mode tag)
-    if(${mode} STREQUAL DEP)
+    if(${branch} STREQUAL DEP)
         # Dependencies
         get_filename_component(dirname ${pth} NAME)
         set(sourcesym ${sym}_DEP_${dirname})
@@ -69,14 +72,16 @@ set(tree STABLE)
 include(${YUNIBASE_REPO_ROOT}/impl-stable/sources.cmake)
 
 function(add_source_gentag dest sourcesym)
-    add_custom_command(OUTPUT ${dest}
+    set(tgt update-tag-${sourcesym})
+    add_custom_target(${tgt}
         COMMAND ${CMAKE_COMMAND} 
         -DTAGPROTOCOL=${source_${sourcesym}_tagprotocol}
         -DTAG=${source_${sourcesym}_tag}
         -DTAGPATH=${source_${sourcesym}_tagpath}
         -DDEST=${dest}
         -P ${YUNIBASE_REPO_ROOT}/hosts/docker-linux/update-tagfile.cmake
-        COMMEND "Updating tagfile for ${sourcesym}")
+        COMMENT "Updating tagfile for ${sourcesym}")
+    add_dependencies(update-tagfiles ${tgt})
 endfunction()
 
 macro(impl_sourcesyms var sym branch)
@@ -87,13 +92,18 @@ endmacro()
 set(YUNIBASE_MASTER_REMOTE "none" 
     CACHE STRING "Master Git local name to sync with")
 
+# FIXME: Deprecate it
 if(NOT ${YUNIBASE_MASTER_REMOTE} STREQUAL "none")
     add_custom_target(try-master-sync
         COMMAND git fetch ${YUNIBASE_MASTER_REMOTE}
         COMMAND git reset --hard ${YUNIBASE_MASTER_REMOTE}/master
         COMMAND git submodule update --init --recursive
-        WORKING_DIRECTORY ${YUNIBASE_REPO_ROOT}
-        )
+        WORKING_DIRECTORY ${YUNIBASE_REPO_ROOT})
+    add_custom_target(TARGET try-master-sync
+        POST_BUILD
+        COMMAND ${CMAKE_COMMAND} --build ${CMAKE_CURRENT_BINARY_DIR}
+        --target update-tagfiles
+        COMMENT "Updating tagfiles...")
 endif()
 
 #

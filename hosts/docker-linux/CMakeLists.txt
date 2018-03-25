@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.2)
 project(yunibuild-docker-linux NONE)
 
 set(YUNIBASE_REPO_ROOT ${CMAKE_CURRENT_LIST_DIR}/../..)
@@ -80,12 +80,13 @@ function(add_source_gentag dest sourcesym)
         -DTAGPATH=${source_${sourcesym}_tagpath}
         -DDEST=${dest}
         -P ${YUNIBASE_REPO_ROOT}/hosts/docker-linux/update-tagfile.cmake
+        BYPRODUCTS ${dest}
         COMMENT "Updating tagfile for ${sourcesym}")
     add_dependencies(update-tagfiles ${tgt})
 endfunction()
 
 macro(impl_sourcesyms var sym branch)
-    set(${var} impl_${sym}_${branch}_sourcesyms)
+    set(${var} ${impl_${sym}_${branch}_sourcesyms})
 endmacro()
 
 # Globals
@@ -182,6 +183,12 @@ function(add_docker_archive_build impl branch rootname)
             set(prebuilt_stablearg)
         endif()
     endif()
+    impl_sourcesyms(syms ${impl} ${branch})
+    set(tagfiles)
+    foreach(s ${syms})
+        message(STATUS "${dest}: ${s}")
+        list(APPEND tagfiles ${tagfileroot}/${s}.tag)
+    endforeach()
     add_custom_command(OUTPUT ${dest}
         COMMAND ${CMAKE_COMMAND}
         -DIMAGE="okuoku/yunibuild:latest${tagsufx}"
@@ -192,8 +199,7 @@ function(add_docker_archive_build impl branch rootname)
         ${prebuilt_stablearg}
         -DONLY=${impl}
         -P ${CMAKE_CURRENT_LIST_DIR}/docker-build-archive.cmake
-        # FIXME: Add tagfile here
-        DEPENDS ${stabledepends}
+        DEPENDS ${stabledepends} ${tagfiles}
         COMMENT "Building impl archive(${impl}_${branch} with ${rootname})")
 endfunction()
 

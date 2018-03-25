@@ -382,3 +382,5 @@ if(YUNIBASE_WITH_YUNI)
     add_docker_yunitest(yunitest_alpine "okuoku/yunibase:testing-alpine")
     add_docker_yunitest(yunitest_raspbian "okuoku/yunibase:testing-raspbian")
 endif()
+
+add_subdirectory(updater)

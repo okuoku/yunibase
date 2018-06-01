@@ -67,7 +67,9 @@ register_source(GAMBIT CURRENT
 register_source(CHICKEN DEP
     "impl-current/chicken-eggs/chicken-r7rs"
     GIT
-    "origin/master")
+    "2934d62b9aa83da9a928de70a53d2a1b9045e4fb"
+    #"origin/master"
+    )
 
 register_source(CHICKEN DEP
     "impl-current/chicken-eggs/chicken-r7rs-deps"

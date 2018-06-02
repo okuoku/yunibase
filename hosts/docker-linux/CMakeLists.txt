@@ -335,11 +335,14 @@ enable_impl(alpine
     PICRIN S7YUNI)
 enable_impl(java
     CHIBI_SCHEME
-    KAWA S7YUNI)
+    KAWA)
 enable_impl(raspbian
     CHIBI_SCHEME
     CHICKEN
-    GAMBIT S7YUNI)
+    GAMBIT 
+    # CMake too old
+    #S7YUNI
+    )
 
 function(add_docker_push tgt repo)
     add_custom_target(${tgt}

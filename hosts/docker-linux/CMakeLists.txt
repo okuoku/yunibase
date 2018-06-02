@@ -25,6 +25,10 @@ macro(register_impl sym nam)
     if(NOT ${qq} EQUAL -1)
         set(impl_${sym}_REQUIRE_STABLE ON)
     endif()
+    list(FIND _lis REQUIRE_YUNI qq)
+    if(NOT ${qq} EQUAL -1)
+        set(impl_${sym}_REQUIRE_YUNI ON)
+    endif()
     list(APPEND impls ${sym})
     set(impl_${sym}_name ${nam})
 endmacro()
@@ -39,6 +43,14 @@ endmacro()
 
 macro(impl_require_stable_p var sym)
     if(impl_${sym}_REQUIRE_STABLE)
+        set(${var} ON)
+    else()
+        set(${var} OFF)
+    endif()
+endmacro()
+
+macro(impl_require_yuni_p var sym)
+    if(impl_${sym}_REQUIRE_YUNI)
         set(${var} ON)
     else()
         set(${var} OFF)
@@ -63,6 +75,9 @@ macro(register_source sym branch pth mode tag)
     set(source_${sourcesym}_tagpath ${source_root}/${pth})
     list(APPEND sourcesyms ${sourcesym})
 endmacro()
+macro(source_add_yunisrcdep sym)
+    list(APPEND impl_${sym}_CURRENT_sourcesyms yunisrc_NONE)
+endmacro()
 
 set(tree CURRENT)
 set(source_root ${YUNIBASE_REPO_ROOT})
@@ -83,11 +98,16 @@ function(add_source_gentag dest sourcesym)
         BYPRODUCTS ${dest}
         COMMENT "Updating tagfile for ${sourcesym}")
     add_dependencies(update-tagfiles ${tgt})
+    message(STATUS "Tagfile: ${sourcesym} => ${dest}")
 endfunction()
 
 macro(impl_sourcesyms var sym branch)
     set(${var} ${impl_${sym}_${branch}_sourcesyms})
 endmacro()
+
+# Special handling for yunisrc
+set(source_root ${YUNIBASE_REPO_ROOT})
+register_source(yunisrc NONE yuni GIT "origin/master")
 
 # Globals
 set(YUNIBASE_MASTER_REMOTE "none" 
@@ -181,6 +201,10 @@ function(add_docker_archive_build impl branch rootname)
         else()
             set(stabledepends)
             set(prebuilt_stablearg)
+        endif()
+        impl_require_yuni_p(require_yuni ${impl})
+        if(require_yuni)
+            source_add_yunisrcdep(${impl})
         endif()
     endif()
     impl_sourcesyms(syms ${impl} ${branch})
@@ -286,7 +310,7 @@ add_root(raspbian raspbian)
 
 enable_impl(ubuntu64
     CHIBI_SCHEME GAUCHE NMOSH SAGITTARIUS CHICKEN GUILE RACKET VICARE CHEZ
-    GAMBIT PICRIN MIT_SCHEME)
+    GAMBIT PICRIN MIT_SCHEME S7YUNI)
 enable_impl(ubuntu32
     # Disabled: GUILE VICARE
     CHIBI_SCHEME 
@@ -299,23 +323,23 @@ enable_impl(ubuntu32
     # FIXME: Gambit crashes on Ubuntu32
     # GAMBIT 
     # RAPID_GAMBIT
-    PICRIN)
+    PICRIN S7YUNI)
 enable_impl(fedora
     # Disabled: SAGITTARIUS GUILE
     CHIBI_SCHEME GAUCHE NMOSH CHICKEN RACKET VICARE CHEZ 
     GAMBIT 
     PICRIN
-    MIT_SCHEME)
+    MIT_SCHEME S7YUNI)
 enable_impl(alpine
     CHIBI_SCHEME CHICKEN # CHEZ
-    PICRIN)
+    PICRIN S7YUNI)
 enable_impl(java
     CHIBI_SCHEME
-    KAWA)
+    KAWA S7YUNI)
 enable_impl(raspbian
     CHIBI_SCHEME
     CHICKEN
-    GAMBIT)
+    GAMBIT S7YUNI)
 
 function(add_docker_push tgt repo)
     add_custom_target(${tgt}

@@ -32,6 +32,7 @@ set(YUNIBASE_ROOT ${CMAKE_CURRENT_LIST_DIR})
 set(YUNIBASE_BUILD_CONFIG_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/config) 
 set(YUNIBASE_BUILD_REPORT_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/reports) 
 set(YUNIBASE_BUILD_LOG_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/logs)
+set(YUNIBASE_YUNIROOT ${CMAKE_CURRENT_LIST_DIR}/yuni)
 
 # Defaults
 set(YUNIBASE_ROOT_STABLE ${CMAKE_CURRENT_LIST_DIR}/impl-stable)
@@ -90,6 +91,7 @@ include(./recipes/gambit.recipe.cmake)
 include(./recipes/rapid-gambit.recipe.cmake)
 include(./recipes/picrin.recipe.cmake)
 include(./recipes/mit-scheme.recipe.cmake)
+include(./recipes/s7yuni.recipe.cmake)
 
 # Source definitions
 init_sources()
@@ -189,6 +191,7 @@ else()
         activate_recipe(MIT_SCHEME STABLE)
         activate_recipe(MIT_SCHEME CURRENT)
     endif()
+    activate_recipe(S7YUNI CURRENT)
 endif()
 
 if(YUNIBASE_ONLY)
@@ -275,6 +278,9 @@ if(YUNIBASE_ARCHIVE_TAG)
     proc_archive(gambit         stable  GAMBIT_STABLE)
     proc_archive(mit-scheme     current MIT_SCHEME_CURRENT)
     proc_archive(mit-scheme     stable  MIT_SCHEME_STABLE)
+    ## Generic
+    proc_archive(s7yuni         current S7YUNI_CURRENT)
+
 
     add_custom_target(archive-all DEPENDS ${archive_tgts})
 endif()
@@ -291,7 +297,7 @@ endif()
 # License handling
 
 function(register_impl sym nam)
-    set(opts REQUIRE_STABLE)
+    set(opts REQUIRE_STABLE REQUIRE_YUNI)
     set(oneargs "")
     set(multargs LICENSE_FILES)
     cmake_parse_arguments(arg "${opts}" "${oneargs}" 

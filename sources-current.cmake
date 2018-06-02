@@ -63,6 +63,11 @@ register_source(GAMBIT CURRENT
     GIT
     "origin/master")
 
+register_source(S7YUNI CURRENT
+    "impl-current/snd"
+    GIT
+    "origin/master")
+
 # Deps
 register_source(CHICKEN DEP
     "impl-current/chicken-eggs/chicken-r7rs"

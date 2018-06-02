@@ -442,3 +442,14 @@ register_recipe(MIT_SCHEME CURRENT
 
 depends_current_stable(mit-scheme_current mit-scheme_stable)
 
+# s7yuni
+set(s7yuni_current_src ${YUNIBASE_ROOT_CURRENT}/snd)
+set(s7yuni_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/s7yuni)
+build_recipe(s7yuni_current
+    ${s7yuni_current_src}
+    ${s7yuni_current_dest}
+    S7YUNI
+    ""
+    ${RECIPE_S7YUNI})
+register_recipe(S7YUNI CURRENT s7yuni_current)
+

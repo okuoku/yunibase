@@ -60,3 +60,7 @@ register_impl(
 register_impl(
     LARCENY larceny
     LICENSE_FILES COPYRIGHT)
+register_impl(
+    S7YUNI s7yuni
+    LICENSE_FILES COPYING
+    REQUIRE_YUNI)

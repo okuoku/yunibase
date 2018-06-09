@@ -332,7 +332,7 @@ enable_impl(fedora
     MIT_SCHEME S7YUNI)
 enable_impl(alpine
     CHIBI_SCHEME CHICKEN # CHEZ
-    PICRIN S7YUNI)
+    PICRIN)
 enable_impl(java
     CHIBI_SCHEME
     KAWA)

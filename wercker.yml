@@ -34,7 +34,7 @@ build:
     - script:
         name: build
         code: |
-            cd /opt/yunibase && cmake /yunisrc/yunibase && make
+            cd /opt/yunibase && cmake -DYUNIBASE_ONLY=CHIBI_SCHEME /yunisrc/yunibase && make
     - script:
         name: clone yuni
         code: |

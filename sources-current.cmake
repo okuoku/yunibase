@@ -128,6 +128,11 @@ register_source(CHICKEN5 CURRENT
     "origin/master")
 
 register_source(CHICKEN5 DEP
+    "impl-current/chicken5-eggs/chicken-r7rs"
+    GIT
+    "origin/master")
+
+register_source(CHICKEN5 DEP
     "impl-current/chicken5-eggs/srfi-1"
     GIT
     "origin/master")

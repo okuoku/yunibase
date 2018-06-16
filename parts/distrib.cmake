@@ -19,6 +19,11 @@ register_impl(
     REQUIRE_STABLE)
 
 register_impl(
+    CHICKEN5 chicken5
+    LICENSE_FILES LICENSE
+    REQUIRE_STABLE)
+
+register_impl(
     VICARE vicare
     LICENSE_FILES 
       LICENSE.irregex

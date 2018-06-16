@@ -301,6 +301,94 @@ register_recipe(CHICKEN CURRENT
     chicken_current_setup
     chicken_current_test)
 
+# Chicken5 (stable + current)
+set(chicken5_stable_src ${YUNIBASE_ROOT_STABLE}/chicken5)
+set(chicken5_stable_dest ${YUNIBASE_BUILD_STABLE_PREFIX}/chicken5)
+build_recipe(chicken5_stable ${chicken5_stable_src} ${chicken5_stable_dest}
+    CHICKEN5 "" ${RECIPE_CHICKEN5})
+build_recipe(chicken5_stable_test ${chicken5_stable_src} ${chicken5_stable_dest}
+    CHICKEN5 "" ${RECIPE_CHICKEN5_TEST})
+set(ENVP_CHICKEN5_SETUP
+    PATH ${CHICKEN5_INSTALL_PREFIX}/bin
+    ${ld_library_path} ${CHICKEN5_INSTALL_PREFIX}/lib)
+build_recipe(chicken5_stable_setup ${chicken5_stable_src} ${chicken5_stable_dest}
+    CHICKEN "${ENVP_CHICKEN5_SETUP}" ${RECIPE_CHICKEN5_SETUP})
+
+register_recipe(CHICKEN5 STABLE 
+    chicken5_stable
+    #chicken5_stable_setup
+    #chicken5_stable_test
+    )
+
+file(GLOB chicken5_stable_csrcs ${chicken5_stable_src}/*.c)
+
+workaround_touch_prebuilt_files(
+    /
+    ${chicken5_stable_csrcs})
+
+workaround_touch_prebuilt_files(
+    ${chicken5_stable_src}
+    setup-api.c)
+
+workaround_touch_prebuilt_files(
+    ${chicken5_stable_src}
+    setup-download.c)
+
+workaround_touch_prebuilt_files(
+    ${chicken5_stable_src}
+    build-version.c)
+
+workaround_touch_prebuilt_files(
+    ${chicken5_stable_src}
+    # This file needs to be the newest
+    # chicken-install.c # FIXME: It seems we need do this in the loop...
+    debugger-client.c) 
+
+while(true)
+    if(${chicken5_stable_src}/setup-download.c IS_NEWER_THAN 
+            ${chicken5_stable_src}/setup-api.c)
+        break()
+    endif()
+    message(STATUS "Touch Again(setup-download.c).")
+    workaround_touch_prebuilt_files(
+        ${chicken5_stable_src}
+        setup-download.c)
+endwhile()
+
+while(true)
+    if(${chicken5_stable_src}/chicken-install.c IS_NEWER_THAN
+            ${chicken5_stable_src}/setup-download.c)
+        break()
+    endif()
+    message(STATUS "Touch Again(chicken-install.c).")
+    workaround_touch_prebuilt_files(
+        ${chicken5_stable_src}
+        chicken-install.c)
+endwhile()
+
+set(chicken5_current_src ${YUNIBASE_ROOT_CURRENT}/chicken5)
+set(chicken5_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/chicken5)
+set(ENVP_CHICKEN5_BUILD
+    PATH ${YUNIBASE_BUILD_STABLE_PREFIX}/chicken5/bin
+    ${ld_library_path} ${YUNIBASE_BUILD_STABLE_PREFIX}/chicken5/lib)
+set(ENVP_CHICKEN5_SETUP
+    PATH ${YUNIBASE_BUILD_CURRENT_PREFIX}/chicken5/bin
+    ${ld_library_path} ${YUNIBASE_BUILD_CURRENT_PREFIX}/chicken5/lib)
+build_recipe(chicken5_current ${chicken5_current_src} ${chicken5_current_dest}
+    CHICKEN5 "${ENVP_CHICKEN5_BUILD}" ${RECIPE_CHICKEN5})
+build_recipe(chicken5_current_test ${chicken5_current_src} ${chicken5_current_dest}
+    CHICKEN5 "${ENVP_CHICKEN5_SETUP}" ${RECIPE_CHICKEN5_TEST})
+depends_current_stable(chicken5_current chicken5_stable)
+build_recipe(chicken5_current_setup 
+    ${chicken5_current_src} 
+    ${chicken5_current_dest}
+    CHICKEN "${ENVP_CHICKEN5_SETUP}" ${RECIPE_CHICKEN5_SETUP})
+
+register_recipe(CHICKEN5 CURRENT 
+    chicken5_current
+    chicken5_current_setup
+    chicken5_current_test)
+
 # Kawa (current)
 set(kawa_current_src ${YUNIBASE_ROOT_CURRENT}/kawa)
 set(kawa_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/kawa)

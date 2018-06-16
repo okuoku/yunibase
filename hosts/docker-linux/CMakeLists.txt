@@ -309,7 +309,9 @@ add_root(java java)
 add_root(raspbian raspbian)
 
 enable_impl(ubuntu64
-    CHIBI_SCHEME GAUCHE NMOSH SAGITTARIUS CHICKEN GUILE RACKET VICARE CHEZ
+    CHIBI_SCHEME GAUCHE NMOSH SAGITTARIUS CHICKEN 
+    CHICKEN5
+    GUILE RACKET VICARE CHEZ
     GAMBIT PICRIN MIT_SCHEME S7YUNI)
 enable_impl(ubuntu32
     # Disabled: GUILE VICARE
@@ -318,7 +320,7 @@ enable_impl(ubuntu32
     # GAUCHE 
     # NMOSH 
     # SAGITTARIUS 
-    CHICKEN RACKET 
+    CHICKEN CHICKEN5 RACKET 
     LARCENY CHEZ 
     # FIXME: Gambit crashes on Ubuntu32
     # GAMBIT 
@@ -326,12 +328,13 @@ enable_impl(ubuntu32
     PICRIN S7YUNI)
 enable_impl(fedora
     # Disabled: SAGITTARIUS GUILE
-    CHIBI_SCHEME GAUCHE NMOSH CHICKEN RACKET VICARE CHEZ 
+    CHIBI_SCHEME GAUCHE NMOSH CHICKEN CHICKEN5 RACKET VICARE CHEZ 
     GAMBIT 
     PICRIN
     MIT_SCHEME S7YUNI)
 enable_impl(alpine
     CHIBI_SCHEME CHICKEN # CHEZ
+    CHICKEN5
     PICRIN)
 enable_impl(java
     CHIBI_SCHEME
@@ -339,6 +342,7 @@ enable_impl(java
 enable_impl(raspbian
     CHIBI_SCHEME
     CHICKEN
+    # CHICKEN5 # too slow
     GAMBIT 
     # CMake too old
     #S7YUNI

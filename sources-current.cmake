@@ -122,13 +122,28 @@ register_source(RACKET DEP
     "origin/master")
 
 # CHICKEN5
-#register_source(CHICKEN5 CURRENT
-#    "impl-current/chicken5"
-#    GIT
-#    "origin/master")
-#
-#register_source(CHICKEN5 DEP
-#    "impl-current/chicken-eggs/chicken-r7rs"
-#    GIT
-#    "origin/master")
+register_source(CHICKEN5 CURRENT
+    "impl-current/chicken5"
+    GIT
+    "origin/master")
+
+register_source(CHICKEN5 DEP
+    "impl-current/chicken5-eggs/srfi-1"
+    GIT
+    "origin/master")
+
+register_source(CHICKEN5 DEP
+    "impl-current/chicken5-eggs/srfi-13"
+    GIT
+    "origin/master")
+
+register_source(CHICKEN5 DEP
+    "impl-current/chicken5-eggs/srfi-14"
+    GIT
+    "origin/master")
+
+register_source(CHICKEN5 DEP
+    "impl-current/chicken5-eggs/matchable"
+    GIT
+    "origin/master")
 

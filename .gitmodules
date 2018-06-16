@@ -82,9 +82,6 @@
 [submodule "impl-current/chicken5-eggs/chicken-r7rs"]
 	path = impl-current/chicken5-eggs/chicken-r7rs
 	url = git://code.call-cc.org/chicken-r7rs
-[submodule "impl-current/chicken5-eggs/chicken-r7rs-deps"]
-	path = impl-current/chicken5-eggs/chicken-r7rs-deps
-	url = https://bitbucket.org/okuoku/chicken-r7rs-deps
 [submodule "impl-current/snd"]
 	path = impl-current/snd
 	url = https://github.com/spurious/snd-mirror.git

@@ -85,3 +85,15 @@
 [submodule "impl-current/snd"]
 	path = impl-current/snd
 	url = https://github.com/spurious/snd-mirror.git
+[submodule "impl-current/chicken5-eggs/srfi-1"]
+	path = impl-current/chicken5-eggs/srfi-1
+	url = https://github.com/spurious/chicken5-srfi-1-mirror.git
+[submodule "impl-current/chicken5-eggs/srfi-13"]
+	path = impl-current/chicken5-eggs/srfi-13
+	url = https://github.com/spurious/chicken5-srfi-13-mirror.git
+[submodule "impl-current/chicken5-eggs/srfi-14"]
+	path = impl-current/chicken5-eggs/srfi-14
+	url = https://github.com/spurious/chicken5-srfi-14-mirror.git
+[submodule "impl-current/chicken5-eggs/matchable"]
+	path = impl-current/chicken5-eggs/matchable
+	url = https://github.com/spurious/chicken5-matchable-mirror.git

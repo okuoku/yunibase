@@ -334,6 +334,11 @@ workaround_touch_prebuilt_files(
     ${chicken5_stable_src}
     setup-download.c)
 
+if(EXISTS ${chicken5_stable_src})
+    # Trick identify.sh to fake we're on the release tarball
+    file(MAKE_DIRECTORY ${chicken5_stable_src}/manual-html)
+endif()
+
 workaround_touch_prebuilt_files(
     ${chicken5_stable_src}
     build-version.c)

@@ -13,7 +13,7 @@ add_custom_target(yuniimage) # Install yuni on yunibase images
 add_custom_target(push)   # Push built images
 add_custom_target(stamp)  # Stamp current repository version
 add_custom_target(yunitest) # Test with ${YUNIBASE_WITH_YUNI}
-
+add_custom_target(deploylocal) # Deploy generated .tar.gz under /opt/yunibase/
 
 add_custom_target(update-tagfiles) # Update tagfiles (internal target)
 
@@ -225,6 +225,15 @@ function(add_docker_archive_build impl branch rootname)
         -P ${CMAKE_CURRENT_LIST_DIR}/docker-build-archive.cmake
         DEPENDS ${stabledepends} ${tagfiles}
         COMMENT "Building impl archive(${impl}_${branch} with ${rootname})")
+    # Deploylocal
+    if(${rootname} STREQUAL ubuntu64 AND ${branch} STREQUAL CURRENT)
+        add_custom_target(deploylocal-${impl}
+            COMMAND ${CMAKE_COMMAND}
+            -DARCHIVE=${dest}
+            -DIMPLNAM=${implnam}
+            -P ${CMAKE_CURRENT_LIST_DIR}/deploylocal.cmake)
+        add_dependencies(deploylocal deploylocal-${impl})
+    endif()
 endfunction()
 
 macro(add_root rootname ctxname)

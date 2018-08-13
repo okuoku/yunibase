@@ -2,7 +2,7 @@
 #
 # docker run --rm --privileged multiarch/qemu-user-static:register --reset
 
-FROM resin/rpi-raspbian:wheezy
+FROM resin/rpi-raspbian:stretch
 WORKDIR /build
 
 # Install required packages:

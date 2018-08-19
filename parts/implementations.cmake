@@ -65,18 +65,25 @@ set(gauche_current_src ${YUNIBASE_ROOT_CURRENT}/gauche)
 set(gauche_stable_src ${YUNIBASE_ROOT_STABLE}/gauche)
 set(gauche_stable_dest ${YUNIBASE_BUILD_STABLE_PREFIX}/gauche)
 build_recipe(gauche_stable ${gauche_stable_src}  ${gauche_stable_dest}
-    GAUCHE "" ${RECIPE_GAUCHE})
+    GAUCHE "" ${RECIPE_GAUCHE_ALL})
 
 set(ENVP_GAUCHE # Use stable on build-current
     PATH ${YUNIBASE_BUILD_STABLE_PREFIX}/gauche/bin
     ${ld_library_path} ${YUNIBASE_BUILD_STABLE_PREFIX}/gauche/lib)
 set(gauche_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/gauche)
-build_recipe(gauche_current ${gauche_current_src} ${gauche_current_dest}
+build_recipe(gauche_current_bootstrap ${gauche_current_src} ${gauche_current_dest}
     GAUCHE "${ENVP_GAUCHE}" ${BOOTSTRAP_GAUCHE})
-depends_current_stable(gauche_current gauche_stable)
+build_recipe(gauche_current_configbuild ${gauche_current_src} ${gauche_current_dest}
+    GAUCHE "${ENVP_GAUCHE}" ${RECIPE_GAUCHE_CONFIGBUILD})
+build_recipe(gauche_current_testinstall ${gauche_current_src} ${gauche_current_dest}
+    GAUCHE "" ${RECIPE_GAUCHE_TESTINSTALL})
+depends_current_stable(gauche_current_bootstrap gauche_stable)
 
 register_recipe(GAUCHE STABLE gauche_stable)
-register_recipe(GAUCHE CURRENT gauche_current)
+register_recipe(GAUCHE CURRENT 
+    gauche_current_bootstrap
+    gauche_current_configbuild
+    gauche_current_testinstall)
 
 ## Gauche workaround (stable)
 set(gauche_war_touch_files)

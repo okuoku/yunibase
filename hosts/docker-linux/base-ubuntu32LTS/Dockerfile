@@ -10,7 +10,7 @@ WORKDIR /build
 #  Chicken: time (avoid bashism)
 #  Vicare: texinfo
 #  Larceny: nasm
-#  Chez: ncurses x11 libc6-dev-i386
+#  Chez: ncurses x11 libc6-dev-i386 uuid-dev
 #  Sagittarius: zlib1g-dev libssl-dev
 #  wget: For larceny workaround
 RUN apt-get update && apt-get install -y \
@@ -19,7 +19,7 @@ autoconf automake \
 libgmp-dev libonig-dev \
 libtool flex gettext pkg-config libunistring-dev libffi-dev libgc-dev \
 time texinfo nasm \
-ncurses-dev libx11-dev g++-multilib zlib1g-dev wget libssl-dev
+ncurses-dev libx11-dev g++-multilib zlib1g-dev wget libssl-dev uuid-dev
 
 # 32bitness
 RUN mv /bin/uname /bin/uname.orig && \

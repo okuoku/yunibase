@@ -1,3 +1,17 @@
+function(workaround_yunibase_impl_stable_timestamps)
+    set(dirs gauche chicken chicken5)
+    set(impl-stable ${YUNIBASE_REPO_ROOT}/impl-stable)
+    set(script ${impl-stable}/scripts/apply-timestamp-list.cmake)
+    foreach(d ${dirs})
+        execute_process(
+            COMMAND ${CMAKE_COMMAND} -DDIR=${d} -P ${script}
+            RESULT_VARIABLE rr)
+        if(rr)
+            message(FATAL_ERROR "Err: ${d} => ${rr}")
+        endif()
+    endforeach()
+endfunction()
+
 find_program(workaround_touch_use_touch_command
     touch)
 function(workaround_touch_prebuilt_files base)

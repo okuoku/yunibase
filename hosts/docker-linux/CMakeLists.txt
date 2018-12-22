@@ -5,6 +5,9 @@ set(YUNIBASE_REPO_ROOT ${CMAKE_CURRENT_LIST_DIR}/../..)
 list(APPEND CMAKE_MODULE_PATH ${YUNIBASE_REPO_ROOT}/cmake)
 
 include(YunibaseStampVersion)
+include(YunibaseWorkaroundFileTimestamp) # Needs YUNIBASE_REPO_ROOT
+
+workaround_yunibase_impl_stable_timestamps()
 
 add_custom_target(base)   # Update base environment
 add_custom_target(sync)   # Update Scheme implementations

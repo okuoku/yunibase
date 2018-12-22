@@ -85,33 +85,6 @@ register_recipe(GAUCHE CURRENT
     gauche_current_configbuild
     gauche_current_testinstall)
 
-## Gauche workaround (stable)
-set(gauche_war_touch_files)
-if(EXISTS ${gauche_stable_src}/.gitignore)
-    file(STRINGS ${gauche_stable_src}/.gitignore gauche_gitignore)
-    foreach(e ${gauche_gitignore})
-        if(EXISTS "${gauche_stable_src}/${e}")
-            list(APPEND gauche_war_touch_files ${e})
-        endif()
-    endforeach()
-    workaround_touch_prebuilt_files(
-        ${gauche_stable_src}
-        ${gauche_war_touch_files})
-
-    # doc/srfis.texi
-    while(true)
-        if(${gauche_stable_src}/doc/srfis.texi
-                IS_NEWER_THAN
-                ${gauche_stable_src}/src/srfis.scm)
-            break()
-        endif()
-        message(STATUS "Touch Again(srfis.texi).")
-        workaround_touch_prebuilt_files(
-            ${gauche_stable_src}
-            doc/srfis.texi)
-    endwhile()
-endif()
-
 # NMosh (stable)
 if(${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD")
     set(ENVP_NMOSH_CONFIG
@@ -237,54 +210,6 @@ register_recipe(CHICKEN STABLE
     #chicken_stable_test
     )
 
-file(GLOB chicken_stable_csrcs ${chicken_stable_src}/*.c)
-
-workaround_touch_prebuilt_files(
-    /
-    ${chicken_stable_csrcs})
-
-message(STATUS "We still have to workaround again...")
-
-workaround_touch_prebuilt_files(
-    ${chicken_stable_src}
-    setup-api.c)
-
-message(STATUS "We still have to workaround again...")
-
-workaround_touch_prebuilt_files(
-    ${chicken_stable_src}
-    setup-download.c)
-
-message(STATUS "We still have to workaround again...")
-
-workaround_touch_prebuilt_files(
-    ${chicken_stable_src}
-    # This file needs to be the newest
-    # chicken-install.c # FIXME: It seems we need do this in the loop...
-    debugger-client.c) 
-
-while(true)
-    if(${chicken_stable_src}/setup-download.c IS_NEWER_THAN 
-            ${chicken_stable_src}/setup-api.c)
-        break()
-    endif()
-    message(STATUS "Touch Again(setup-download.c).")
-    workaround_touch_prebuilt_files(
-        ${chicken_stable_src}
-        setup-download.c)
-endwhile()
-
-while(true)
-    if(${chicken_stable_src}/chicken-install.c IS_NEWER_THAN
-            ${chicken_stable_src}/setup-download.c)
-        break()
-    endif()
-    message(STATUS "Touch Again(chicken-install.c).")
-    workaround_touch_prebuilt_files(
-        ${chicken_stable_src}
-        chicken-install.c)
-endwhile()
-
 set(chicken_current_src ${YUNIBASE_ROOT_CURRENT}/chicken)
 set(chicken_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/chicken)
 set(ENVP_CHICKEN_BUILD
@@ -326,57 +251,6 @@ register_recipe(CHICKEN5 STABLE
     #chicken5_stable_setup
     #chicken5_stable_test
     )
-
-file(GLOB chicken5_stable_csrcs ${chicken5_stable_src}/*.c)
-
-workaround_touch_prebuilt_files(
-    /
-    ${chicken5_stable_csrcs})
-
-workaround_touch_prebuilt_files(
-    ${chicken5_stable_src}
-    setup-api.c)
-
-workaround_touch_prebuilt_files(
-    ${chicken5_stable_src}
-    setup-download.c)
-
-if(EXISTS ${chicken5_stable_src})
-    # Trick identify.sh to fake we're on the release tarball
-    file(MAKE_DIRECTORY ${chicken5_stable_src}/manual-html)
-endif()
-
-workaround_touch_prebuilt_files(
-    ${chicken5_stable_src}
-    build-version.c)
-
-workaround_touch_prebuilt_files(
-    ${chicken5_stable_src}
-    # This file needs to be the newest
-    # chicken-install.c # FIXME: It seems we need do this in the loop...
-    debugger-client.c) 
-
-while(true)
-    if(${chicken5_stable_src}/setup-download.c IS_NEWER_THAN 
-            ${chicken5_stable_src}/setup-api.c)
-        break()
-    endif()
-    message(STATUS "Touch Again(setup-download.c).")
-    workaround_touch_prebuilt_files(
-        ${chicken5_stable_src}
-        setup-download.c)
-endwhile()
-
-while(true)
-    if(${chicken5_stable_src}/chicken-install.c IS_NEWER_THAN
-            ${chicken5_stable_src}/setup-download.c)
-        break()
-    endif()
-    message(STATUS "Touch Again(chicken-install.c).")
-    workaround_touch_prebuilt_files(
-        ${chicken5_stable_src}
-        chicken-install.c)
-endwhile()
 
 set(chicken5_current_src ${YUNIBASE_ROOT_CURRENT}/chicken5)
 set(chicken5_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/chicken5)

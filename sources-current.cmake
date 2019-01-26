@@ -2,7 +2,9 @@
 register_source(GAUCHE CURRENT
     "impl-current/gauche"
     GIT
-    "origin/master")
+    #"origin/master"
+    "2be4658fb5d627626c821899d40d14443aeaa6e9"
+    )
 register_source(CHIBI_SCHEME CURRENT
     "impl-current/chibi-scheme"
     GIT

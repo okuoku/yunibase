@@ -19,6 +19,8 @@
 #  YUNIBASE_ARCHIVE_OUTPUT_DIR: Override archive output path
 #  YUNIBASE_PREBUILT_STABLE: Archive path to prebuilt stable 
 #
+#  YUNIBASE_FIX_TIMESTAMPS: Fix timestamps for commited sources
+#
 cmake_minimum_required(VERSION 2.8.4)
 project(yunibase NONE)
 
@@ -342,4 +344,10 @@ endif()
 
 include(./parts/distrib.cmake)
 
-
+if(YUNIBASE_FIX_TIMESTAMPS)
+    # FIXME: Why do we need this here..? It can be more earlier..!
+    if(NOT YUNIBASE_REPO_ROOT)
+        set(YUNIBASE_REPO_ROOT ${CMAKE_CURRENT_LIST_DIR})
+    endif()
+    workaround_yunibase_impl_stable_timestamps()
+endif()

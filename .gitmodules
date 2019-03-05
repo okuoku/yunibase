@@ -97,3 +97,6 @@
 [submodule "impl-current/chicken5-eggs/matchable"]
 	path = impl-current/chicken5-eggs/matchable
 	url = https://github.com/spurious/chicken5-matchable-mirror.git
+[submodule "impl-current/chicken5-eggs/srfi-69"]
+	path = impl-current/chicken5-eggs/srfi-69
+	url = https://github.com/spurious/chicken5-srfi-69-mirror.git

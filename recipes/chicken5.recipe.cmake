@@ -45,6 +45,9 @@ set(RECIPE_CHICKEN5_SETUP
     STEP "SetupSrfi13" ${CMAKE_COMMAND} 
     -DSRC=${YUNIBASE_ROOT_CURRENT}/chicken5-eggs/srfi-13
     -P ${CMAKE_CURRENT_SOURCE_DIR}/recipes/build-chicken-egg.cmake
+    STEP "SetupSrfi69" ${CMAKE_COMMAND} 
+    -DSRC=${YUNIBASE_ROOT_CURRENT}/chicken5-eggs/srfi-69
+    -P ${CMAKE_CURRENT_SOURCE_DIR}/recipes/build-chicken-egg.cmake
     STEP "SetupR7RS" ${CMAKE_COMMAND} 
     -DSRC=${YUNIBASE_ROOT_CURRENT}/chicken5-eggs/chicken-r7rs
     -P ${CMAKE_CURRENT_SOURCE_DIR}/recipes/build-chicken-egg.cmake

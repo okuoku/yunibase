@@ -230,12 +230,30 @@ function(add_docker_archive_build impl branch rootname)
         COMMENT "Building impl archive(${impl}_${branch} with ${rootname})")
     # Deploylocal
     if(${rootname} STREQUAL ubuntu64 AND ${branch} STREQUAL CURRENT)
-        add_custom_target(deploylocal-${impl}
+        if(${impl} STREQUAL KAWA OR ${impl} STREQUAL LARCENY)
+            # Skip
+        else()
+            add_custom_target(deploylocal-${impl}
+                COMMAND ${CMAKE_COMMAND}
+                -DARCHIVE=${dest}
+                -DIMPLNAM=${implnam}
+                -P ${CMAKE_CURRENT_LIST_DIR}/deploylocal.cmake)
+            add_dependencies(deploylocal deploylocal-${impl})
+        endif()
+    elseif(${rootname} STREQUAL ubuntu32 AND ${branch} STREQUAL CURRENT AND ${impl} STREQUAL LARCENY)
+        add_custom_target(deploylocal-${impl}32
             COMMAND ${CMAKE_COMMAND}
             -DARCHIVE=${dest}
             -DIMPLNAM=${implnam}
             -P ${CMAKE_CURRENT_LIST_DIR}/deploylocal.cmake)
-        add_dependencies(deploylocal deploylocal-${impl})
+        add_dependencies(deploylocal deploylocal-${impl}32)
+    elseif(${rootname} STREQUAL java AND ${branch} STREQUAL CURRENT AND ${impl} STREQUAL KAWA)
+        add_custom_target(deploylocal-${impl}java
+            COMMAND ${CMAKE_COMMAND}
+            -DARCHIVE=${dest}
+            -DIMPLNAM=${implnam}
+            -P ${CMAKE_CURRENT_LIST_DIR}/deploylocal.cmake)
+        add_dependencies(deploylocal deploylocal-${impl}java)
     endif()
 endfunction()
 

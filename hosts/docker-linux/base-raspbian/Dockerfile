@@ -2,7 +2,7 @@
 #
 # docker run --rm --privileged multiarch/qemu-user-static:register --reset
 
-FROM resin/rpi-raspbian:stretch
+FROM balenalib/armv7hf-debian
 WORKDIR /build
 
 # Install required packages:

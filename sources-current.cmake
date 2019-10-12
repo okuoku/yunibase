@@ -7,8 +7,7 @@ register_source(GAUCHE CURRENT
 register_source(CHIBI_SCHEME CURRENT
     "impl-current/chibi-scheme"
     GIT
-    #"origin/master"
-    "b5331233cb47f927c115b0d7efe4686b7ac9aa03"
+    "origin/master"
     )
 register_source(RACKET CURRENT
     "impl-current/racket"

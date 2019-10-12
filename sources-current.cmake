@@ -32,7 +32,7 @@ register_source(SAGITTARIUS CURRENT
 register_source(KAWA CURRENT
     "impl-current/kawa"
     GIT
-    "256f65ee92aefd9549435563bf9d5d0869f5a2a7")
+    "origin/master")
 register_source(LARCENY CURRENT
     "impl-current/larceny"
     GIT

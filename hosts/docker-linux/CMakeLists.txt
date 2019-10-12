@@ -336,7 +336,7 @@ add_root(fedora fedora)
 add_root(alpine alpine)
 add_root(ubuntu32 ubuntu32LTS)
 add_root(java java)
-add_root(raspbian raspbian)
+#add_root(raspbian raspbian)
 
 enable_impl(ubuntu64
     CHIBI_SCHEME GAUCHE NMOSH SAGITTARIUS CHICKEN 
@@ -373,14 +373,14 @@ enable_impl(alpine
 enable_impl(java
     CHIBI_SCHEME
     KAWA)
-enable_impl(raspbian
-    CHIBI_SCHEME
-    CHICKEN
-    # CHICKEN5 # too slow
-    GAMBIT 
-    # CMake too old
-    #S7YUNI
-    )
+#enable_impl(raspbian
+#    CHIBI_SCHEME
+#    CHICKEN
+#    # CHICKEN5 # too slow
+#    GAMBIT 
+#    # CMake too old
+#    #S7YUNI
+#    )
 
 function(add_docker_push tgt repo)
     add_custom_target(${tgt}
@@ -423,8 +423,8 @@ add_docker_yuniimage(yuniimage_java
     "okuoku/yunibase:testing-java" "okuoku/yunibase:yuni-java")
 add_docker_yuniimage(yuniimage_alpine
     "okuoku/yunibase:testing-alpine" "okuoku/yunibase:yuni-alpine")
-add_docker_yuniimage(yuniimage_raspbian
-    "okuoku/yunibase:testing-raspbian" "okuoku/yunibase:yuni-raspbian")
+#add_docker_yuniimage(yuniimage_raspbian
+#    "okuoku/yunibase:testing-raspbian" "okuoku/yunibase:yuni-raspbian")
 
 #
 # yunitest
@@ -445,7 +445,7 @@ if(YUNIBASE_WITH_YUNI)
     add_docker_yunitest(yunitest_fedora "okuoku/yunibase:testing-fedora")
     add_docker_yunitest(yunitest_java "okuoku/yunibase:testing-java")
     add_docker_yunitest(yunitest_alpine "okuoku/yunibase:testing-alpine")
-    add_docker_yunitest(yunitest_raspbian "okuoku/yunibase:testing-raspbian")
+    #add_docker_yunitest(yunitest_raspbian "okuoku/yunibase:testing-raspbian")
 endif()
 
 add_subdirectory(updater)

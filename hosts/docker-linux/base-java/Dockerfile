@@ -1,12 +1,10 @@
-FROM openjdk:8-jdk-stretch
+FROM fedora:latest
 WORKDIR /build
 
 # Install required packages:
 #
 #  buildsystem: cmake gcc g++
-#  NMosh(stable): libgmp-dev libonig-dev
-#  Kawa: ant automake texinfo (Do we still need ant??)
-RUN apt-get update && apt-get install -y \
+#  Kawa: make gcc findutils texinfo automake java-1.8.0-openjdk-devel
+RUN dnf update -y && dnf install -y \
 cmake gcc g++ \
-libgmp-dev libonig-dev \
-ant automake texinfo
+make findutils texinfo automake java-1.8.0-openjdk-devel

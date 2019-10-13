@@ -12,7 +12,7 @@
 	url = https://github.com/racket/racket
 [submodule "impl-current/chicken"]
 	path = impl-current/chicken
-	url = git://code.call-cc.org/chicken-core
+	url = https://github.com/spurious/chicken-core-mirror.git
 [submodule "impl-current/vicare"]
 	path = impl-current/vicare
 	url = https://github.com/marcomaggi/vicare
@@ -72,16 +72,16 @@
 	url = https://github.com/racket/typed-racket
 [submodule "impl-current/chicken-eggs/chicken-r7rs"]
 	path = impl-current/chicken-eggs/chicken-r7rs
-	url = git://code.call-cc.org/chicken-r7rs
+	url = https://github.com/spurious/chicken-r7rs-mirror.git
 [submodule "impl-current/chicken-eggs/chicken-r7rs-deps"]
 	path = impl-current/chicken-eggs/chicken-r7rs-deps
 	url = https://bitbucket.org/okuoku/chicken-r7rs-deps
 [submodule "impl-current/chicken5"]
 	path = impl-current/chicken5
-	url = git://code.call-cc.org/chicken-core
+	url = https://github.com/spurious/chicken-core-mirror.git
 [submodule "impl-current/chicken5-eggs/chicken-r7rs"]
 	path = impl-current/chicken5-eggs/chicken-r7rs
-	url = git://code.call-cc.org/chicken-r7rs
+	url = https://github.com/spurious/chicken-r7rs-mirror.git
 [submodule "impl-current/snd"]
 	path = impl-current/snd
 	url = https://github.com/spurious/snd-mirror.git

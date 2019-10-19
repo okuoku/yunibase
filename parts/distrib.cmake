@@ -10,7 +10,9 @@ register_impl(
 
 register_impl(
     RACKET racket
-    LICENSE_FILES racket/src/COPYING_LESSER.txt
+    LICENSE_FILES 
+        racket/src/LICENSE.txt
+        racket/src/LICENSE-LGPL.txt
     )
 
 register_impl(

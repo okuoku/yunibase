@@ -24,7 +24,7 @@ register_source(VICARE CURRENT
 register_source(GUILE CURRENT
     "impl-current/guile"
     GIT
-    "origin/master")
+    "4e89d0c061c585ca56a96ef8410dad17979ca5eb")
 register_source(SAGITTARIUS CURRENT
     "impl-current/sagittarius"
     GIT

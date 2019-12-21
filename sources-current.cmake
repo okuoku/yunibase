@@ -25,6 +25,10 @@ register_source(GUILE CURRENT
     "impl-current/guile"
     GIT
     "4e89d0c061c585ca56a96ef8410dad17979ca5eb")
+register_source(GUILE3 CURRENT
+    "impl-current/guile3"
+    GIT
+    "origin/master")
 register_source(SAGITTARIUS CURRENT
     "impl-current/sagittarius"
     GIT

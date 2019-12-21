@@ -100,3 +100,6 @@
 [submodule "impl-current/chicken5-eggs/srfi-69"]
 	path = impl-current/chicken5-eggs/srfi-69
 	url = https://github.com/spurious/chicken5-srfi-69-mirror.git
+[submodule "impl-current/guile3"]
+	path = impl-current/guile3
+	url = git://git.savannah.gnu.org/guile.git

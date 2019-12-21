@@ -19,7 +19,7 @@ function(depends_current_stable current stable)
     endif()
 endfunction()
 
-# Guile (current)
+# Guile (guile2)
 if(${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD")
     set(ENVP_GUILE_BOOTSTRAP 
         M4 gm4
@@ -39,6 +39,27 @@ set(guile_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/guile)
 build_recipe(guile_current ${guile_current_src} ${guile_current_dest}
     GUILE "${ENVP_GUILE_BOOTSTRAP}" ${RECIPE_GUILE})
 register_recipe(GUILE CURRENT guile_current)
+
+# Guile (current)
+if(${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD")
+    set(ENVP_GUILE3_BOOTSTRAP 
+        M4 gm4
+        CPPFLAGS -I/usr/local/include
+        LDFLAGS -L/usr/local/lib
+        BDW_GC_LIBS -lgc-threaded)
+elseif(APPLE)
+    set(ENVP_GUILE3_BOOTSTRAP 
+        CPPFLAGS -I/opt/pkg/include
+        LDFLAGS -L/opt/pkg/lib)
+else()
+    set(ENVP_GUILE3_BOOTSTRAP "")
+endif()
+
+set(guile3_current_src ${YUNIBASE_ROOT_CURRENT}/guile3)
+set(guile3_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/guile3)
+build_recipe(guile3_current ${guile3_current_src} ${guile3_current_dest}
+    GUILE "${ENVP_GUILE3_BOOTSTRAP}" ${RECIPE_GUILE3})
+register_recipe(GUILE3 CURRENT guile3_current)
 
 # Sagittarius (stable + current)
 set(sagittarius_stable_src ${YUNIBASE_ROOT_STABLE}/sagittarius)

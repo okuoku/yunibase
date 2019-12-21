@@ -41,6 +41,11 @@ register_impl(
     )
 
 register_impl(
+    GUILE3 guile3
+    LICENSE_FILES COPYING.LESSER
+    )
+
+register_impl(
     SAGITTARIUS sagittarius
     LICENSE_FILES COPYING
     REQUIRE_STABLE)

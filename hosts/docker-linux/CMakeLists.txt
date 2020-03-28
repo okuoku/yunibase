@@ -335,7 +335,7 @@ macro(enable_impl rootname)
         if(${impl} STREQUAL SCM)
             # Special: SCM only have stable build
             archive_name(_archivename ${impl} STABLE ${rootname})
-        elseif()
+        else()
             archive_name(_archivename ${impl} CURRENT ${rootname})
         endif()
         if(_archivename)

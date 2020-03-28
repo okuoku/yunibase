@@ -81,3 +81,6 @@ register_impl(
     LICENSE_FILES LICENSE
     REQUIRE_STABLE
     )
+register_impl(
+    SCM scm
+    LICENSE_FILES)

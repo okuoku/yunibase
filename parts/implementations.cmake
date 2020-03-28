@@ -470,3 +470,22 @@ build_recipe(cyclone_current
 depends_current_stable(cyclone_current cyclone_stable)
 register_recipe(CYCLONE STABLE cyclone_stable)
 register_recipe(CYCLONE CURRENT cyclone_current)
+
+# SCM + SLIB (Stable only for now)
+set(scm_stable_src ${YUNIBASE_ROOT_STABLE}/scmslib)
+set(scm_stable_dest ${YUNIBASE_BUILD_STABLE_PREFIX}/scm)
+build_recipe(scm_stable_scm
+    ${scm_stable_src}/scm
+    ${scm_stable_dest}
+    SCM
+    ""
+    ${RECIPE_SCM})
+
+build_recipe(scm_stable_slib
+    ${scm_stable_src}/slib
+    ${scm_stable_dest}
+    SCM
+    ""
+    ${RECIPE_SLIB})
+add_dependencies(scm_stable_scm scm_stable_slib)
+register_recipe(SCM STABLE scm_stable_scm)

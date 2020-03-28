@@ -84,3 +84,6 @@ register_impl(
 register_impl(
     SCM scm
     LICENSE_FILES)
+register_impl(
+    STKLOS stklos
+    LICENSE_FILES)

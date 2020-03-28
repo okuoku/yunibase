@@ -489,3 +489,15 @@ build_recipe(scm_stable_slib
     ${RECIPE_SLIB})
 add_dependencies(scm_stable_scm scm_stable_slib)
 register_recipe(SCM STABLE scm_stable_scm)
+
+# STklos
+set(stklos_current_src ${YUNIBASE_ROOT_CURRENT}/stklos)
+set(stklos_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/stklos)
+build_recipe(stklos_current
+    ${stklos_current_src}
+    ${stklos_current_dest}
+    STKLOS
+    ""
+    ${RECIPE_STKLOS})
+register_recipe(STKLOS CURRENT stklos_current)
+

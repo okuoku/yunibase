@@ -79,6 +79,11 @@ register_source(CYCLONE CURRENT
     GIT
     "origin/master")
 
+register_source(STKLOS CURRENT
+    "impl-current/stklos"
+    GIT
+    "origin/master")
+
 # Deps
 register_source(CHICKEN DEP
     "impl-current/chicken-eggs/chicken-r7rs"

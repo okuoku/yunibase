@@ -98,6 +98,7 @@ include(./recipes/mit-scheme.recipe.cmake)
 include(./recipes/s7yuni.recipe.cmake)
 include(./recipes/cyclone.recipe.cmake)
 include(./recipes/scm.recipe.cmake)
+include(./recipes/stklos.recipe.cmake)
 
 # Source definitions
 init_sources()
@@ -205,6 +206,7 @@ else()
     activate_recipe(CYCLONE STABLE)
     activate_recipe(CYCLONE CURRENT)
     activate_recipe(SCM STABLE)
+    activate_recipe(STKLOS CURRENT)
 endif()
 
 if(YUNIBASE_ONLY)
@@ -297,6 +299,7 @@ if(YUNIBASE_ARCHIVE_TAG)
     proc_archive(mit-scheme     current MIT_SCHEME_CURRENT)
     proc_archive(mit-scheme     stable  MIT_SCHEME_STABLE)
     proc_archive(scm            stable  SCM_STABLE)
+    proc_archive(stklos         current STKLOS_CURRENT)
     ## Generic
     proc_archive(s7yuni         current S7YUNI_CURRENT)
 

@@ -366,7 +366,7 @@ enable_impl(ubuntu64
     GAMBIT PICRIN 
     #MIT_SCHEME 
     CYCLONE
-    S7YUNI SCM)
+    S7YUNI SCM STKLOS)
 enable_impl(ubuntu32
     # Disabled: GUILE VICARE
     CHIBI_SCHEME 

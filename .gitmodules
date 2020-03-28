@@ -106,3 +106,6 @@
 [submodule "impl-current/cyclone"]
 	path = impl-current/cyclone
 	url = https://github.com/justinethier/cyclone
+[submodule "impl-current/stklos"]
+	path = impl-current/stklos
+	url = https://github.com/egallesio/STklos

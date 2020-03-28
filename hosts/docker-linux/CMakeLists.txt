@@ -254,6 +254,17 @@ function(add_docker_archive_build impl branch rootname)
             -DIMPLNAM=${implnam}
             -P ${CMAKE_CURRENT_LIST_DIR}/deploylocal.cmake)
         add_dependencies(deploylocal deploylocal-${impl}java)
+    elseif(${rootname} STREQUAL ubuntu64 AND ${branch} STREQUAL STABLE)
+        # Special: SCM has stable build
+        if(${impl} STREQUAL SCM)
+            add_custom_target(deploylocal-${impl}
+                COMMAND ${CMAKE_COMMAND}
+                -DARCHIVE=${dest}
+                -DIMPLNAM=${implnam}
+                -DBRANCH=${branch}
+                -P ${CMAKE_CURRENT_LIST_DIR}/deploylocal.cmake)
+            add_dependencies(deploylocal deploylocal-${impl})
+        endif()
     endif()
 endfunction()
 
@@ -283,7 +294,12 @@ macro(add_root rootname ctxname)
         if(require_stable)
             add_docker_archive_build(${impl} STABLE ${rootname})
         endif()
-        add_docker_archive_build(${impl} CURRENT ${rootname})
+        if(${impl} STREQUAL SCM)
+            # Special: SCM only have stable variant
+            add_docker_archive_build(${impl} STABLE ${rootname})
+        else()
+            add_docker_archive_build(${impl} CURRENT ${rootname})
+        endif()
     endforeach()
 endmacro()
 
@@ -316,7 +332,12 @@ macro(enable_impl rootname)
     set(_archivepaths)
     foreach(impl ${ARGN})
         set(_archivename)
-        archive_name(_archivename ${impl} CURRENT ${rootname})
+        if(${impl} STREQUAL SCM)
+            # Special: SCM only have stable build
+            archive_name(_archivename ${impl} STABLE ${rootname})
+        elseif()
+            archive_name(_archivename ${impl} CURRENT ${rootname})
+        endif()
         if(_archivename)
             list(APPEND _archivepaths ${_archiveroot}/${_archivename})
         else()

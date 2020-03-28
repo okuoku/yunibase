@@ -103,3 +103,6 @@
 [submodule "impl-current/guile3"]
 	path = impl-current/guile3
 	url = git://git.savannah.gnu.org/guile.git
+[submodule "impl-current/cyclone"]
+	path = impl-current/cyclone
+	url = https://github.com/justinethier/cyclone

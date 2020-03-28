@@ -76,3 +76,8 @@ register_impl(
     S7YUNI s7yuni
     LICENSE_FILES COPYING
     REQUIRE_YUNI)
+register_impl(
+    CYCLONE cyclone
+    LICENSE_FILES LICENSE
+    REQUIRE_STABLE
+    )

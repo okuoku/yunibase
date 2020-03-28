@@ -448,3 +448,25 @@ build_recipe(s7yuni_current
     ${RECIPE_S7YUNI})
 register_recipe(S7YUNI CURRENT s7yuni_current)
 
+# Cyclone
+set(cyclone_current_src ${YUNIBASE_ROOT_CURRENT}/cyclone)
+set(cyclone_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/cyclone)
+set(cyclone_stable_src ${YUNIBASE_ROOT_STABLE}/cyclone)
+set(cyclone_stable_dest ${YUNIBASE_BUILD_STABLE_PREFIX}/cyclone)
+set(ENVP_CYCLONE # Use stable on build-current
+    PATH ${YUNIBASE_BUILD_STABLE_PREFIX}/cyclone/bin)
+build_recipe(cyclone_stable
+    ${cyclone_stable_src}
+    ${cyclone_stable_dest}
+    CYCLONE
+    ""
+    ${RECIPE_CYCLONE})
+build_recipe(cyclone_current
+    ${cyclone_current_src}
+    ${cyclone_current_dest}
+    CYCLONE
+    "${ENVP_CYCLONE}"
+    ${RECIPE_CYCLONE})
+depends_current_stable(cyclone_current cyclone_stable)
+register_recipe(CYCLONE STABLE cyclone_stable)
+register_recipe(CYCLONE CURRENT cyclone_current)

@@ -344,6 +344,7 @@ enable_impl(ubuntu64
     GUILE GUILE3 RACKET VICARE CHEZ
     GAMBIT PICRIN 
     #MIT_SCHEME 
+    CYCLONE
     S7YUNI)
 enable_impl(ubuntu32
     # Disabled: GUILE VICARE

@@ -87,3 +87,7 @@ register_impl(
 register_impl(
     STKLOS stklos
     LICENSE_FILES)
+register_impl(
+    DIGAMMA digamma
+    LICENSE_FILES
+    LICENSE)

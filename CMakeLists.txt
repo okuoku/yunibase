@@ -99,6 +99,7 @@ include(./recipes/s7yuni.recipe.cmake)
 include(./recipes/cyclone.recipe.cmake)
 include(./recipes/scm.recipe.cmake)
 include(./recipes/stklos.recipe.cmake)
+include(./recipes/digamma.recipe.cmake)
 
 # Source definitions
 init_sources()
@@ -207,6 +208,7 @@ else()
     activate_recipe(CYCLONE CURRENT)
     activate_recipe(SCM STABLE)
     activate_recipe(STKLOS CURRENT)
+    activate_recipe(DIGAMMA CURRENT)
 endif()
 
 if(YUNIBASE_ONLY)
@@ -287,6 +289,7 @@ if(YUNIBASE_ARCHIVE_TAG)
     proc_archive(picrin         current PICRIN_CURRENT)
     proc_archive(cyclone        stable  CYCLONE_STABLE)
     proc_archive(cyclone        current CYCLONE_CURRENT)
+    proc_archive(digamma        current DIGAMMA_CURRENT)
     ## R6RS
     proc_archive(vicare         current VICARE_CURRENT)
     proc_archive(guile          current GUILE_CURRENT)

@@ -360,7 +360,9 @@ add_root(java java)
 #add_root(raspbian raspbian)
 
 enable_impl(ubuntu64
-    CHIBI_SCHEME GAUCHE NMOSH SAGITTARIUS CHICKEN 
+    CHIBI_SCHEME GAUCHE NMOSH 
+    #SAGITTARIUS 
+    CHICKEN 
     CHICKEN5
     GUILE GUILE3 RACKET VICARE CHEZ
     GAMBIT PICRIN 

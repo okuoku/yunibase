@@ -361,7 +361,7 @@ add_root(java java)
 
 enable_impl(ubuntu64
     CHIBI_SCHEME GAUCHE NMOSH 
-    #SAGITTARIUS 
+    SAGITTARIUS 
     CHICKEN 
     CHICKEN5
     GUILE GUILE3 RACKET VICARE CHEZ
@@ -376,7 +376,7 @@ enable_impl(ubuntu32
     #25: Disable BoehmGC based impl. for now
     # GAUCHE 
     # NMOSH 
-    # SAGITTARIUS 
+    SAGITTARIUS 
     CHICKEN CHICKEN5 RACKET 
     LARCENY CHEZ 
     # FIXME: Gambit crashes on Ubuntu32

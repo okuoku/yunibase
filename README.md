@@ -1,139 +1,59 @@
 Yunibase
 ========
 
-[![wercker status](https://app.wercker.com/status/0c36dd5ef969e9f4d3ff7e5ca759faba/m "wercker status")](https://app.wercker.com/project/bykey/0c36dd5ef969e9f4d3ff7e5ca759faba)
-
-This is Yunibase, collection of R5RS/R6RS/R7RS implementations to test [Yuni R6RS/R7RS portability library][].
-
-Build environments
-==================
-
-* Windows
- * Cygwin64
-* Vagrant
- * [Official FreeBSD Vagrant images][] on Atlas - `freebsd/FreeBSD-10.3-RELEASE` and `freebsd/FreeBSD-11.0-CURRENT` 
- * Docker image build on `fedora/24-cloud-base`
-* [Linux Docker images][] on Docker hub
- * UbuntuLTS, Fedora, Alpine, official JDK8 and unofficial `i386/ubuntu`
-* macOS with pkgsrc
+This is Yunibase, collection of R5RS/R6RS/R7RS implementations to test [Yuni Scheme portability platform][].
 
 Prebuilt images
 ===============
 
-[![](https://images.microbadger.com/badges/image/okuoku/yunibase.svg)](http://microbadger.com/images/okuoku/yunibase "Get your own image badge on microbadger.com")
-
 * [Linux Docker images][] on [Docker Hub][]
- * `okuoku/yunibase:latest` - Ubuntu LTS (16.04)
- * `okuoku/yunibase:yuni-fedora` - Fedora latest
- * `okuoku/yunibase:yuni-alpine` - Alpine Edge
- * `okuoku/yunibase:yuni-java` - Java (JDK 8 from Docker official image)
- * `okuoku/yunibase:yuni-ubuntu32` - Ubuntu i686 LTS (16.04 from unofficial `i386/ubuntu`)
 
 Implementations
 ===============
 
 |                  |Code     |Standard  |[Stable][]|[Current][]    |Remarks                               |
 |:-----------------|:-------:|:--------:|:--------:|:-------------:|:-------------------------------------|
+|[ChezScheme][]    |C        |R6RS      |          |Official GitHub|                                      |
 |[Chibi-scheme][]  |C        |R7RS      |          |Official GitHub|                                      |
 |[Chicken][]       |C        |R7RS      |5.1.0rc1  |GitHub Mirror  |With `r7rs` egg                       |
-|[Gauche][]        |C        |R7RS      |0.9.9     |Official GitHub| |
-|[Sagittarius][]   |C        |R6RS+R7RS |0.9.2     |GitHub Mirror  |                                      |
-|NMosh             |C++      |R6RS+R7RS-|current   |not yet        |                                      |
-|[ChezScheme][]    |C        |R6RS      |          |Official GitHub|                                      |
-|[Guile][]         |C        |R6RS+R7RS-|          |Official Git   |                                      |
-|[Racket][]        |C        |R6RS      |          |Official GitHub|With `srfi-lib` and `r6rs-lib`        |
-|[Vicare][]        |C        |R6RS      |          |Official GitHub|                                      |
-|[Larceny][]       |C        |R6RS+R7RS |1.3       |Official GitHub|Stable: Uses binary                   |
-|[Picrin][]        |C        |R7RS      |          |Official GitHub|With yuniffi patches                  |
+|[Cyclone][]       |C        |R7RS      |(git)     |Official GitHub|                                      |
+|[Digamma][]       |C++      |R6RS+R7RS |          |Official GitHub|                                      |
 |[Gambit][]        |C        |R5RS+R7RS-|4.9.3devel|Official GitHub|                                      |
+|[Gauche][]        |C        |R7RS      |0.9.9     |Official GitHub|                                      |
+|[Guile][]         |C        |R6RS+R7RS-|          |Official Git   |                                      |
 |[MIT/GNU Scheme][]|C        |R5RS+R7RS-|10.1.1    |Official Git   |amd64 only                            |
+|[Racket][]        |C        |R6RS      |          |Official GitHub|With `srfi-lib` and `r6rs-lib`        |
+|[s7][]            |C        |Generic   |          |GitHub Mirror  |With yuni patches(s7yuni)             |
+|[Sagittarius][]   |C        |R6RS+R7RS |0.9.2     |GitHub Mirror  |                                      |
+|[SCM][]           |C        |R5RS      |5f3       |(none)         |Stable only, with SLIB(3b6)           |
+|[STklos][]        |C        |R7RS-     |          |Official GitHub|                                      |
 |[Kawa][]          |Java     |R7RS      |          |Official Git   |                                      |
 
 * [Stable][] implementations are only included if the implementation requires it to "bootstrap" [Current][] ones
 
-Platform matrix
-===============
 
-Linux(amd64)
-------------
-|                  |UbuntuLTS|Fedora|Alpine|Ubuntu32|Remarks|
-|:-----------------|:-------:|:----:|:----:|:------:|:------|
-|(Foundation)      |glibc    |glibc |Musl  |glibc   |       |
-|[Chibi-scheme][]  |X        |X     |X     |X       |       |
-|[Chicken][]       |X        |X     |X     |X       |       |
-|[Gauche][]        |X        |X     |      |        |       |
-|[Sagittarius][]   |X        |X     |      |        |       |
-|NMosh             |X        |X     |      |        |       |
-|[ChezScheme][]    |X        |X     |      |X       |       |
-|[Guile][]         |X        |      |      |        |Not enabled except UbuntuLTS due to excessive build time|
-|[Racket][]        |X        |X     |      |X       |       |
-|[Vicare][]        |X        |X     |      |        |       |
-|[Larceny][]       |         |      |      |X       |       |
-|[Picrin][]        |X        |X     |X     |X       |       |
-|[Gambit][]        |X        |X     |      |X       |       |
-|[MIT/GNU Scheme][]|X        |X     |      |        |       |
-
-* Ubuntu32: Run on amd64 kernel, using patched `uname` command to fake architecture as i686.
-* Ubuntu32: Disabled BoehmGC based implementations #25
-
-Windows
--------
-|                  |Cygwin64|WSL      |Remarks|
-|:-----------------|:------:|:-------:|:------|
-|(KernelABI)       |nt      |Linux 3.4|       |
-|(Foundation)      |newlib  |glibc    |       |
-|[Chibi-scheme][]  |X       |X        |       |
-|[Chicken][]       |X       |X        |       |
-|[Gauche][]        |X       |X        |SKIPTEST on WSL       |
-|[Sagittarius][]   |X       |X        |SKIPTEST on WSL       |
-|NMosh             |X       |         |TESTFAIL       |
-|[ChezScheme][]    |        |X        |       |
-|[Guile][]         |        |X        |       |
-|[Racket][]        |        |         |       |
-|[Vicare][]        |        |         |       |
-|[Picrin][]        |        |X        |       |
-|[Gambit][]        |X       |X        |TESTFAIL on WSL       |
-|[MIT/GNU Scheme][]|        |X        |       |
-
-* WSL: Windows Subsystem for Linux aka. "Bash on Windows"
-* [WSL Release Note][]
-
-Others
-------
-|                |macOS     |FBSD10 |FBSD11 |Remarks|
-|:---------------|:--------:|:-----:|:-----:|:------|
-|(Foundation)    |osx       |freebsd|freebsd|       |
-|[Chibi-scheme][]|X         |X      |X      |       |
-|[Chicken][]     |X         |X      |       |       |
-|[Gauche][]      |X         |       |       |       |
-|[Sagittarius][] |X         |       |       |       |
-|NMosh           |X         |X      |X      |       |
-|[ChezScheme][]  |X         |       |       |       |
-|[Guile][]       |X         |       |       |       |
-|[Racket][]      |X         |X      |X      |       |
-|[Vicare][]      |          |       |       |       |
-|[Picrin][]      |X         |       |       |       |
-|[Gambit][]      |          |       |       |       |
 
 [Stable]: https://bitbucket.org/okuoku/yunibase-impl-stable
 [Current]: https://github.com/okuoku/yunibase/tree/master/impl-current
-[Docker Hub]: https://hub.docker.com/r/okuoku/yunibase/
-[Yuni R6RS/R7RS portability library]: https://github.com/okuoku/yuni
+[Yuni Scheme portability platform]: https://github.com/okuoku/yuni
 [Linux Docker images]: https://github.com/okuoku/yunibase/tree/master/hosts/docker-linux
-[Official FreeBSD Vagrant images]: https://atlas.hashicorp.com/FreeBSD/
+[Docker Hub]: https://hub.docker.com/r/okuoku/yunibase/
 
+[ChezScheme]: https://github.com/cisco/ChezScheme
 [Chibi-scheme]: http://synthcode.com/wiki/chibi-scheme
+[Chicken]: http://www.call-cc.org/
+[Cyclone]: http://justinethier.github.io/cyclone/
+[Digamma]: https://github.com/fujita-y/digamma
 [Gauche]: http://practical-scheme.net/gauche/
 [Sagittarius]: https://bitbucket.org/ktakashi/sagittarius-scheme/wiki/Home
-[Chicken]: http://www.call-cc.org/
 [Guile]: http://www.gnu.org/software/guile/
 [Racket]: https://racket-lang.org/
 [Vicare]: http://marcomaggi.github.io/vicare.html
 [Kawa]: http://www.gnu.org/software/kawa/
 [Larceny]: http://www.larcenists.org/
-[ChezScheme]: https://github.com/cisco/ChezScheme
 [Gambit]: http://gambitscheme.org/
 [Rapid-gambit]: https://github.com/okuoku/rapid-gambit
 [Picrin]: https://github.com/picrin-scheme/picrin
 [MIT/GNU Scheme]: https://www.gnu.org/software/mit-scheme/
-[WSL Release Note]: https://msdn.microsoft.com/en-us/commandline/wsl/release_notes
+[s7]: https://ccrma.stanford.edu/software/snd/snd/s7.html
+[STklos]: https://stklos.net/

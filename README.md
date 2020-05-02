@@ -46,7 +46,7 @@ Implementations
 [Digamma]: https://github.com/fujita-y/digamma
 [Gauche]: http://practical-scheme.net/gauche/
 [Sagittarius]: https://bitbucket.org/ktakashi/sagittarius-scheme/wiki/Home
-[Guile]: http://www.gnu.org/software/guile/
+[Guile]: https://www.gnu.org/software/guile/
 [Racket]: https://racket-lang.org/
 [Vicare]: http://marcomaggi.github.io/vicare.html
 [Kawa]: http://www.gnu.org/software/kawa/
@@ -57,3 +57,4 @@ Implementations
 [MIT/GNU Scheme]: https://www.gnu.org/software/mit-scheme/
 [s7]: https://ccrma.stanford.edu/software/snd/snd/s7.html
 [STklos]: https://stklos.net/
+[SCM]: http://people.csail.mit.edu/jaffer/SCM

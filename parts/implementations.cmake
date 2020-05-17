@@ -470,15 +470,21 @@ build_recipe(cyclone_current
 depends_current_stable(cyclone_current cyclone_stable)
 register_recipe(CYCLONE STABLE cyclone_stable)
 register_recipe(CYCLONE CURRENT cyclone_current)
-message(STATUS "HERE??")
 if(EXISTS ${cyclone_current_src}/Makefile)
-    message(STATUS "PATCHING??")
+    set(patchfile ${YUNIBASE_ROOT_CURRENT}/../patches/cyclone/0001-Build-Allow-bootstrap-directly.patch)
+    if(NOT EXISTS ${patchfile})
+        message(FATAL_ERROR "???")
+    endif()
     if(NOT EXISTS ${cyclone_current_src}/Makefile.orig)
         # Apply patch
         execute_process(COMMAND
             patch -p1 
-            INPUT_FILE ${YUNIBASE_ROOT_CURRENT}/../patches/cyclone/0001-Build-Allow-bootstrap-directly.patch
-            WORKING_DIRECTORY ${cyclone_current_src})
+            INPUT_FILE ${patchfile}
+            WORKING_DIRECTORY ${cyclone_current_src}
+            RESULT_VARIABLE rr)
+        if(rr)
+            message(FATAL_ERROR "patch failed")
+        endif()
         execute_process(COMMAND
             ${CMAKE_COMMAND} -E copy
             ${cyclone_current_src}/Makefile

@@ -102,6 +102,7 @@ set(basedirs
     ${_mysrc}/cmake
     ${_mysrc}/hosts
     ${_mysrc}/parts
+    ${_mysrc}/patches
     ${_mysrc}/recipes
     ${_mysrc}/scripts
     ${_mysrc}/yuni)

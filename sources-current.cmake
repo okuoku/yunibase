@@ -89,6 +89,11 @@ register_source(DIGAMMA CURRENT
     GIT
     "origin/master")
 
+register_source(FOMENT CURRENT
+    "impl-current/foment"
+    GIT
+    "origin/master")
+
 # Deps
 register_source(CHICKEN DEP
     "impl-current/chicken-eggs/chicken-r7rs"

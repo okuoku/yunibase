@@ -532,3 +532,14 @@ build_recipe(digamma_current
     ""
     ${RECIPE_DIGAMMA})
 register_recipe(DIGAMMA CURRENT digamma_current)
+
+# Foment
+set(foment_current_src ${YUNIBASE_ROOT_CURRENT}/foment)
+set(foment_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/foment)
+build_recipe(foment_current
+    ${foment_current_src}
+    ${foment_current_dest}
+    FOMENT
+    ""
+    ${RECIPE_FOMENT})
+register_recipe(FOMENT CURRENT foment_current)

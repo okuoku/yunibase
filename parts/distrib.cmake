@@ -91,3 +91,7 @@ register_impl(
     DIGAMMA digamma
     LICENSE_FILES
     LICENSE)
+register_impl(
+    FOMENT foment
+    LICENSE_FILES
+    LICENSE)

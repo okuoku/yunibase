@@ -94,6 +94,11 @@ register_source(FOMENT CURRENT
     GIT
     "origin/master")
 
+register_source(BIGLOO CURRENT
+    "impl-current/bigloo"
+    GIT
+    "origin/master")
+
 # Deps
 register_source(CHICKEN DEP
     "impl-current/chicken-eggs/chicken-r7rs"

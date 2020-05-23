@@ -115,3 +115,6 @@
 [submodule "impl-current/foment"]
 	path = impl-current/foment
 	url = https://github.com/leftmike/foment
+[submodule "impl-current/bigloo"]
+	path = impl-current/bigloo
+	url = https://github.com/manuel-serrano/bigloo

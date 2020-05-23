@@ -13,6 +13,7 @@ Implementations
 
 |                  |Code     |Standard  |[Stable][]|[Current][]    |Remarks                               |
 |:-----------------|:-------:|:--------:|:--------:|:-------------:|:-------------------------------------|
+|[Bigloo][]        |C        |R5RS      |4.3idev   |Official GitHub|Stable patched to install without Java|
 |[ChezScheme][]    |C        |R6RS      |          |Official GitHub|                                      |
 |[Chibi-scheme][]  |C        |R7RS      |          |Official GitHub|                                      |
 |[Chicken][]       |C        |R7RS      |5.1.0rc1  |GitHub Mirror  |With `r7rs` egg                       |
@@ -58,3 +59,4 @@ Implementations
 [s7]: https://ccrma.stanford.edu/software/snd/snd/s7.html
 [STklos]: https://stklos.net/
 [SCM]: http://people.csail.mit.edu/jaffer/SCM
+[Bigloo]: http://www-sop.inria.fr/indes/fp/Bigloo/

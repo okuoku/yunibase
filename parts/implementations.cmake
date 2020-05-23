@@ -543,3 +543,35 @@ build_recipe(foment_current
     ""
     ${RECIPE_FOMENT})
 register_recipe(FOMENT CURRENT foment_current)
+
+# Bigloo
+set(bigloo_stable_src ${YUNIBASE_ROOT_STABLE}/bigloo)
+set(bigloo_stable_dest ${YUNIBASE_BUILD_STABLE_PREFIX}/bigloo)
+set(bigloo_current_src ${YUNIBASE_ROOT_CURRENT}/bigloo)
+set(bigloo_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/bigloo)
+
+build_recipe(bigloo_stable
+    ${bigloo_stable_src}
+    ${bigloo_stable_dest}
+    BIGLOO
+    ""
+    ${RECIPE_BIGLOO_STABLE})
+
+register_recipe(BIGLOO STABLE
+    bigloo_stable)
+
+set(ENVP_BIGLOO_BOOTSTRAP
+    PATH ${bigloo_stable_dest}/bin
+    ${ld_library_path} ${bigloo_stable_dest}/lib)
+
+build_recipe(bigloo_current
+    ${bigloo_current_src}
+    ${bigloo_current_dest}
+    BIGLOO
+    "${ENVP_BIGLOO_BOOTSTRAP}"
+    ${RECIPE_BIGLOO_CURRENT})
+
+register_recipe(BIGLOO CURRENT
+    bigloo_current)
+
+depends_current_stable(bigloo_current bigloo_stable)

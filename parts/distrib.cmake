@@ -95,3 +95,8 @@ register_impl(
     FOMENT foment
     LICENSE_FILES
     LICENSE)
+register_impl(
+    BIGLOO bigloo
+    LICENSE_FILES
+    LICENSE COPYING
+    REQUIRE_STABLE)

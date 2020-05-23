@@ -370,6 +370,7 @@ enable_impl(ubuntu64
     CYCLONE
     S7YUNI SCM STKLOS # DIGAMMA
     FOMENT
+    BIGLOO
     )
 enable_impl(ubuntu32
     # Disabled: GUILE VICARE

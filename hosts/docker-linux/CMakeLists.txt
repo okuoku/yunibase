@@ -240,13 +240,6 @@ function(add_docker_archive_build impl branch rootname)
                 -P ${CMAKE_CURRENT_LIST_DIR}/deploylocal.cmake)
             add_dependencies(deploylocal deploylocal-${impl})
         endif()
-    elseif(${rootname} STREQUAL ubuntu32 AND ${branch} STREQUAL CURRENT AND ${impl} STREQUAL LARCENY)
-        add_custom_target(deploylocal-${impl}32
-            COMMAND ${CMAKE_COMMAND}
-            -DARCHIVE=${dest}
-            -DIMPLNAM=${implnam}
-            -P ${CMAKE_CURRENT_LIST_DIR}/deploylocal.cmake)
-        add_dependencies(deploylocal deploylocal-${impl}32)
     elseif(${rootname} STREQUAL java AND ${branch} STREQUAL CURRENT AND ${impl} STREQUAL KAWA)
         add_custom_target(deploylocal-${impl}java
             COMMAND ${CMAKE_COMMAND}
@@ -353,11 +346,7 @@ endmacro()
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/archive)
 
 add_root(ubuntu64 ubuntuLTS)
-add_root(fedora fedora)
-add_root(alpine alpine)
-add_root(ubuntu32 ubuntu32LTS)
 add_root(java java)
-#add_root(raspbian raspbian)
 
 enable_impl(ubuntu64
     CHIBI_SCHEME GAUCHE NMOSH 
@@ -372,42 +361,9 @@ enable_impl(ubuntu64
     FOMENT
     BIGLOO
     )
-enable_impl(ubuntu32
-    # Disabled: GUILE VICARE
-    CHIBI_SCHEME 
-    #25: Disable BoehmGC based impl. for now
-    # GAUCHE 
-    # NMOSH 
-    SAGITTARIUS 
-    CHICKEN CHICKEN5 RACKET 
-    LARCENY CHEZ 
-    # FIXME: Gambit crashes on Ubuntu32
-    # GAMBIT 
-    # RAPID_GAMBIT
-    PICRIN S7YUNI)
-enable_impl(fedora
-    # Disabled: SAGITTARIUS GUILE
-    CHIBI_SCHEME GAUCHE NMOSH CHICKEN CHICKEN5 RACKET VICARE CHEZ 
-    GAMBIT 
-    PICRIN
-    # FIXME: Werror
-    # MIT_SCHEME 
-    S7YUNI)
-enable_impl(alpine
-    CHIBI_SCHEME CHICKEN # CHEZ
-    CHICKEN5
-    PICRIN)
 enable_impl(java
     CHIBI_SCHEME
     KAWA)
-#enable_impl(raspbian
-#    CHIBI_SCHEME
-#    CHICKEN
-#    # CHICKEN5 # too slow
-#    GAMBIT 
-#    # CMake too old
-#    #S7YUNI
-#    )
 
 function(add_docker_push tgt repo)
     add_custom_target(${tgt}
@@ -442,16 +398,8 @@ endfunction()
 
 add_docker_yuniimage(yuniimage_default 
     "okuoku/yunibase:testing" "okuoku/yunibase:latest")
-add_docker_yuniimage(yuniimage_ubuntu32
-    "okuoku/yunibase:testing-ubuntu32" "okuoku/yunibase:yuni-ubuntu32")
-add_docker_yuniimage(yuniimage_fedora
-    "okuoku/yunibase:testing-fedora" "okuoku/yunibase:yuni-fedora")
 add_docker_yuniimage(yuniimage_java
     "okuoku/yunibase:testing-java" "okuoku/yunibase:yuni-java")
-add_docker_yuniimage(yuniimage_alpine
-    "okuoku/yunibase:testing-alpine" "okuoku/yunibase:yuni-alpine")
-#add_docker_yuniimage(yuniimage_raspbian
-#    "okuoku/yunibase:testing-raspbian" "okuoku/yunibase:yuni-raspbian")
 
 #
 # yunitest
@@ -468,11 +416,7 @@ endfunction()
 
 if(YUNIBASE_WITH_YUNI)
     add_docker_yunitest(yunitest_default "okuoku/yunibase:testing")
-    add_docker_yunitest(yunitest_ubuntu32 "okuoku/yunibase:testing-ubuntu32")
-    add_docker_yunitest(yunitest_fedora "okuoku/yunibase:testing-fedora")
     add_docker_yunitest(yunitest_java "okuoku/yunibase:testing-java")
-    add_docker_yunitest(yunitest_alpine "okuoku/yunibase:testing-alpine")
-    #add_docker_yunitest(yunitest_raspbian "okuoku/yunibase:testing-raspbian")
 endif()
 
 add_subdirectory(updater)

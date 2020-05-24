@@ -47,10 +47,10 @@ register_source(CHEZ CURRENT
     GIT
     "origin/master")
 
-register_source(RAPID_GAMBIT CURRENT
-    "impl-current/rapid-gambit"
-    GIT
-    "origin/master")
+#register_source(RAPID_GAMBIT CURRENT
+#    "impl-current/rapid-gambit"
+#    GIT
+#    "origin/master")
 
 register_source(PICRIN CURRENT
     "impl-current/picrin"

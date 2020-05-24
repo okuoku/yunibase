@@ -354,26 +354,6 @@ register_recipe(GAMBIT CURRENT
 
 depends_current_stable(gambit_current gambit_stable)
 
-# Rapid-gambit (current)
-set(rapid_gambit_current_src ${YUNIBASE_ROOT_CURRENT}/rapid-gambit)
-set(rapid_gambit_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/rapid-gambit)
-set(ENVP_RAPID_GAMBIT_BOOTSTRAP
-    PATH "${YUNIBASE_BUILD_CURRENT_PREFIX}/chibi-scheme/bin:${YUNIBASE_BUILD_STABLE_PREFIX}/gambit/bin"
-    ${ld_library_path} ${YUNIBASE_BUILD_CURRENT_PREFIX}/chibi-scheme/lib)
-build_recipe(rapid_gambit_current
-    ${rapid_gambit_current_src}
-    ${rapid_gambit_current_dest}
-    RAPID_GAMBIT
-    "${ENVP_RAPID_GAMBIT_BOOTSTRAP}"
-    ${RECIPE_RAPID_GAMBIT})
-
-register_recipe(RAPID_GAMBIT CURRENT 
-    rapid_gambit_current)
-
-add_dependencies(rapid_gambit_current
-    chibi-scheme_current
-    gambit_stable)
-
 # Picrin
 set(picrin_current_src ${YUNIBASE_ROOT_CURRENT}/picrin)
 set(picrin_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/picrin)

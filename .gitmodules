@@ -118,3 +118,6 @@
 [submodule "impl-current/bigloo"]
 	path = impl-current/bigloo
 	url = https://github.com/manuel-serrano/bigloo
+[submodule "impl-current/ironscheme"]
+	path = impl-current/ironscheme
+	url = https://github.com/IronScheme/IronScheme

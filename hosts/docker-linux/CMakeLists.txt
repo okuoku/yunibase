@@ -230,23 +230,12 @@ function(add_docker_archive_build impl branch rootname)
         COMMENT "Building impl archive(${impl}_${branch} with ${rootname})")
     # Deploylocal
     if(${rootname} STREQUAL ubuntu64 AND ${branch} STREQUAL CURRENT)
-        if(${impl} STREQUAL KAWA OR ${impl} STREQUAL LARCENY)
-            # Skip
-        else()
-            add_custom_target(deploylocal-${impl}
-                COMMAND ${CMAKE_COMMAND}
-                -DARCHIVE=${dest}
-                -DIMPLNAM=${implnam}
-                -P ${CMAKE_CURRENT_LIST_DIR}/deploylocal.cmake)
-            add_dependencies(deploylocal deploylocal-${impl})
-        endif()
-    elseif(${rootname} STREQUAL java AND ${branch} STREQUAL CURRENT AND ${impl} STREQUAL KAWA)
-        add_custom_target(deploylocal-${impl}java
+        add_custom_target(deploylocal-${impl}
             COMMAND ${CMAKE_COMMAND}
             -DARCHIVE=${dest}
             -DIMPLNAM=${implnam}
             -P ${CMAKE_CURRENT_LIST_DIR}/deploylocal.cmake)
-        add_dependencies(deploylocal deploylocal-${impl}java)
+        add_dependencies(deploylocal deploylocal-${impl})
     elseif(${rootname} STREQUAL ubuntu64 AND ${branch} STREQUAL STABLE)
         # Special: SCM has stable build
         if(${impl} STREQUAL SCM)
@@ -346,7 +335,6 @@ endmacro()
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/archive)
 
 add_root(ubuntu64 ubuntuLTS)
-add_root(java java)
 
 enable_impl(ubuntu64
     CHIBI_SCHEME GAUCHE NMOSH 
@@ -360,10 +348,8 @@ enable_impl(ubuntu64
     S7YUNI SCM STKLOS DIGAMMA
     FOMENT
     BIGLOO
+    KAWA
     )
-enable_impl(java
-    CHIBI_SCHEME
-    KAWA)
 
 function(add_docker_push tgt repo)
     add_custom_target(${tgt}
@@ -398,8 +384,6 @@ endfunction()
 
 add_docker_yuniimage(yuniimage_default 
     "okuoku/yunibase:testing" "okuoku/yunibase:latest")
-add_docker_yuniimage(yuniimage_java
-    "okuoku/yunibase:testing-java" "okuoku/yunibase:yuni-java")
 
 #
 # yunitest
@@ -416,7 +400,6 @@ endfunction()
 
 if(YUNIBASE_WITH_YUNI)
     add_docker_yunitest(yunitest_default "okuoku/yunibase:testing")
-    add_docker_yunitest(yunitest_java "okuoku/yunibase:testing-java")
 endif()
 
 add_subdirectory(updater)

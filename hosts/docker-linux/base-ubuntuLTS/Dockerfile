@@ -14,11 +14,14 @@ WORKDIR /build
 #  Cyclone: libck-dev
 #  Digamma: cpio (and, LLVM latest stable)
 #  Bigloo: libpcre3-dev
+#  Kawa: openjdk-8-jdk-headless
 RUN apt-get update && apt-get install -y \
 cmake gcc g++ \
 autoconf automake \
 libgmp-dev libonig-dev \
 libtool flex gettext pkg-config libunistring-dev libffi-dev libgc-dev \
 time texinfo \
-ncurses-dev libx11-dev zlib1g-dev libssl-dev uuid-dev libck-dev cpio libpcre3-dev wget lsb-release software-properties-common \
+ncurses-dev libx11-dev zlib1g-dev libssl-dev uuid-dev libck-dev cpio libpcre3-dev \
+openjdk-8-jdk-headless \
+wget lsb-release software-properties-common \
 && bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"

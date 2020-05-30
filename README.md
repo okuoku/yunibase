@@ -37,7 +37,7 @@ Implementations
 [Stable]: https://bitbucket.org/okuoku/yunibase-impl-stable
 [Current]: https://github.com/okuoku/yunibase/tree/master/impl-current
 [Yuni Scheme portability platform]: https://github.com/okuoku/yuni
-[Linux Docker images]: https://github.com/okuoku/yunibase/tree/master/hosts/docker-linux
+[Linux Docker image]: https://github.com/okuoku/yunibase/tree/master/hosts/docker-linux
 [Docker Hub]: https://hub.docker.com/r/okuoku/yunibase/
 
 [ChezScheme]: https://github.com/cisco/ChezScheme

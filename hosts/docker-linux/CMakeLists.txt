@@ -293,7 +293,7 @@ function(add_docker_yunibase tgt rootname) # only for enable_impl
         set(tagsufx "-${rootname}")
     endif()
     set(image "okuoku/yunibuild:latest${tagsufx}")
-    set(tag "okuoku/yunibase:testing${tagsufx}")
+    set(tag "okuoku/yunibase:latest${tagsufx}")
     set(archiveroot ${CMAKE_CURRENT_BINARY_DIR}/archive)
     add_custom_target(${tgt}
         COMMAND ${CMAKE_COMMAND}
@@ -368,22 +368,22 @@ add_dependencies(push docker_push_yunibase)
 # yuniimage
 # 
 
-function(add_docker_yuniimage tgt from to)
-    add_custom_target(${tgt}
-        COMMAND ${CMAKE_COMMAND}
-        -DIMAGE=${from}
-        -DBUILDYUNI=TRUE
-        -DLOGFILE=${CMAKE_CURRENT_BINARY_DIR}/${tgt}.log
-        -DCIDFILE=${CMAKE_CURRENT_BINARY_DIR}/cid${tgt}
-        -DTAG=${to}
-        -DSTAMP=${CMAKE_CURRENT_LIST_DIR}/_stamp.txt
-        -P ${CMAKE_CURRENT_LIST_DIR}/docker-run-build.cmake
-        COMMENT "Building yuni image...(${from} => ${to})")
-    add_dependencies(yuniimage ${tgt})
-endfunction()
-
-add_docker_yuniimage(yuniimage_default 
-    "okuoku/yunibase:testing" "okuoku/yunibase:latest")
+#function(add_docker_yuniimage tgt from to)
+#    add_custom_target(${tgt}
+#        COMMAND ${CMAKE_COMMAND}
+#        -DIMAGE=${from}
+#        -DBUILDYUNI=TRUE
+#        -DLOGFILE=${CMAKE_CURRENT_BINARY_DIR}/${tgt}.log
+#        -DCIDFILE=${CMAKE_CURRENT_BINARY_DIR}/cid${tgt}
+#        -DTAG=${to}
+#        -DSTAMP=${CMAKE_CURRENT_LIST_DIR}/_stamp.txt
+#        -P ${CMAKE_CURRENT_LIST_DIR}/docker-run-build.cmake
+#        COMMENT "Building yuni image...(${from} => ${to})")
+#    add_dependencies(yuniimage ${tgt})
+#endfunction()
+#
+#add_docker_yuniimage(yuniimage_default 
+#    "okuoku/yunibase:testing" "okuoku/yunibase:latest")
 
 #
 # yunitest

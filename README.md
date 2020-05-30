@@ -6,7 +6,7 @@ This is Yunibase, collection of R5RS/R6RS/R7RS implementations to test [Yuni Sch
 Prebuilt images
 ===============
 
-* [Linux Docker images][] on [Docker Hub][]
+* [Linux Docker image][] on [Docker Hub][]
 
 Implementations
 ===============

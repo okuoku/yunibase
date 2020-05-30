@@ -505,11 +505,13 @@ register_recipe(STKLOS CURRENT stklos_current)
 # Digamma
 set(digamma_current_src ${YUNIBASE_ROOT_CURRENT}/digamma)
 set(digamma_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/digamma)
+set(ENVP_DIGAMMA_OVERRIDE
+    PATH ${YUNIBASE_ROOT_CURRENT}/../overrides/llvm-10)
 build_recipe(digamma_current
     ${digamma_current_src}
     ${digamma_current_dest}
     DIGAMMA
-    ""
+    "${ENVP_DIGAMMA_OVERRIDE}"
     ${RECIPE_DIGAMMA})
 register_recipe(DIGAMMA CURRENT digamma_current)
 

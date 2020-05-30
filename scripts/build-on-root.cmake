@@ -103,6 +103,7 @@ set(basedirs
     ${_mysrc}/hosts
     ${_mysrc}/parts
     ${_mysrc}/patches
+    ${_mysrc}/overrides
     ${_mysrc}/recipes
     ${_mysrc}/scripts
     ${_mysrc}/yuni)

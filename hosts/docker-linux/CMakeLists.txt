@@ -97,7 +97,7 @@ function(add_source_gentag dest sourcesym)
         -DTAG=${source_${sourcesym}_tag}
         -DTAGPATH=${source_${sourcesym}_tagpath}
         -DDEST=${dest}
-        -P ${YUNIBASE_REPO_ROOT}/hosts/docker-linux/update-tagfile.cmake
+        -P ${YUNIBASE_REPO_ROOT}/scripts/update-tagfile.cmake
         BYPRODUCTS ${dest}
         COMMENT "Updating tagfile for ${sourcesym}")
     add_dependencies(update-tagfiles ${tgt})

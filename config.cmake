@@ -17,12 +17,12 @@ set(cygwin64-impls
     CHIBI_SCHEME
     CHICKEN5
     S7YUNI
-
     SAGITTARIUS
-    # CYCLONE
+    GAMBIT
+
     # FOMENT
-    # GAMBIT
     #
+    # CYCLONE # Cygwin does not have Concurrency Kit package
     # STKLOS # Cygwin support broken on Win64 (Cygwin 1.7 or later)
     # BIGLOO # Current build fail
     )

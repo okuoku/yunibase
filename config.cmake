@@ -1,8 +1,8 @@
 set(cygwin64-impls
-    #GUILE3
-    #GAUCHE
+    GUILE3
+    GAUCHE
     CHIBI_SCHEME
-    #CHICKEN5
+    CHICKEN5
     S7YUNI
 
     # SAGITTARIUS

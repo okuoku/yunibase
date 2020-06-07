@@ -13,7 +13,7 @@ set(ubuntu64-impls
     GUILE3
     # IRON_SCHEME # Buildsystem is Windows only
     KAWA
-    # MIT_SCHEME # Waiting 10.1.11
+    MIT_SCHEME
     # NMOSH # Dormant
     # PICRIN # Dormant
     RACKET

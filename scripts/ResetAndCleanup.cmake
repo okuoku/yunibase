@@ -15,6 +15,6 @@ execute_process(
     )
 message(STATUS "Checkout...")
 execute_process(
-    COMMAND git submodule update
+    COMMAND git submodule update --recursive
     WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/..
     )

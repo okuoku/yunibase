@@ -7,6 +7,8 @@ list(APPEND CMAKE_MODULE_PATH ${YUNIBASE_REPO_ROOT}/cmake)
 include(YunibaseStampVersion)
 include(YunibaseWorkaroundFileTimestamp) # Needs YUNIBASE_REPO_ROOT
 
+include(${YUNIBASE_REPO_ROOT}/config.cmake)
+
 workaround_yunibase_impl_stable_timestamps()
 
 add_custom_target(base)   # Update base environment
@@ -336,20 +338,7 @@ file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/archive)
 
 add_root(ubuntu64 ubuntuLTS)
 
-enable_impl(ubuntu64
-    CHIBI_SCHEME GAUCHE NMOSH 
-    SAGITTARIUS 
-    CHICKEN 
-    CHICKEN5
-    GUILE GUILE3 RACKET VICARE CHEZ
-    GAMBIT PICRIN 
-    #MIT_SCHEME 
-    CYCLONE
-    S7YUNI SCM STKLOS DIGAMMA
-    FOMENT
-    BIGLOO
-    KAWA
-    )
+enable_impl(ubuntu64 ${ubuntu64-impls})
 
 function(add_docker_push tgt repo)
     add_custom_target(${tgt}

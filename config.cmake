@@ -18,11 +18,11 @@ set(cygwin64-impls
     CHICKEN5
     S7YUNI
 
-    # SAGITTARIUS
+    SAGITTARIUS
     # CYCLONE
     # FOMENT
     # GAMBIT
     #
-    # STKLOS
-    # BIGLOO
+    # STKLOS # Cygwin support broken on Win64 (Cygwin 1.7 or later)
+    # BIGLOO # Current build fail
     )

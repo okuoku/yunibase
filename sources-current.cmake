@@ -62,7 +62,7 @@ register_source(PICRIN CURRENT
 register_source(MIT_SCHEME CURRENT
     "impl-current/mit-scheme"
     GIT
-    "origin/master")
+    "origin/release-10")
 
 register_source(GAMBIT CURRENT
     "impl-current/gambit"

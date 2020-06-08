@@ -3,7 +3,7 @@ set(RECIPE_MIT_SCHEME_C # Recipe for MIT/GNU Scheme (C)
     STEP "Install"   MAKE install
 )
 
-set(RECIPE_MIT_SCHEME_AMD64 # Recipe for MIT/GNU Scheme (C)
+set(RECIPE_MIT_SCHEME_AMD64 # Recipe for MIT/GNU Scheme (AMD64)
     STEP "Configure" "./configure" "--prefix=__INSTALL_PREFIX__"
     --disable-edwin --disable-imail --disable-x11
     STEP "Build"     MAKE __MAKE_PARALLEL__ __MAKE_OPTS__ compile-microcode
@@ -14,6 +14,7 @@ set(RECIPE_MIT_SCHEME_BOOTSTRAP   # Recipe for MIT/GNU Scheme
     STEP "Bootstrap" "./Setup.sh"
     STEP "Configure" "./configure" "--prefix=__INSTALL_PREFIX__" 
     --disable-edwin --disable-imail --disable-x11
+    # --enable-cross-compiling # Doesn't work for me
     #    STEP "Test"      MAKE test
     STEP "Build"     MAKE __MAKE_PARALLEL__ __MAKE_OPTS__
     STEP "Install"   MAKE install

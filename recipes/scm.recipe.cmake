@@ -1,11 +1,10 @@
 set(RECIPE_SCM
     STEP "Configure"
     "./configure" "--prefix=__INSTALL_PREFIX__"
-    __AUTOCONF_OPTS__
     STEP "BuildScmLit"
-    make scmlit
+    make scmlit __AUTOCONF_OPTS__
     STEP "Build"
-    make all
+    make all __AUTOCONF_OPTS__
     STEP "Install"
     make install)
 set(RECIPE_SLIB

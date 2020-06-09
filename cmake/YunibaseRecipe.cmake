@@ -32,7 +32,13 @@ set(yunibase_recipe_replace_entries
 
 macro(yunibase_recipe_replace_args_pair str_in str_out prefix nam ref)
     # Consume 2 args at once
-    string(REGEX REPLACE "${nam}" "${${prefix}_${ref}}" ${str_out} "${str_in}")
+    if("${nam}" MATCHES "^__")
+        # __HOGE__ can match any where
+        string(REGEX REPLACE "${nam}" "${${prefix}_${ref}}" ${str_out} "${str_in}")
+    else()
+        # Otherwise, it might be command(only)
+        string(REGEX REPLACE "^${nam}" "${${prefix}_${ref}}" ${str_out} "${str_in}")
+    endif()
     if(NOT ${str_in} STREQUAL ${str_out})
         # nothing to do
     elseif(NOT "${ARGN}" STREQUAL "") # Recurse if we still have any extra args

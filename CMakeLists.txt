@@ -198,7 +198,7 @@ else()
     activate_recipe(GAMBIT CURRENT)
     activate_recipe(PICRIN CURRENT)
     if(${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_64" AND
-            ${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+            (${CMAKE_SYSTEM_NAME} MATCHES "Linux" OR APPLE))
         activate_recipe(MIT_SCHEME STABLE)
         activate_recipe(MIT_SCHEME CURRENT)
     endif()

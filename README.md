@@ -22,7 +22,7 @@ Implementations
 |[Gambit][]        |C        |R5RS+R7RS-|4.9.3devel|Official GitHub|                                      |
 |[Gauche][]        |C        |R7RS      |0.9.9     |Official GitHub|                                      |
 |[Guile][]         |C        |R6RS+R7RS-|          |Official Git   |                                      |
-|[MIT/GNU Scheme][]|C        |R5RS+R7RS-|10.1.1    |Official Git   |amd64 only                            |
+|[MIT/GNU Scheme][]|C        |R5RS+R7RS-|11.0.90   |Official Git   |amd64 only                            |
 |[Racket][]        |C        |R6RS      |          |Official GitHub|With `srfi-lib` and `r6rs-lib`        |
 |[s7][]            |C        |Generic   |          |GitHub Mirror  |With yuni patches(s7yuni)             |
 |[Sagittarius][]   |C        |R6RS+R7RS |0.9.2     |GitHub Mirror  |                                      |

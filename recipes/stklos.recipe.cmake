@@ -4,6 +4,6 @@ set(RECIPE_STKLOS
     STEP "Configure"
     "./configure" "--prefix=__INSTALL_PREFIX__"
     STEP "Build"
-    make
+    MAKE __MAKE_PARALLEL__
     STEP "Install"
-    make install)
+    MAKE install)

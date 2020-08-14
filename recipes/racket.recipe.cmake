@@ -5,7 +5,14 @@ set(RECIPE_RACKET_MACOS
     "\"PKGS=r6rs-lib srfi-lib\""
     )
 
-set(RECIPE_RACKET # We do not support in-tree tests yet
+set(RECIPE_RACKET_CURRENT # We do not support in-tree tests yet
+    STEP "Configure" "./configure" "--prefix=__INSTALL_PREFIX__"
+    --enable-racket=racket
+    STEP "Build" MAKE __MAKE_OPTS__ __MAKE_PARALLEL__
+    STEP "Install" MAKE __MAKE_PARALLEL__ install
+    )
+
+set(RECIPE_RACKET_STABLE # We do not support in-tree tests yet
     STEP "Configure" "./configure" "--prefix=__INSTALL_PREFIX__"
     STEP "Build" MAKE __MAKE_OPTS__ __MAKE_PARALLEL__
     STEP "Install" MAKE __MAKE_PARALLEL__ install

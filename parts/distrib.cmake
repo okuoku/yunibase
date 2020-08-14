@@ -13,7 +13,7 @@ register_impl(
     LICENSE_FILES 
         racket/src/LICENSE.txt
         racket/src/LICENSE-LGPL.txt
-    )
+    REQUIRE_STABLE)
 
 register_impl(
     CHICKEN chicken

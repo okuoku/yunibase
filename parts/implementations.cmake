@@ -165,8 +165,13 @@ register_recipe(CHIBI_SCHEME CURRENT
     chibi-scheme_current)
 
 # Racket (current)
+set(racket_stable_src ${YUNIBASE_ROOT_STABLE}/racket/racket/src)
+set(racket_stable_dest ${YUNIBASE_BUILD_STABLE_PREFIX}/racket)
 set(racket_current_src ${YUNIBASE_ROOT_CURRENT}/racket/racket/src)
 set(racket_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/racket)
+set(ENVP_RACKET_BUILD
+    PATH ${YUNIBASE_BUILD_STABLE_PREFIX}/racket/bin
+    ${ld_library_path} ${YUNIBASE_BUILD_STABLE_PREFIX}/racket/lib)
 set(ENVP_RACKET_SETUP
     PATH ${YUNIBASE_BUILD_CURRENT_PREFIX}/racket/bin
     ${ld_library_path} ${YUNIBASE_BUILD_CURRENT_PREFIX}/racket/lib)
@@ -182,12 +187,18 @@ if(APPLE)
     register_recipe(RACKET CURRENT 
         racket_current)
 else()
+    build_recipe(racket_stable
+        ${racket_stable_src}
+        ${racket_stable_dest}
+        RACKET
+        ""
+        ${RECIPE_RACKET_STABLE})
     build_recipe(racket_current
         ${racket_current_src}
         ${racket_current_dest}
         RACKET
-        ""
-        ${RECIPE_RACKET})
+        "${ENVP_RACKET_BUILD}"
+        ${RECIPE_RACKET_CURRENT})
     build_recipe(racket_current_setup
         ${racket_current_src}
         ${racket_current_dest}
@@ -195,9 +206,13 @@ else()
         "${ENVP_RACKET_SETUP}"
         ${RECIPE_RACKET_SETUP})
 
+    register_recipe(RACKET STABLE
+        racket_stable)
     register_recipe(RACKET CURRENT 
         racket_current
         racket_current_setup)
+
+    depends_current_stable(racket_current racket_stable)
 endif()
 
 # Vicare (current)

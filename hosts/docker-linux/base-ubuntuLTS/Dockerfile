@@ -7,6 +7,7 @@ WORKDIR /build
 #  Gauche: autoconf automake
 #  NMosh: libgmp-dev libonig-dev
 #  Guile: libtool flex gettext pkg-config libunistring-dev libffi-dev libgc-dev
+#         autopoint gperf
 #  Chicken: time (avoid bashism)
 #  Vicare: texinfo
 #  Chez: ncurses x11 uuid-dev
@@ -25,5 +26,5 @@ libtool flex gettext pkg-config libunistring-dev libffi-dev libgc-dev \
 time texinfo \
 ncurses-dev libx11-dev zlib1g-dev libssl-dev uuid-dev libck-dev cpio libpcre3-dev \
 openjdk-8-jdk-headless \
-wget lsb-release software-properties-common \
+wget lsb-release software-properties-common autopoint gperf \
 && /llvm.sh 10

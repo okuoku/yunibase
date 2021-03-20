@@ -1,17 +1,17 @@
-From 0acc4a64001be1858d01e10bf1c97d5b61bc110b Mon Sep 17 00:00:00 2001
+From 40a13a610884ad176e9197eefe4a8bef09f94c19 Mon Sep 17 00:00:00 2001
 From: okuoku <mjt@cltn.org>
-Date: Sun, 17 May 2020 02:41:28 +0900
+Date: Sat, 20 Mar 2021 14:16:47 +0900
 Subject: [PATCH] Build: Allow bootstrap directly
 
 ---
- Makefile | 26 ++++++++++++++++++--------
- 1 file changed, 18 insertions(+), 8 deletions(-)
+ Makefile | 25 ++++++++++++++++++-------
+ 1 file changed, 18 insertions(+), 7 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 086b025a..d632b245 100644
+index d442b97b..0bad3ad8 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -6,7 +6,14 @@
+@@ -5,7 +5,14 @@
  include Makefile.config
  
  # Commands
@@ -27,7 +27,7 @@ index 086b025a..d632b245 100644
  CCOMP = $(CC) $(CFLAGS)
  INDENT_CMD = indent -linux -l80 -i2 -nut
  
-@@ -158,17 +165,20 @@ hello-library/hello :
+@@ -158,14 +165,18 @@ hello-library/hello :
  
  libs : $(COBJECTS)
  
@@ -40,21 +40,18 @@ index 086b025a..d632b245 100644
 -	$(CYCLONE) cyclone.scm
 +cyclone0 : cyclone.scm $(CYC_RT_LIB) $(CYC_BN_LIB)
 +	$(CYCLONE) cyclone.scm && mv ./cyclone ./cyclone0
- 
--icyc : icyc.scm $(CYC_RT_LIB) $(CYC_BN_LIB)
--	$(CYCLONE) $<
++
 +cyclone : cyclone.scm $(CYC_RT_LIB) $(CYC_BN_LIB) cyclone0 libs
 +	$(CYCLONE0) cyclone.scm
 +
 +icyc : icyc.scm $(CYC_RT_LIB) $(CYC_BN_LIB) libs
 +	$(CYCLONE0) $<
  
- dispatch.c : generate-c.scm
+-icyc : icyc.scm $(CYC_RT_LIB) $(CYC_BN_LIB)
 -	$(CYCLONE) $<
-+	$(CYCLONE_BOOT) $<
- 	./generate-c
  
  $(CYC_RT_LIB) : $(CFILES) $(HEADERS) $(CYC_BN_LIB)
+ 
 -- 
-2.17.1
+2.25.1
 

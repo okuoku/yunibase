@@ -45,7 +45,7 @@ register_source(LARCENY CURRENT
 register_source(CHEZ CURRENT
     "impl-current/chez"
     GIT
-    "origin/master")
+    "origin/main")
 
 #register_source(RAPID_GAMBIT CURRENT
 #    "impl-current/rapid-gambit"

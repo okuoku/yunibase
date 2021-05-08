@@ -24,7 +24,7 @@ set(RECIPE_BIGLOO_CURRENT
     STEP "Configure"
     ./configure --prefix=__INSTALL_PREFIX__ ${BIGLOO_CYGWINDOSPATH}
     STEP "Build"
-    MAKE bigboot BGLBUILDBINDIR=${YUNIBASE_BUILD_STABLE_PREFIX}/bigloo/bin
+    MAKE hostboot BGLBUILDBINDIR=${YUNIBASE_BUILD_STABLE_PREFIX}/bigloo/bin
     STEP "InstallProgs"
     MAKE install-progs
     STEP "BuildLibraries"

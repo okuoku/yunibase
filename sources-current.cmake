@@ -159,7 +159,7 @@ register_source(CHICKEN5 CURRENT
     "origin/master")
 
 register_source(CHICKEN5 DEP
-    "impl-current/chicken5-eggs/chicken-r7rs"
+    "impl-current/chicken5-eggs/chicken5-r7rs-svn"
     GIT
     "origin/master")
 

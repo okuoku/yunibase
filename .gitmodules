@@ -79,9 +79,6 @@
 [submodule "impl-current/chicken5"]
 	path = impl-current/chicken5
 	url = https://github.com/spurious/chicken-core-mirror.git
-[submodule "impl-current/chicken5-eggs/chicken-r7rs"]
-	path = impl-current/chicken5-eggs/chicken-r7rs
-	url = https://github.com/spurious/chicken-r7rs-mirror.git
 [submodule "impl-current/snd"]
 	path = impl-current/snd
 	url = https://github.com/spurious/snd-mirror.git

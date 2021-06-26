@@ -16,6 +16,7 @@ WORKDIR /build
 #  Digamma: cpio (and, LLVM latest stable)
 #  Bigloo: libpcre3-dev libpcre2-dev
 #  Kawa: openjdk-8-jdk-headless
+#  Racket: libcairo2-dev libpango1.0-dev (for doc)
 ADD https://apt.llvm.org/llvm.sh /
 RUN chmod +x /llvm.sh
 RUN apt-get update && apt-get install -y \
@@ -26,5 +27,6 @@ libtool flex gettext pkg-config libunistring-dev libffi-dev libgc-dev \
 time texinfo \
 ncurses-dev libx11-dev zlib1g-dev libssl-dev uuid-dev libck-dev cpio libpcre3-dev libpcre2-dev \
 openjdk-8-jdk-headless \
-wget lsb-release software-properties-common autopoint gperf \
+wget lsb-release software-properties-common autopoint gperf libcairo2-dev \
+libpango1.0-dev \
 && /llvm.sh 10

@@ -165,7 +165,7 @@ register_recipe(CHIBI_SCHEME CURRENT
     chibi-scheme_current)
 
 # Racket (current)
-set(racket_stable_src ${YUNIBASE_ROOT_STABLE}/racket/racket/src)
+set(racket_stable_src ${YUNIBASE_ROOT_STABLE}/racket/src)
 set(racket_stable_dest ${YUNIBASE_BUILD_STABLE_PREFIX}/racket)
 set(racket_current_src ${YUNIBASE_ROOT_CURRENT}/racket/racket/src)
 set(racket_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/racket)

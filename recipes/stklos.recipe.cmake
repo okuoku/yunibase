@@ -1,9 +1,9 @@
 set(RECIPE_STKLOS
     STEP "Bootstrap"
-    autoreconf -ifv
+    ./utils/time-correct
     STEP "Configure"
     "./configure" "--prefix=__INSTALL_PREFIX__"
     STEP "Build"
-    MAKE __MAKE_PARALLEL__
+    MAKE 
     STEP "Install"
     MAKE install)

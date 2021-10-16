@@ -19,13 +19,13 @@ set(RECIPE_RACKET_STABLE # We do not support in-tree tests yet
     )
 
 set(RECIPE_RACKET_SETUP
-    STEP "SetupRacketLib" raco pkg install --skip-installed --copy
-    --scope installation --batch -j __MAKE_JOBS__
-    ${YUNIBASE_ROOT_CURRENT}/racket/pkgs/racket-lib
-
     STEP "SetupBase" raco pkg install --skip-installed --copy
     --scope installation --batch -j __MAKE_JOBS__
     ${YUNIBASE_ROOT_CURRENT}/racket/pkgs/base
+
+    STEP "SetupRacketLib" raco pkg install --skip-installed --copy
+    --scope installation --batch -j __MAKE_JOBS__
+    ${YUNIBASE_ROOT_CURRENT}/racket/pkgs/racket-lib
 
     STEP "SetupSRFILite" raco pkg install --skip-installed --copy
     --scope installation --batch -j __MAKE_JOBS__

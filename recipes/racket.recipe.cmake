@@ -20,6 +20,7 @@ set(RECIPE_RACKET_STABLE # We do not support in-tree tests yet
 
 set(RECIPE_RACKET_SETUP
     STEP "SetupBase" raco pkg install --skip-installed --copy
+    --deps force
     --scope installation --batch -j __MAKE_JOBS__
     ${YUNIBASE_ROOT_CURRENT}/racket/pkgs/base
 

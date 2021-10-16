@@ -28,7 +28,7 @@ register_source(GUILE CURRENT
 register_source(GUILE3 CURRENT
     "impl-current/guile3"
     GIT
-    "origin/master")
+    "origin/main")
 register_source(SAGITTARIUS CURRENT
     "impl-current/sagittarius"
     GIT

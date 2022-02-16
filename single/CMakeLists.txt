@@ -3,6 +3,9 @@ project(yunibasesingle NONE)
 
 set(ROOT ${CMAKE_CURRENT_LIST_DIR}/..)
 
+include(${ROOT}/cmake/YunibaseWorkaroundFileTimestamp.cmake)
+set(YUNIBASE_REPO_ROOT ${ROOT})
+workaround_yunibase_impl_stable_timestamps()
 include(${ROOT}/config.cmake)
 
 macro(register_impl sym nam)

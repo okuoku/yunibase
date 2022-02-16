@@ -53,13 +53,13 @@ set(cygwin64-impls
     # FOMENT # Depends on <execinfo.h> backtrace(3)
     # GAMBIT # RENAME_NOREPLACE misplaced in Cygwin
     GAUCHE
-    GUILE3
+    #GUILE3 # Broken on Cygwin64
     # IRON_SCHEME # Buildsystem is Windows only
     # KAWA # Prefer Linux build
     # MIT_SCHEME # Not supported ??
     # RACKET # Not supported ??
     S7YUNI
-    SAGITTARIUS
+    # SAGITTARIUS # Crashes on Cygwin64
     # SCM # ??
     # STKLOS # Cygwin support broken on Win64 (Cygwin 1.7 or later)
     )

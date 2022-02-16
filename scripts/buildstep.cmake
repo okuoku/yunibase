@@ -32,7 +32,7 @@ endif()
 # Generate archive
 message(STATUS "Archive...${NAME}")
 execute_process(
-    COMMAND ${CMAKE_COMMAND} -E tar cvzf ${ARCHIVE}
+    COMMAND tar cvzf ${ARCHIVE}
     ${NAME}
     WORKING_DIRECTORY /opt/yunibase/current
     RESULT_VARIABLE rr)

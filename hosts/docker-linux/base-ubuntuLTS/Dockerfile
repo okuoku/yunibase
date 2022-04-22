@@ -1,4 +1,5 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
+ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /build
 
 # Install required packages:
@@ -14,7 +15,7 @@ WORKDIR /build
 #  Sagittarius: zlib1g-dev libssl-dev
 #  Cyclone: libck-dev
 #  Digamma: cpio (and, LLVM latest stable)
-#  Bigloo: libpcre3-dev libpcre2-dev
+#  Bigloo: patch libpcre3-dev libpcre2-dev
 #  Kawa: openjdk-8-jdk-headless
 #  Racket: libcairo2-dev libpango1.0-dev (for doc)
 ADD https://apt.llvm.org/llvm.sh /
@@ -28,5 +29,5 @@ time texinfo \
 ncurses-dev libx11-dev zlib1g-dev libssl-dev uuid-dev libck-dev cpio libpcre3-dev libpcre2-dev \
 openjdk-8-jdk-headless \
 wget lsb-release software-properties-common autopoint gperf libcairo2-dev \
-libpango1.0-dev \
+libpango1.0-dev patch \
 && /llvm.sh 10

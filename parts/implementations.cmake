@@ -7,6 +7,28 @@
 #   YUNIBASE_BUILD_CURRENT_PREFIX : Install path (current)
 #   YUNIBASE_PREBUILT_STABLE : Assume we already have stable impl. (Path)
 
+function(apply_patch root pickup patchfile)
+    if(EXISTS ${pickup})
+        if(NOT EXISTS ${patchfile})
+            message(FATAL_ERROR "Pathfile ${patchfile} was not found.")
+        endif()
+        if(NOT EXISTS ${root}/.yunibasepatched)
+            # Apply patch
+            execute_process(COMMAND
+                patch -p1
+                INPUT_FILE ${patchfile}
+                WORKING_DIRECTORY ${root}
+                RESULT_VARIABLE rr)
+            if(rr)
+                message(FATAL_ERROR "patch failed")
+            endif()
+            file(WRITE ${root}/.yunibasepatched "patched")
+        endif()
+    else()
+        # Do nothing if pickup file was not existed
+    endif()
+endfunction()
+
 if(APPLE)
     set(ld_library_path DYLD_LIBRARY_PATH)
 else()
@@ -519,6 +541,8 @@ build_recipe(foment_current
     ""
     ${RECIPE_FOMENT})
 register_recipe(FOMENT CURRENT foment_current)
+apply_patch(${foment_current_src} ${foment_current_src}/unix/makefile
+    ${YUNIBASE_ROOT_CURRENT}/../patches/foment/0001-Ident-as-yunibase.patch)
 
 # Bigloo
 set(bigloo_stable_src ${YUNIBASE_ROOT_STABLE}/bigloo)

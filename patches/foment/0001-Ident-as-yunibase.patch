@@ -1,0 +1,38 @@
+From 4e0c75216e3aca4f9b53c01f62cdd6b04e9bf9c3 Mon Sep 17 00:00:00 2001
+From: okuoku <mjt@cltn.org>
+Date: Sun, 15 May 2022 01:47:39 +0900
+Subject: [PATCH] Ident as yunibase
+
+---
+ unix/makefile | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/unix/makefile b/unix/makefile
+index 701af96..31299db 100644
+--- a/unix/makefile
++++ b/unix/makefile
+@@ -90,8 +90,8 @@ debug/foment: debug/foment.o debug/gc.o debug/syncthrd.o debug/compile.o debug/i
+ 		debug/library.o debug/execute.o debug/numbers.o debug/write.o\
+ 		debug/read.o debug/filesys.o debug/compare.o debug/main.o debug/hashtbl.o\
+ 		debug/bignums.o debug/charset.o debug/process.o debug/random.o debug/base.o
+-	git rev-parse --abbrev-ref HEAD > debug/buildprops.out
+-	git rev-parse --short HEAD >> debug/buildprops.out
++	echo "yunibase" > debug/buildprops.out
++	echo "yunibase" >> debug/buildprops.out
+ 	uname -s -r -v -m >> debug/buildprops.out
+ 	g++ -v 2>&1 | tail --lines=1 >> debug/buildprops.out
+ 	debug/genprops < debug/buildprops.out > debug/buildprops.cpp
+@@ -105,8 +105,8 @@ release/foment: release/foment.o release/gc.o release/syncthrd.o release/compile
+ 		release/write.o release/read.o release/filesys.o\
+ 		release/compare.o release/main.o release/hashtbl.o release/bignums.o release/charset.o\
+ 		release/process.o release/random.o release/base.o
+-	git rev-parse --abbrev-ref HEAD > release/buildprops.out
+-	git rev-parse --short HEAD >> release/buildprops.out
++	echo "yunibase" > debug/buildprops.out
++	echo "yunibase" >> debug/buildprops.out
+ 	uname -s -r -v -m >> release/buildprops.out
+ 	g++ -v 2>&1 | tail --lines=1 >> release/buildprops.out
+ 	debug/genprops < release/buildprops.out > release/buildprops.cpp
+-- 
+2.25.1
+

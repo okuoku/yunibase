@@ -24,11 +24,11 @@ set(RECIPE_BIGLOO_CURRENT
     STEP "Configure"
     ./configure --prefix=__INSTALL_PREFIX__ ${BIGLOO_CYGWINDOSPATH}
     STEP "Build"
-    MAKE hostboot BGLBUILDBINDIR=${YUNIBASE_BUILD_STABLE_PREFIX}/bigloo/bin
+    MAKE __MAKE_PARALLEL__ hostboot BGLBUILDBINDIR=${YUNIBASE_BUILD_STABLE_PREFIX}/bigloo/bin
     STEP "InstallProgs"
     MAKE install-progs
     STEP "BuildLibraries"
-    MAKE fullbootstrap-sans-log
+    MAKE __MAKE_PARALLEL__ fullbootstrap-sans-log
     STEP "Install"
     MAKE install-sans-docs)
 

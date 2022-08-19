@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /build
 
@@ -30,4 +30,4 @@ ncurses-dev libx11-dev zlib1g-dev libssl-dev uuid-dev libck-dev cpio libpcre3-de
 openjdk-8-jdk-headless \
 wget lsb-release software-properties-common autopoint gperf libcairo2-dev \
 libpango1.0-dev patch \
-&& /llvm.sh 10
+&& /llvm.sh 13

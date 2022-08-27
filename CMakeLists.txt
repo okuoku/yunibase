@@ -24,7 +24,7 @@
 #  YUNIBASE_ROOT_STABLE: impl-stable directory
 #  YUNIBASE_ROOT_CURRENT: impl-current directory
 #
-cmake_minimum_required(VERSION 2.8.4)
+cmake_minimum_required(VERSION 3.0)
 project(yunibase NONE)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)

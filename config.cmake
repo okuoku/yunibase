@@ -73,7 +73,7 @@ set(macosintel-impls
     # DIGAMMA # ??
     # FOMENT # TIMER_ABSTIME compatibility
     GAMBIT
-    # GAUCHE # https://github.com/okuoku/yunibase/issues/111
+    GAUCHE
     # GUILE3 # https://github.com/okuoku/yunibase/issues/94
     # IRON_SCHEME # Buildsystem is Windows only
     # KAWA # Prefer Linux build

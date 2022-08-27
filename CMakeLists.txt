@@ -359,7 +359,11 @@ function(register_impl sym nam)
         foreach(f ${arg_LICENSE_FILES})
             set(pth ${srcpath_stable}/${f})
             if(NOT EXISTS ${pth})
-                message(WARNING "${sym}: License file ${pth} not found.")
+                if(NOT STREQUAL RACKET)
+                    # Racket has different source tree layout
+                    # and we never redistribute stable racket
+                    message(WARNING "${sym}: License file ${pth} not found.")
+                endif()
             else()
                 file(INSTALL ${pth} DESTINATION 
                     ${YUNIBASE_BUILD_STABLE_PREFIX}/${nam})

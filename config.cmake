@@ -71,7 +71,7 @@ set(macosintel-impls
     CHICKEN5
     # CYCLONE # Link error
     # DIGAMMA # ??
-    FOMENT
+    # FOMENT # TIMER_ABSTIME compatibility
     GAMBIT
     GAUCHE
     # GUILE3 # https://github.com/okuoku/yunibase/issues/94

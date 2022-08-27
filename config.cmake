@@ -68,7 +68,7 @@ set(macosintel-impls
     # BIGLOO # Depends "glibtoolize"
     CHEZ
     CHIBI_SCHEME
-    CHICKEN5
+    # CHICKEN5 # Need Xcode path support https://github.com/okuoku/yunibase/issues/109
     # CYCLONE # Link error
     # DIGAMMA # ??
     # FOMENT # TIMER_ABSTIME compatibility
@@ -77,7 +77,7 @@ set(macosintel-impls
     # GUILE3 # https://github.com/okuoku/yunibase/issues/94
     # IRON_SCHEME # Buildsystem is Windows only
     # KAWA # Prefer Linux build
-    MIT_SCHEME
+    # MIT_SCHEME # Cannot support (threaded) W^X
     RACKET
     # S7YUNI # FIXME
     # SAGITTARIUS # pkgsrc OpenSSL is not compatible

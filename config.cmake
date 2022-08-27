@@ -71,7 +71,7 @@ set(macosintel-impls
     # CHICKEN5 # Need Xcode path support https://github.com/okuoku/yunibase/issues/109
     # CYCLONE # Link error
     # DIGAMMA # ??
-    # FOMENT # TIMER_ABSTIME compatibility
+    # FOMENT # https://github.com/leftmike/foment/pull/39
     GAMBIT
     GAUCHE
     # GUILE3 # https://github.com/okuoku/yunibase/issues/94
@@ -79,7 +79,7 @@ set(macosintel-impls
     # KAWA # Prefer Linux build
     # MIT_SCHEME # Cannot support (threaded) W^X
     RACKET
-    # S7YUNI # FIXME
+    S7YUNI
     # SAGITTARIUS # pkgsrc OpenSSL is not compatible
     # SCM # It's stable only for now
     STKLOS

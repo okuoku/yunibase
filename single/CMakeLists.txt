@@ -95,11 +95,9 @@ if(NOT impls)
 endif()
 
 # Rsync impl-current and impl-stable 
-# We don't have to exclude `.git` because packs are belong to root
-# repository. (except Racket: https://github.com/okuoku/yunibase/issues/112 )
 foreach(d impl-current impl-stable)
     execute_process(
-        COMMAND rsync -rltv --delete ${ROOT}/${d} 
+        COMMAND rsync -rltv --delete --exclude .git ${ROOT}/${d} 
         ${CMAKE_CURRENT_BINARY_DIR}
         RESULT_VARIABLE rr)
 
@@ -114,7 +112,7 @@ add_custom_target(allimpls ALL)
 # Reset target
 foreach(d impl-current impl-stable)
     add_custom_Target(reset-${d}
-        COMMAND rsync -rltv --delete ${ROOT}/${d}
+        COMMAND rsync -rltv --delete --exclude .git ${ROOT}/${d}
         ${CMAKE_CURRENT_BINARY_DIR})
     add_dependencies(reset reset-${d})
 endforeach()

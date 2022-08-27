@@ -21,6 +21,9 @@
 #
 #  YUNIBASE_FIX_TIMESTAMPS: Fix timestamps for commited sources
 #
+#  YUNIBASE_ROOT_STABLE: impl-stable directory
+#  YUNIBASE_ROOT_CURRENT: impl-current directory
+#
 cmake_minimum_required(VERSION 2.8.4)
 project(yunibase NONE)
 
@@ -37,8 +40,14 @@ set(YUNIBASE_BUILD_LOG_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/logs)
 set(YUNIBASE_YUNIROOT ${CMAKE_CURRENT_LIST_DIR}/yuni)
 
 # Defaults
-set(YUNIBASE_ROOT_STABLE ${CMAKE_CURRENT_LIST_DIR}/impl-stable)
-set(YUNIBASE_ROOT_CURRENT ${CMAKE_CURRENT_LIST_DIR}/impl-current)
+if(NOT YUNIBASE_ROOT_STABLE)
+    set(YUNIBASE_ROOT_STABLE ${CMAKE_CURRENT_LIST_DIR}/impl-stable)
+endif()
+if(NOT YUNIBASE_ROOT_CURRENT)
+    set(YUNIBASE_ROOT_CURRENT ${CMAKE_CURRENT_LIST_DIR}/impl-current)
+endif()
+set(YUNIBASE_ROOT_RSRC ${CMAKE_CURRENT_LIST_DIR})
+
 if(YUNIBASE_TARGET_PREFIX)
     set(YUNIBASE_BUILD_STABLE_PREFIX
         ${YUNIBASE_TARGET_PREFIX}/stable)
@@ -106,8 +115,8 @@ include(./recipes/bigloo.recipe.cmake)
 init_sources()
 init_config_directory()
 init_git_repositories() # Begin list-of repositories
-include(./impl-stable/sources.cmake)
-include(./sources-current.cmake)
+include(${YUNIBASE_ROOT_STABLE}/sources.cmake)
+include(./sources-current.cmake) # FIXME: somewhat inconsistent
 
 register_source(YUNI CURRENT yuni GIT origin/master)
 register_source(IMPL-STABLE CURRENT impl-stable GIT origin/master)

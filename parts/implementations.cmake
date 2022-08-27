@@ -3,6 +3,7 @@
 # INPUT:
 #   YUNIBASE_ROOT_CURRENT : Path to current base
 #   YUNIBASE_ROOT_STABLE : Path to stable base
+#   YUNIBASE_ROOT_RSRC : Path to yunibase repository root
 #   YUNIBASE_BUILD_STABLE_PREFIX : Install path (stable)
 #   YUNIBASE_BUILD_CURRENT_PREFIX : Install path (current)
 #   YUNIBASE_PREBUILT_STABLE : Assume we already have stable impl. (Path)
@@ -395,9 +396,9 @@ depends_current_stable(gambit_current gambit_stable)
 set(picrin_current_src ${YUNIBASE_ROOT_CURRENT}/picrin)
 set(picrin_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/picrin)
 set(YUNIFFI_PICRIN_PATH
-    ${YUNIBASE_ROOT_CURRENT}/../yuni/yunistub/picrin)
+    ${YUNIBASE_ROOT_RSRC}/yuni/yunistub/picrin)
 set(YUNIFFI_INCLUDE_DIR
-    ${YUNIBASE_ROOT_CURRENT}/../yuni/yunistub/include)
+    ${YUNIBASE_ROOT_RSRC}/yuni/yunistub/include)
 if(EXISTS ${picrin_current_src}/Makefile)
     if(${CMAKE_SYSTEM_NAME} STREQUAL Linux)
         # Glibc has libdl, Musl too
@@ -522,7 +523,7 @@ register_recipe(STKLOS CURRENT stklos_current)
 set(digamma_current_src ${YUNIBASE_ROOT_CURRENT}/digamma)
 set(digamma_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/digamma)
 set(ENVP_DIGAMMA_OVERRIDE
-    PATH ${YUNIBASE_ROOT_CURRENT}/../overrides/llvm-13)
+    PATH ${YUNIBASE_ROOT_RSRC}/overrides/llvm-13)
 build_recipe(digamma_current
     ${digamma_current_src}
     ${digamma_current_dest}
@@ -542,7 +543,7 @@ build_recipe(foment_current
     ${RECIPE_FOMENT})
 register_recipe(FOMENT CURRENT foment_current)
 apply_patch(${foment_current_src} ${foment_current_src}/unix/makefile
-    ${YUNIBASE_ROOT_CURRENT}/../patches/foment/0001-Ident-as-yunibase.patch)
+    ${YUNIBASE_ROOT_RSRC}/patches/foment/0001-Ident-as-yunibase.patch)
 
 # Bigloo
 set(bigloo_stable_src ${YUNIBASE_ROOT_STABLE}/bigloo)

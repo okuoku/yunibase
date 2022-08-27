@@ -94,9 +94,31 @@ if(NOT impls)
     message(FATAL_ERROR "Unknown OS...")
 endif()
 
+# Rsync impl-current and impl-stable 
+# We don't have to exclude `.git` because packs are belong to root
+# repository. (except Racket: https://github.com/okuoku/yunibase/issues/112 )
+foreach(d impl-current impl-stable)
+    execute_process(
+        COMMAND rsync -rltv --delete ${ROOT}/${d} 
+        ${CMAKE_CURRENT_BINARY_DIR}
+        RESULT_VARIABLE rr)
+
+    if(rr)
+        message(FATAL_ERROR "Failed to copy ${d}")
+    endif()
+endforeach()
+
 # Generate build tree for each impls
 add_custom_target(reset)
 add_custom_target(allimpls ALL)
+# Reset target
+foreach(d impl-current impl-stable)
+    add_custom_Target(reset-${d}
+        COMMAND rsync -rltv --delete ${ROOT}/${d}
+        ${CMAKE_CURRENT_BINARY_DIR})
+    add_dependencies(reset reset-${d})
+endforeach()
+
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/archives)
 foreach(e ${impls})
     impl_name(nam ${e})
@@ -116,32 +138,14 @@ foreach(e ${impls})
         list(APPEND tagfiles ${CMAKE_CURRENT_BINARY_DIR}/tags/${s}.tag)
     endforeach()
 
-    # Remove build tree
-    add_custom_target(clear-${e}
-        COMMAND ${CMAKE_COMMAND} -E remove_directory ${builddir})
-    foreach(d ${impl_${e}_CURRENT_sourcesyms})
-        if(NOT TARGET reset-git-${d})
-            add_custom_target(reset-git-${d}
-                COMMAND git reset --hard
-                WORKING_DIRECTORY ${source_${d}_tagpath})
-        endif()
-        add_dependencies(clear-${e} reset-git-${d})
-    endforeach()
-    add_dependencies(reset clear-${e})
-    # Clean source tree
-    add_custom_target(clean-${e})
-    foreach(s ${sourcedeps})
-        add_custom_target(cleanup-${s}
-            COMMAND git clean -xfd .
-            WORKING_DIRECTORY ${source_${s}_tagpath})
-        add_dependencies(clean-${e} cleanup-${s})
-    endforeach()
     # Generate build tree
     file(MAKE_DIRECTORY ${builddir})
     execute_process(
         COMMAND ${CMAKE_COMMAND}
         -DYUNIBASE_TARGET_PREFIX=/opt/yunibase
         -DYUNIBASE_ONLY=${e}
+        -DYUNIBASE_ROOT_STABLE=${CMAKE_CURRENT_BINARY_DIR}/impl-stable
+        -DYUNIBASE_ROOT_CURRENT=${CMAKE_CURRENT_BINARY_DIR}/impl-current
         -G${CMAKE_GENERATOR}
         ${CMAKE_CURRENT_LIST_DIR}/..
         OUTPUT_VARIABLE bogus
@@ -150,7 +154,7 @@ foreach(e ${impls})
     # Build
     add_custom_command(
         OUTPUT ${archive}
-        DEPENDS ${tagfiles} clean-${e}
+        DEPENDS ${tagfiles}
         COMMAND ${CMAKE_COMMAND}
         -DDIR=${builddir}
         -DNAME=${nam}

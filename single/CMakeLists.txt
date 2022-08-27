@@ -95,7 +95,7 @@ if(NOT impls)
 endif()
 
 # Generate build tree for each impls
-add_custom_target(clear)
+add_custom_target(reset)
 add_custom_target(allimpls ALL)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/archives)
 foreach(e ${impls})
@@ -118,9 +118,16 @@ foreach(e ${impls})
 
     # Remove build tree
     add_custom_target(clear-${e}
-        COMMAND ${CMAKE_COMMAND} -E remove_directory ${builddir}
-        )
-    add_dependencies(clear clear-${e})
+        COMMAND ${CMAKE_COMMAND} -E remove_directory ${builddir})
+    foreach(d ${impl_${e}_CURRENT_sourcesyms})
+        if(NOT TARGET reset-git-${d})
+            add_custom_target(reset-git-${d}
+                COMMAND git reset --hard
+                WORKING_DIRECTORY ${source_${d}_tagpath})
+        endif()
+        add_dependencies(clear-${e} reset-git-${d})
+    endforeach()
+    add_dependencies(reset clear-${e})
     # Clean source tree
     add_custom_target(clean-${e})
     foreach(s ${sourcedeps})

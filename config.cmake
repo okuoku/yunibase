@@ -64,7 +64,7 @@ set(cygwin64-impls
     # STKLOS # Cygwin support broken on Win64 (Cygwin 1.7 or later)
     )
 
-set(macos-impls
+set(macosintel-impls
     # BIGLOO # Depends "glibtoolize"
     CHEZ
     CHIBI_SCHEME

@@ -1,5 +1,7 @@
 set(RECIPE_GAUCHE_CONFIGBUILD # Recipe for Gauche 
     STEP "Configure" "./configure" "--prefix=__INSTALL_PREFIX__"
+    # Disable iconv since it may conflict on macOS pkgsrc
+    --without-iconv
     __AUTOCONF_OPTS__
     STEP "Build"     MAKE __MAKE_OPTS__
 )

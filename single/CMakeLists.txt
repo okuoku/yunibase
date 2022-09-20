@@ -77,6 +77,7 @@ foreach(sym ${sourcesyms})
     add_dependencies(check source_${sym})
 endforeach()
 
+set(usegmake)
 if(CYGWIN)
     if(NOT YUNIBASE_WINDOWS_MODE)
         set(osname cygwin64)
@@ -84,6 +85,9 @@ if(CYGWIN)
 elseif(APPLE)
     # FIXME: Support Apple chips
     set(osname macosintel)
+elseif(CMAKE_SYSTEM_NAME STREQUAL OpenBSD)
+    set(osname openbsd)
+    set(usegmake ON)
 else()
     message(STATUS "???")
 endif()
@@ -138,12 +142,18 @@ foreach(e ${impls})
 
     # Generate build tree
     file(MAKE_DIRECTORY ${builddir})
+    if(usegmake)
+        set(GMAKE_OPT "-DYUNIBASE_USE_GMAKE=ON")
+    else()
+        set(GMAKE_OPT)
+    endif()
     execute_process(
         COMMAND ${CMAKE_COMMAND}
         -DYUNIBASE_TARGET_PREFIX=/opt/yunibase
         -DYUNIBASE_ONLY=${e}
         -DYUNIBASE_ROOT_STABLE=${CMAKE_CURRENT_BINARY_DIR}/impl-stable
         -DYUNIBASE_ROOT_CURRENT=${CMAKE_CURRENT_BINARY_DIR}/impl-current
+        ${GMAKE_OPT}
         -G${CMAKE_GENERATOR}
         ${CMAKE_CURRENT_LIST_DIR}/..
         OUTPUT_VARIABLE bogus

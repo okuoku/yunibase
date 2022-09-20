@@ -84,3 +84,24 @@ set(macosintel-impls
     # SCM # It's stable only for now
     STKLOS
     )
+
+set(openbsd-impls
+    # BIGLOO
+    # CHEZ # Not supported
+    CHIBI_SCHEME
+    CHICKEN5
+    # CYCLONE # Needs concurrency kit
+    # DIGAMMA # ??
+    # FOMENT # Not supported
+    # GAMBIT # out-of-memory during compilation
+    GAUCHE
+    # GUILE3 # Requires GNU m4 to bootstrap
+    # IRON_SCHEME # Buildsystem is Windows only
+    # KAWA # Prefer Linux build
+    # MIT_SCHEME # Unknown failure
+    RACKET
+    # S7YUNI # Needs to be ported
+    # SAGITTARIUS # OpenSSL compatibility
+    # SCM # It's stable only for now
+    STKLOS
+    )

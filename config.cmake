@@ -85,6 +85,27 @@ set(macosintel-impls
     STKLOS
     )
 
+set(netbsd-impls
+    # BIGLOO
+    # CHEZ # Not supported
+    CHIBI_SCHEME
+    CHICKEN5
+    # CYCLONE # Needs concurrency kit
+    # DIGAMMA # ??
+    # FOMENT # Require C++2a
+    # GAMBIT # Not supported
+    GAUCHE
+    # GUILE3 # Requires GNU m4 to bootstrap
+    # IRON_SCHEME # Buildsystem is Windows only
+    # KAWA # Prefer Linux build
+    # MIT_SCHEME # Unknown failure
+    # RACKET # Incompatible with make -j?
+    # S7YUNI # Needs to be ported
+    # SAGITTARIUS # OpenSSL compatibility
+    # SCM # It's stable only for now
+    STKLOS
+    )
+
 set(openbsd-impls
     # BIGLOO
     # CHEZ # Not supported
@@ -105,3 +126,4 @@ set(openbsd-impls
     # SCM # It's stable only for now
     STKLOS
     )
+

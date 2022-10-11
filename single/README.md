@@ -48,3 +48,15 @@ gmake autoconf automake gmp oniguruma libtool libunistring
 ```
 
 Installed from ports collection with `pkg_add`.
+
+## DragonFly BSD AMD64
+
+Required packages:
+
+```
+gmake autoconf automake gmp oniguruma libtool 
+libunistring libffi texinfo boehm-gc-threaded rsync cmake ninja ncurses
+```
+
+Installed from ports collection with `pkg install`.
+

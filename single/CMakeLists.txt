@@ -94,6 +94,9 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL NetBSD)
 elseif(CMAKE_SYSTEM_NAME STREQUAL OpenBSD)
     set(osname openbsd)
     set(usegmake ON)
+elseif(CMAKE_SYSTEM_NAME STREQUAL DragonFly)
+    set(osname dragonfly)
+    set(usegmake ON)
 else()
     message(STATUS "???")
 endif()
@@ -101,7 +104,7 @@ endif()
 set(impls ${${osname}-impls})
 
 if(NOT impls)
-    message(FATAL_ERROR "Unknown OS...")
+    message(FATAL_ERROR "Unknown OS... (${CMAKE_SYSTEM_NAME})")
 endif()
 
 # Rsync impl-current and impl-stable 

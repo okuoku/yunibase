@@ -129,47 +129,15 @@ register_recipe(GAUCHE CURRENT
     gauche_current_configbuild
     gauche_current_testinstall)
 
-# NMosh (stable)
-if(${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD")
-    set(ENVP_NMOSH_CONFIG
-        CPPFLAGS -I/usr/local/include
-        LDFLAGS -L/usr/local/lib)
-else()
-    set(ENVP_NMOSH_CONFIG "")
-endif()
-set(nmosh_stable_src ${YUNIBASE_ROOT_STABLE}/nmosh)
-set(nmosh_stable_dest ${YUNIBASE_BUILD_STABLE_PREFIX}/nmosh)
-build_recipe(nmosh_stable ${nmosh_stable_src} ${nmosh_stable_dest}
-    NMOSH "${ENVP_NMOSH_CONFIG}" ${RECIPE_NMOSH})
+# Mosh (stable + current, require GAUCHE_CURRENT)
+set(mosh_stable_src ${YUNIBASE_ROOT_STABLE}/mosh)
+set(mosh_stable_dest ${YUNIBASE_BUILD_STABLE_PREFIX}/mosh)
+set(mosh_current_src ${YUNIBASE_ROOT_CURRENT}/mosh)
+set(mosh_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/mosh)
+build_recipe(mosh_stable ${mosh_stable_src} ${mosh_stable_dest}
+    MOSH "" ${RECIPE_MOSH})
 
-register_recipe(NMOSH STABLE nmosh_stable)
-workaround_touch_prebuilt_files(
-    ${nmosh_stable_src}
-    Makefile.in
-    aclocal.m4
-    config.guess
-    config.status
-    Makefile.in
-    ltmain.sh
-    compile
-    missing
-    install-sh
-    depcomp
-    mkinstalldirs
-    config.sub
-    src/Instruction.h
-    src/main.cpp
-    src/labels.cpp
-    src/cprocedures.cpp
-    src/all-tests.scm
-    src/Object-accessors.h
-    src/OSConstants.h
-    src/Reader.tab.cpp
-    src/Reader.tab.hpp
-    src/NumberReader.tab.cpp
-    src/NumberReader.tab.hpp
-    src/Scanner.cpp
-    src/NumberScanner.cpp)
+register_recipe(MOSH STABLE mosh_stable)
 
 # Chibi scheme (current)
 set(chibi-scheme_current_src ${YUNIBASE_ROOT_CURRENT}/chibi-scheme)

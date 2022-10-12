@@ -47,6 +47,11 @@ register_source(CHEZ CURRENT
     GIT
     "origin/main")
 
+register_source(MOSH CURRENT
+    "impl-current/mosh"
+    GIT
+    "origin/mater")
+
 #register_source(RAPID_GAMBIT CURRENT
 #    "impl-current/rapid-gambit"
 #    GIT

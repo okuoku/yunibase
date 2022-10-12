@@ -121,3 +121,6 @@
 [submodule "impl-current/chicken5-eggs/chicken5-r7rs-svn"]
 	path = impl-current/chicken5-eggs/chicken5-r7rs-svn
 	url = https://github.com/spurious/chicken5-r7rs-svn.git
+[submodule "impl-current/mosh"]
+	path = impl-current/mosh
+	url = https://github.com/higepon/mosh

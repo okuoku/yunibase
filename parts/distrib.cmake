@@ -102,3 +102,8 @@ register_impl(
     LICENSE_FILES
     LICENSE COPYING
     REQUIRE_STABLE)
+register_impl(
+    MOSH mosh
+    LICENSE_FILES
+    COPYING
+    REQUIRE_STABLE)

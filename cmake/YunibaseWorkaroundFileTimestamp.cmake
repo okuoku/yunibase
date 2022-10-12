@@ -1,5 +1,5 @@
 function(workaround_yunibase_impl_stable_timestamps)
-    set(dirs gauche chicken chicken5 scmslib)
+    set(dirs gauche chicken chicken5 scmslib mosh)
     set(impl-stable ${YUNIBASE_REPO_ROOT}/impl-stable)
     set(script ${impl-stable}/scripts/apply-timestamp-list.cmake)
     foreach(d ${dirs})

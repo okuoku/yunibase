@@ -3,7 +3,7 @@
 #  setsebool -P selinuxuser_execheap 1
 #
 
-set(RECIPE_MOSH # Recipe for NMosh/Psyntax-mosh
+set(RECIPE_MOSH_BUILD # Recipe for Mosh
     STEP "Configure" "./configure" "--prefix=__INSTALL_PREFIX__"
     __AUTOCONF_OPTS__
     # It seems we cannot do "chmod -wx" on AUFS..
@@ -12,4 +12,8 @@ set(RECIPE_MOSH # Recipe for NMosh/Psyntax-mosh
     STEP "Build"     MAKE __MAKE_OPTS__
     STEP "Test"      MAKE check
     STEP "Install"   MAKE install
+)
+
+set(BOOTSTRAP_MOSH
+    STEP "Bootstrap" "./gen-git-build.sh"
 )

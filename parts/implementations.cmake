@@ -135,9 +135,25 @@ set(mosh_stable_dest ${YUNIBASE_BUILD_STABLE_PREFIX}/mosh)
 set(mosh_current_src ${YUNIBASE_ROOT_CURRENT}/mosh)
 set(mosh_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/mosh)
 build_recipe(mosh_stable ${mosh_stable_src} ${mosh_stable_dest}
-    MOSH "" ${RECIPE_MOSH})
+    MOSH "" ${RECIPE_MOSH_BUILD})
+# FIXME: Need GC_DONT_GC to correctly bootstrap NMosh
+#        https://github.com/higepon/mosh/issues/129
+set(ENVP_MOSH
+    GC_DONT_GC 1 # No need to use this on Cygwin/Linux actually
+    PATH ${YUNIBASE_BUILD_CURRENT_PREFIX}/gauche/bin:${YUNIBASE_BUILD_STABLE_PREFIX}/mosh/bin
+    ${ld_library_path} ${YUNIBASE_BUILD_CURRENT_PREFIX}/gauche/lib)
+build_recipe(mosh_current_bootstrap ${mosh_current_src} ${mosh_current_dest}
+    MOSH "${ENVP_MOSH}" ${BOOTSTRAP_MOSH})
+build_recipe(mosh_current_build ${mosh_current_src} ${mosh_current_dest}
+    MOSH "" ${RECIPE_MOSH_BUILD})
+depends_current_stable(mosh_current_bootstrap mosh_stable)
+# NB: We assume we already have Yunibase Gauche
+# depends_current_stable(mosh_current_bootstrap gauche_current_testinstall)
 
 register_recipe(MOSH STABLE mosh_stable)
+register_recipe(MOSH CURRENT
+    mosh_current_bootstrap
+    mosh_current_build)
 
 # Chibi scheme (current)
 set(chibi-scheme_current_src ${YUNIBASE_ROOT_CURRENT}/chibi-scheme)

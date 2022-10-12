@@ -24,6 +24,7 @@ set(ubuntu64-impls
     SAGITTARIUS
     SCM
     STKLOS
+    MOSH
     )
 
 set(win64vs-impls # VS2019(YUNIBASE_USE_VS) + CMake
@@ -62,6 +63,7 @@ set(cygwin64-impls
     # SAGITTARIUS # Crashes on Cygwin64
     # SCM # ??
     # STKLOS # Cygwin support broken on Win64 (Cygwin 1.7 or later)
+    MOSH
     )
 
 set(macosintel-impls
@@ -83,6 +85,7 @@ set(macosintel-impls
     # SAGITTARIUS # pkgsrc OpenSSL is not compatible
     # SCM # It's stable only for now
     STKLOS
+    MOSH
     )
 
 set(freebsd-impls
@@ -104,6 +107,7 @@ set(freebsd-impls
     # SAGITTARIUS # GC compatibility
     # SCM # It's stable only for now
     # STKLOS # GC compatibility
+    MOSH
     )
 
 set(dragonfly-impls
@@ -125,6 +129,7 @@ set(dragonfly-impls
     # SAGITTARIUS # GC compatibility
     # SCM # It's stable only for now
     # STKLOS # GC compatibility
+    MOSH
     )
 
 set(netbsd-impls
@@ -146,6 +151,7 @@ set(netbsd-impls
     # SAGITTARIUS # OpenSSL compatibility
     # SCM # It's stable only for now
     STKLOS
+    MOSH
     )
 
 set(openbsd-impls
@@ -167,5 +173,6 @@ set(openbsd-impls
     # SAGITTARIUS # OpenSSL compatibility
     # SCM # It's stable only for now
     STKLOS
+    MOSH
     )
 

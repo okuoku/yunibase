@@ -85,6 +85,8 @@ if(CYGWIN)
 elseif(APPLE)
     # FIXME: Support Apple chips
     set(osname macosintel)
+elseif(CMAKE_SYSTEM_NAME STREQUAL Linux)
+    set(osname ubuntu64)
 elseif(CMAKE_SYSTEM_NAME STREQUAL FreeBSD)
     set(osname freebsd)
     set(usegmake ON)

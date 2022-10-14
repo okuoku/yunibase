@@ -50,7 +50,7 @@ register_source(CHEZ CURRENT
 register_source(MOSH CURRENT
     "impl-current/mosh"
     GIT
-    "origin/mater")
+    "origin/master")
 
 #register_source(RAPID_GAMBIT CURRENT
 #    "impl-current/rapid-gambit"

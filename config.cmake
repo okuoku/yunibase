@@ -5,7 +5,30 @@ set(xxxxx-missing
     # PICRIN # Dormant
     # VICARE # Dormant
     )
+
 set(ubuntu64-impls
+    BIGLOO
+    CHEZ
+    CHIBI_SCHEME
+    CHICKEN5
+    CYCLONE
+    DIGAMMA
+    FOMENT
+    GAMBIT
+    GAUCHE
+    GUILE3
+    # IRON_SCHEME # Buildsystem is Windows only
+    KAWA
+    MIT_SCHEME
+    RACKET
+    S7YUNI
+    SAGITTARIUS
+    SCM
+    STKLOS
+    # MOSH # Docker build do not support cross-impl bootstrap
+    )
+
+set(ubuntu64single-impls
     BIGLOO
     CHEZ
     CHIBI_SCHEME

@@ -147,13 +147,14 @@ build_recipe(mosh_current_bootstrap ${mosh_current_src} ${mosh_current_dest}
 build_recipe(mosh_current_build ${mosh_current_src} ${mosh_current_dest}
     MOSH "" ${RECIPE_MOSH_BUILD})
 depends_current_stable(mosh_current_bootstrap mosh_stable)
-# NB: We assume we already have Yunibase Gauche
-# depends_current_stable(mosh_current_bootstrap gauche_current_testinstall)
 
 register_recipe(MOSH STABLE mosh_stable)
 register_recipe(MOSH CURRENT
     mosh_current_bootstrap
     mosh_current_build)
+
+depends_current_stable(mosh_current_bootstrap
+    gauche_current_testinstall)
 
 # Chibi scheme (current)
 set(chibi-scheme_current_src ${YUNIBASE_ROOT_CURRENT}/chibi-scheme)

@@ -18,7 +18,7 @@ set(RECIPE_SAGITTARIUS # Recipe for Sagittarius
     ${SAGITTARIUS_CMAKE_REQUIRED_FLAGS}
     # FIXME: Use CMake --build here.
     STEP "Build"     MAKE __MAKE_PARALLEL__ __MAKE_OPTS__
-    STEP "Test"      MAKE test TIMEOUT:600
+    #STEP "Test"      MAKE test TIMEOUT:600
     STEP "Install"   MAKE install
     ${RECIPEPART_SAGITTARIUS_INSTALL_HELPER}
 )

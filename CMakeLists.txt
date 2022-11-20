@@ -379,6 +379,9 @@ endfunction()
 # Prebuilt stable
 if(YUNIBASE_PREBUILT_STABLE)
     file(MAKE_DIRECTORY ${YUNIBASE_BUILD_STABLE_PREFIX})
+    message(STATUS "Creating prebuilt: ${YUNIBASE_BUILD_STABLE_PREFIX}")
+    message(STATUS "From file: ${YUNIBASE_PREBUILT_STABLE}")
+
     execute_process(
         COMMAND ${CMAKE_COMMAND} -E tar xvf ${YUNIBASE_PREBUILT_STABLE}
         WORKING_DIRECTORY ${YUNIBASE_BUILD_STABLE_PREFIX})

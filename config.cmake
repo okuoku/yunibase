@@ -22,7 +22,7 @@ set(ubuntu64-impls
     MIT_SCHEME
     RACKET
     S7YUNI
-    SAGITTARIUS
+    # SAGITTARIUS # Tentative
     SCM
     STKLOS
     # MOSH # Docker build do not support cross-impl bootstrap

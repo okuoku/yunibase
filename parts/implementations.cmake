@@ -112,8 +112,8 @@ build_recipe(gauche_stable ${gauche_stable_src}  ${gauche_stable_dest}
     GAUCHE "" ${RECIPE_GAUCHE_ALL})
 
 set(ENVP_GAUCHE # Use stable on build-current
-    PATH ${YUNIBASE_BUILD_STABLE_PREFIX}/gauche/bin
-    ${ld_library_path} ${YUNIBASE_BUILD_STABLE_PREFIX}/gauche/lib)
+    # No LD_LIBRARY_PATH needed for Gauche
+    PATH ${YUNIBASE_BUILD_STABLE_PREFIX}/gauche/bin)
 set(gauche_current_dest ${YUNIBASE_BUILD_CURRENT_PREFIX}/gauche)
 build_recipe(gauche_current_bootstrap ${gauche_current_src} ${gauche_current_dest}
     GAUCHE "${ENVP_GAUCHE}" ${BOOTSTRAP_GAUCHE})

@@ -547,8 +547,7 @@ register_recipe(BIGLOO STABLE
     bigloo_stable)
 
 set(ENVP_BIGLOO_BOOTSTRAP
-    PATH ${bigloo_stable_dest}/bin
-    ${ld_library_path} ${bigloo_stable_dest}/lib)
+    PATH ${bigloo_stable_dest}/bin)
 
 build_recipe(bigloo_current
     ${bigloo_current_src}

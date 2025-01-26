@@ -62,6 +62,21 @@ get_filename_component(_mysrc ${_mypath}/../.. ABSOLUTE)
 
 file(REMOVE ${CIDFILE})
 
+# Detect if the docker is actually a podman
+execute_process(
+    COMMAND docker -v
+    OUTPUT_VARIABLE out
+    RESULT_VARIABLE rr)
+if(rr)
+    message(STATUS "Failed to execute docker executable (${rr})")
+endif()
+if(${out} MATCHES "^podman")
+    message(STATUS "Using podman docker emulation")
+    set(USE_PODMAN ON)
+else()
+    set(USE_PODMAN OFF)
+endif()
+
 message(STATUS "build(${IMAGE})...")
 
 # Launch build process
@@ -116,8 +131,14 @@ if(stamp_version)
     message(STATUS "Stamp version = ${stamp_version}")
 endif()
 
+if(USE_PODMAN)
+    set(commit_opts -f docker)
+else()
+    set(commot_opts -m "${_myname} build")
+endif()
+
 execute_process(
-    COMMAND docker commit -m "${_myname} build"
+    COMMAND docker commit ${commit_opts}
     ${_labelarg}
     ${_cid} ${TAG}
     RESULT_VARIABLE rr)
